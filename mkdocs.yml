@@ -1,0 +1,27 @@
+# If you add a page, you must add it to the index here
+pages:
+  - 主页: 'index.md'
+  - 样式指南: 'styleguide.md'
+  - 入门:
+    - 概述: 'gettingstarted/index.md'
+    - 构造您的mod: 'gettingstarted/structuring.md'
+  - 模型&渲染:
+    - 方块状态(Blockstates): 'blockstates/introduction.md'
+    - Forge方块状态(Blockstates): 'blockstates/forgeBlockstates.md'
+  - 网络:
+    - 索引: 'networking/index.md'
+    - 概述: 'networking/overview.md'
+    - SimpleImpl: 'networking/simpleimpl.md'
+  - 惯例:
+    - 版本命名: 'conventions/versioning.md'
+
+# Do not edit in PRs below here
+site_name: Forge文档
+
+markdown_extensions:
+  - admonition
+  - smarty
+  - sane_lists
+
+extra_css:
+  - css/code_fixer.css
