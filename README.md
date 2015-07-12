@@ -3,6 +3,7 @@
 这里是使用[Read the docs](https://readthedocs.org/)构建的MinecraftForge文档的中文翻译. 网址是: [http://mcforge-cn.rtfd.org/](http://mcforge-cn.rtfd.org/)
 
 原版的文档可以在这里找到: [http://mcforge.readthedocs.org/](http://mcforge.readthedocs.org/)
+原版的Github工程: [https://github.com/MinecraftForge/Documentation](https://github.com/MinecraftForge/Documentation)
 
 本文档旨在为Forge开发提供详细的文档. Javadocs将不会寄存在这里，但是他们会在...
 
