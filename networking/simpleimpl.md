@@ -76,7 +76,7 @@ public class MyMessageHandler implements IMessageHandler<MyMessage, IMessage> {
 
 	使用 `IThreadListener.addScheduledTask`.
 
-    `Minecraft` 实例(客户端)与 `WorldServer`实例(服务端)都实现了 `IThreadListener`.你可以将他们获取并创建为一个 `mainThread` 对象来使用.(译注: 我自己把这个MyMessage重新写了一遍正确的，地址在这里:[http://git.io/vqhqF](http://git.io/vqhqF))
+	你可以使用 `Minecraft` 实例(客户端)或者是 `WorldServer` 实例来获取`IThreadListener`(译注: `Minecraft` 实例(客户端)与 `WorldServer`实例(服务端)都实现了 `IThreadListener`.你可以将他们获取并创建为一个 `mainThread` 对象来使用.我自己把这个MyMessage重新写了一遍正确的，地址在这里:[http://git.io/vqhqF](http://git.io/vqhqF))
 
 注册数据包
 -------------------
