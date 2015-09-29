@@ -1,6 +1,6 @@
 # If you add a page, you must add it to the index here
 pages:
-  - 主页: 'README.md'
+  - 主页: 'index.md'
   - 样式指南: 'styleguide.md'
   - 入门:
     - 概述: 'gettingstarted/index.md'
