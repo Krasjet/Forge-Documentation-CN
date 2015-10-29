@@ -14,6 +14,7 @@ pages:
     - SimpleImpl: 'networking/simpleimpl.md'
   - 惯例:
     - 版本命名: 'conventions/versioning.md'
+    - 文件位置: 'conventions/locations.md'
 
 # Do not edit in PRs below here
 site_name: Forge文档
