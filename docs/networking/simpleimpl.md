@@ -50,7 +50,9 @@ public class MyMessage implements IMessage {
 现在，我们该如何使用这个数据包呢？首先，我们需要有一个能够**处理(Handle)**这个数据包的类。这个类需要实现 `IMessageHandler` 接口。比如说我们想要把我们之前传输的那个整数在服务端当做给一个玩家钻石的数量。这个处理器(Handler)应该是这样的:
 
 ```java
-// IMessageHandler的参数是<REQ, REPLY>，也就是说第一个是你接收的包，第二个是你返回的包。返回的包可以被用作发送包的回应(Response).
+// IMessageHandler的参数是<REQ, REPLY>
+// 第一个参数是你接收的包，第二个是你返回的包
+// 返回的包可以被用作发送包的回应(Response)
 public class MyMessageHandler implements IMessageHandler<MyMessage, IMessage> {
   // 注意，默认的构造器是需要的，但是在这里是隐式定义的
 
