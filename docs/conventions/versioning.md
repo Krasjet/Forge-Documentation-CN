@@ -9,21 +9,21 @@
 这里是一个(不完全的)列表，它告诉你什么时候该递增不同的变量。
 
 - MC版本(MCVERSION)
-  - 总是与该mod工作的Minecraft版本对应
+   - 总是与该mod工作的Minecraft版本对应
 - MOD主版本号(MAJORMOD)
-  - 删除物品、方块、TileEntity等
-  - 改变或者删除之前存在的机制
-  - 更新到新的Minecraft版本
+   - 删除物品、方块、TileEntity等
+   - 改变或者删除之前存在的机制
+   - 更新到新的Minecraft版本
 - API主版本号(MAJORAPI)
-  - 改变Enum的顺序或者变量
-  - 改变方法的返回值
-  - 删除public方法
+   - 改变Enum的顺序或者变量
+   - 改变方法的返回值
+   - 删除public方法
 - 次版本号(MINOR)
-  - 添加物品，方块，TileEntity等
-  - 添加新的机制
-  - 不建议使用(译注:添加@Deprecated标注)public方法(这不是一个API主版本号的递增，因为它并没有使API不兼容)
+   - 添加物品，方块，TileEntity等
+   - 添加新的机制
+   - 不建议使用(译注:添加@Deprecated标注)public方法(这不是一个API主版本号的递增，因为它并没有使API不兼容)
 - 修订号(PATCH)
-  - 修复Bug
+   - 修复Bug
 
 当递增任意一个变量，比它次要的变量都应重置为0。例如，如果次版本号递增了，修订号将会变成0； 如果MOD主版本号递增了，剩下的所有变量都要变成0。
 
