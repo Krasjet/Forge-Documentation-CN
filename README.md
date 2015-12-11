@@ -1,4 +1,5 @@
-# Forge文档
+Forge文档
+=========
 
 这里是使用[Read the docs](https://readthedocs.org/)构建的MinecraftForge文档的中文翻译。网址为: [http://mcforge-cn.rtfd.org/](http://mcforge-cn.rtfd.org/)
 

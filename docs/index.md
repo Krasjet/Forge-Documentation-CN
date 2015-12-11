@@ -1,4 +1,5 @@
-# MinecraftForge文档
+MinecraftForge文档
+==================
 
 这里是MinecraftForge的官方文档的中文翻译。MinecraftForge为Minecraft的Modding API。
 

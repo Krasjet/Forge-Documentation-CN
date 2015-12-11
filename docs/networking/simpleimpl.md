@@ -4,7 +4,7 @@ SimpleImpl
 SimpleImpl是一个围绕着 `SimpleNetworkWrapper` 类的数据包(Packet)系统。使用这个系统是至今为止在客户端与服务端之间发送自定义数据最简单的方法了。
 
 入门
----------------
+----
 
 首先，你需要创建你自己的 `SimpleNetworkWrapper` 对象。我们推荐您把它放到一个单独的类里面，比如说像是 `ModidPacketHandler`。在这个类里面将你的 `SimpleNetworkWrapper` 创建为一个静态字段(Static Field):
 
@@ -15,7 +15,7 @@ public static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE.new
 其中 `mymodid` 是你的数据包管道(Packet Channel)的标识符，一般来说是你的mod ID，除非你的mod ID太长了。
 
 制作数据包(Packet)
---------------
+-----------------
 
 ### IMessage
 

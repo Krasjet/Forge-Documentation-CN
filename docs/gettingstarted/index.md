@@ -1,29 +1,29 @@
 Forge入门
-==========================
+========
 
 这是一个让你了解如何从零到构建一个基本mod的简单指南。这个文档剩下的内容都是从这里出发的，它们讲述了你该何去何从。
 
 从零到制作mod
---------------------
+-----------
 
 1. 从Forge[下载站点][files]获取Forge的源码发布版(即Mdk版本(1.8/1.7的旧版本为Src))
 
 2. 解压刚下载的源码到一个空文件夹中。你应该能看见有一些文件在里面，并且我们准备了一个范例mod在 `src/main/java` 中供您参考。只有下面这几个文件是在mod开发中必须的：
-	- `build.gradle`
-	- `gradlew` (`.bat`和`.sh`)
-	- `gradle` 文件夹
-	- 你可以对你所有的工程重用这些文件
+  * `build.gradle`
+  * `gradlew` (`.bat`和`.sh`)
+  * `gradle` 文件夹
+  * 你可以对你所有的工程重用这些文件
 
 3. 将上述文件复制到一个新的文件夹中，它将会是你的mod工程文件夹
 
 4. 在步骤(3)创建的文件夹中打开命令提示符，运行 `gradlew setupDecompWorkspace` (译注: 如果在Linux系统下替换`gradlew`为`./gradlew`，需要自己添加运行权限)。这个指令会从互联网上下载很多的文件，这些文件会用来反编译和构建Minecraft和Forge。由于它会下载一些东西并且反编译Minecraft，这也许会需要很长时间
 
 5. 选择你的IDE: Forge官方支持使用Eclipse或者是IntelliJ环境进行开发，但你可以使用任何开发环境，从NetBeans到vi/emacs，都可以正常工作
-    * 对于Eclipse用户，你需要运行 `gradlew eclipse` - 这会下载更多为了构建Eclipse工程的产物，并且将Eclipse工程输出到你当前的目录
-    * 对于IntelliJ用户，直接导入build.gradle文件就可以了(译注：IDEA启动界面Import Project选build.gradle)
+  * 对于Eclipse用户，你需要运行 `gradlew eclipse` - 这会下载更多为了构建Eclipse工程的产物，并且将Eclipse工程输出到你当前的目录
+  * 对于IntelliJ用户，直接导入build.gradle文件就可以了(译注：IDEA启动界面Import Project选build.gradle)
 5. 加载你的工程到IDE
-    * 对于Eclipse用户，指向你的工作空间(Workspace)到运行 `gradlew eclipse` 时创建的 `eclipse` 目录
-    * 对于IntelliJ用户，你只需要创建运行配置就行了。你可以运行`gradlew genIntellijRuns`来自动生成
+  * 对于Eclipse用户，指向你的工作空间(Workspace)到运行 `gradlew eclipse` 时创建的 `eclipse` 目录
+  * 对于IntelliJ用户，你只需要创建运行配置就行了。你可以运行`gradlew genIntellijRuns`来自动生成
 6. 修改示例代码，或者导入你自己已有的mod代码，或者创建你自己的新mod
 
 !!! note
@@ -31,7 +31,7 @@ Forge入门
     注意，通常情况下，`gradlew setupDecompWorkspace` 的文件只需要被下载并且反编译一次，除非你删除了Gradle产物缓存。
 
 自定义你的mod信息
---------------------------------
+---------------
 
 修改`build.gradle`文件从而自定义你的mod如何能够构建(文件名，版本或者是其他东西)。
 
@@ -54,7 +54,7 @@ Forge入门
 * 改变版本号 - 修改 `version` 的值
 
 构建和测试你的mod
------------------------------
+---------------
 
 1. 如果你想构建你的mod，运行`gradlew build`。这将会输出一个文件到 `build/libs` 目录，它的名字是 `[archivesBaseName]-[version].jar`。这个文件可以放到一个装有Forge的Minecraft的 `mods` 文件夹，并且可以发布出去。
 2. 如果你想测试你的mod，最简单的方法是使用在配置工程是生成的运行配置。或者，运行 `gradlew runClient`。这将会从 `<runDir>` 位置启动Minecraft，包括你的mod代码。当然，这个指令也有不同的自定义设置。请在 [ForgeGradle cookbook][]里面找更多的信息。
