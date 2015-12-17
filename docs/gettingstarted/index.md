@@ -7,11 +7,10 @@ Forge入门
 -----------
 
 1. 从Forge[下载站点][files]获取Forge的源码发布版(即Mdk版本(1.8/1.7的旧版本为Src))
-2. 解压刚下载的源码到一个空文件夹中。你应该能看见有一些文件在里面，并且我们准备了一个范例mod在 `src/main/java` 中供您参考。只有下面这几个文件是在mod开发中必须的：
+2. 解压刚下载的源码到一个空文件夹中。你应该能看见有一些文件在里面，并且我们准备了一个范例mod在 `src/main/java` 中供您参考。只有下面这几个文件是在mod开发中必须的，并且你可以对你所有的工程重用这些文件：
     * `build.gradle`
     * `gradlew` (`.bat`和`.sh`)
-    * `gradle` 文件夹  
-你可以对你所有的工程重用这些文件
+    * `gradle` 文件夹
 3. 将上述文件复制到一个新的文件夹中，它将会是你的mod工程文件夹
 4. 在步骤(3)创建的文件夹中打开命令提示符，运行 `gradlew setupDecompWorkspace` (译注: 如果在Linux系统下替换`gradlew`为`./gradlew`，需要自己添加运行权限)。这个指令会从互联网上下载很多的文件，这些文件会用来反编译和构建Minecraft和Forge。由于它会下载一些东西并且反编译Minecraft，这也许会需要很长时间
 5. 选择你的IDE: Forge官方支持使用Eclipse或者是IntelliJ环境进行开发，但你可以使用任何开发环境，从NetBeans到vi/emacs，都可以正常工作
