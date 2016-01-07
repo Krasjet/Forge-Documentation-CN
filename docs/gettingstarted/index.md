@@ -3,7 +3,7 @@ Forge入门
 
 这是一个让你了解如何从零到构建一个基本mod的简单指南。这个文档剩下的内容都是从这里出发的，它们讲述了你该何去何从。
 
-从零到制作mod
+从零起步制作mod
 -----------
 
 1. 从Forge[下载站点][files]获取Forge的源码发布版(即Mdk版本(1.8/1.7的旧版本为Src))
@@ -16,10 +16,20 @@ Forge入门
 5. 选择你的IDE: Forge官方支持使用Eclipse或者是IntelliJ环境进行开发，但你可以使用任何开发环境，从NetBeans到vi/emacs，都可以正常工作
     * 对于Eclipse用户，你需要运行 `gradlew eclipse` - 这会下载更多为了构建Eclipse工程的产物，并且将Eclipse工程输出到你当前的目录
     * 对于IntelliJ用户，直接导入build.gradle文件就可以了(译注：IDEA启动界面Import Project选build.gradle)
-5. 加载你的工程到IDE
+6. 加载你的工程到IDE
     * 对于Eclipse用户，在任意地方创建一个工作空间(Workspace)(当然最方便的就是在工程文件夹的上一级目录中创建)。之后以工程的形式导入你的工程文件夹，之后的事情软件都会自动处理
     * 对于IntelliJ用户，你只需要创建运行配置就行了。你可以运行`gradlew genIntellijRuns`来自动生成
-6. 修改示例代码，或者导入你自己已有的mod代码，或者创建你自己的新mod
+
+!!! note
+
+	如果你在运行第4步时看到在`:decompileMC`这个任务报错
+
+    ```
+    Execution failed for task ':decompileMc'.
+    GC overhead limit exceeded
+    ```
+
+    请分配更多的内存给Gradle，在`~/.gradle/gradle.properties`文件中(如果没有请创建一个)加入`org.gradle.jvmargs=-Xmx2G`参数。`~`符号代表用户的[Home目录][home directory]。
 
 !!! note
 
@@ -61,3 +71,4 @@ Forge入门
 	如果你想让你的mod运行在服务器上，我们始终建议您在专门的服务器环境下测试您的mod。
 	
 [files]: http://files.minecraftforge.net "Forge文件发布站"
+[home directory]: https://en.wikipedia.org/wiki/Home_directory#Default_home_directory_per_operating_system "不同系统中默认的用户Home目录位置"
