@@ -12,24 +12,24 @@ Forge入门
     * `gradlew` (`.bat`和`.sh`)
     * `gradle` 文件夹
 3. 将上述文件复制到一个新的文件夹中，它将会是你的mod工程文件夹
-4. 在步骤(3)创建的文件夹中打开命令提示符，运行 `gradlew setupDecompWorkspace` (译注: 如果在Linux系统下替换`gradlew`为`./gradlew`，需要自己添加运行权限)。这个指令会从互联网上下载很多的文件，这些文件会用来反编译和构建Minecraft和Forge。由于它会下载一些东西并且反编译Minecraft，这也许会需要很长时间
+4. 在步骤(3)创建的文件夹中打开命令提示符，运行 `gradlew setupDecompWorkspace` (译注: 如果在Linux系统下替换 `gradlew` 为 `./gradlew`，需要自己添加运行权限)。这个指令会从互联网上下载很多的文件，这些文件会用来反编译和构建Minecraft和Forge。由于它会下载一些东西并且反编译Minecraft，这也许会需要很长时间
 5. 选择你的IDE: Forge官方支持使用Eclipse或者是IntelliJ环境进行开发，但你可以使用任何开发环境，从NetBeans到vi/emacs，都可以正常工作
     * 对于Eclipse用户，你需要运行 `gradlew eclipse` - 这会下载更多为了构建Eclipse工程的产物，并且将Eclipse工程输出到你当前的目录
     * 对于IntelliJ用户，直接导入build.gradle文件就可以了(译注：IDEA启动界面Import Project选build.gradle)
 6. 加载你的工程到IDE
     * 对于Eclipse用户，在任意地方创建一个工作空间(Workspace)(当然最方便的就是在工程文件夹的上一级目录中创建)。之后以工程的形式导入你的工程文件夹，之后的事情软件都会自动处理
-    * 对于IntelliJ用户，你只需要创建运行配置就行了。你可以运行`gradlew genIntellijRuns`来自动生成
+    * 对于IntelliJ用户，你只需要创建运行配置就行了。你可以运行 `gradlew genIntellijRuns` 来自动生成
 
 !!! note
 
-	如果你在运行第4步时看到在`:decompileMC`这个任务报错
+	如果你在运行第4步时看到在 `:decompileMC` 这个任务报错
 
     ```
     Execution failed for task ':decompileMc'.
     GC overhead limit exceeded
     ```
 
-    请分配更多的内存给Gradle，在`~/.gradle/gradle.properties`文件中(如果没有请创建一个)加入`org.gradle.jvmargs=-Xmx2G`参数。`~`符号代表用户的[Home目录][home directory]。
+    请分配更多的内存给Gradle，在 `~/.gradle/gradle.properties` 文件中(如果没有请创建一个)加入 `org.gradle.jvmargs=-Xmx2G` 参数。`~` 符号代表用户的[Home目录][home directory]。
 
 !!! note
 
@@ -38,7 +38,7 @@ Forge入门
 自定义你的mod信息
 ---------------
 
-修改`build.gradle`文件从而自定义你的mod如何能够构建(文件名，版本或者是其他东西)。
+修改 `build.gradle` 文件从而自定义你的mod如何能够构建(文件名，版本或者是其他东西)。
 
 !!! important
 
@@ -46,7 +46,7 @@ Forge入门
 
 在 `apply project: forge` 和 `// EDITS GO BELOW HERE` 下面的几乎任何东西都可以被修改，许多东西都可以被删除并且自定义修改。
 
-这里有一个站点来介绍Forge的`build.gradle` 文件 - [ForgeGradle cookbook][] ([中文版](http://forgegradle-cn.readthedocs.org/zh/latest/))。 一旦你熟悉你mod的设置，你会发现那里很多有用的配方。
+这里有一个站点来介绍Forge的 `build.gradle` 文件 - [ForgeGradle cookbook][] ([中文版](http://forgegradle-cn.readthedocs.org/zh/latest/))。 一旦你熟悉你mod的设置，你会发现那里很多有用的配方。
 
 [forgegradle cookbook]: https://forgegradle.readthedocs.org/en/latest/cookbook/ "The ForgeGradle cookbook"
 
@@ -61,7 +61,7 @@ Forge入门
 构建和测试你的mod
 ---------------
 
-1. 如果你想构建你的mod，运行`gradlew build`。这将会输出一个文件到 `build/libs` 目录，它的名字是 `[archivesBaseName]-[version].jar`。这个文件可以放到一个装有Forge的Minecraft的 `mods` 文件夹，并且可以发布出去。
+1. 如果你想构建你的mod，运行 `gradlew build`。这将会输出一个文件到 `build/libs` 目录，它的名字是 `[archivesBaseName]-[version].jar`。这个文件可以放到一个装有Forge的Minecraft的 `mods` 文件夹，并且可以发布出去。
 2. 如果你想测试你的mod，最简单的方法是使用在配置工程是生成的运行配置。或者，运行 `gradlew runClient`。这将会从 `<runDir>` 位置启动Minecraft，包括你的mod代码。当然，这个指令也有不同的自定义设置。请在 [ForgeGradle cookbook][]里面找更多的信息。
 3. 你也可以通过运行配置启动一个专门的服务器，或者使用 `gradlew runServer` 指令。这将会启动一个带有GUI的Minecraft服务器。。
 
