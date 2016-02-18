@@ -12,6 +12,8 @@ pages:
     - 索引: 'networking/index.md'
     - 概述: 'networking/overview.md'
     - SimpleImpl: 'networking/simpleimpl.md'
+  - 数据储存:
+    - World Saved Data: 'datastorage/worldsaveddata.md'
   - 惯例:
     - 版本命名: 'conventions/versioning.md'
     - 文件位置: 'conventions/locations.md'
