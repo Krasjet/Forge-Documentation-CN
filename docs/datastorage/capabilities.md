@@ -76,4 +76,75 @@ public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 
 每个事件都有一个方法 `addCapacity`，它可以用来附加能力到目标对象上。你在能力列表中添加的是能力Provider，而不是能力本身，它可以从特定面返回相应的能力。Provider只需要实现 `ICapabilityProvider`，如果能力需要持久储存数据，你需要实现 `ICapabilitySerializable<T extends NBTBase>`，它不仅能返回能力，还能提供NBT存储与读取函数。
 
-要想获得实现 `ICapabilityProvider` 的更多信息，请看上面的展现能力小节。
+要想获得实现 `ICapabilityProvider` 的更多信息，请看上面的[展现一个能力](#_2)小节。
+
+创建你自己的能力
+--------------
+
+一般来说，一个能力通过一个单独的 `CapabilityManager.INSTANCE.register()` 方法调用即可同时声明及注册。还有一种可能是在能力单独的一个类中定义一个静态的 `register()` 方法，但这个能力系统并不做要求。在这个文档中，我们将会将每一个部分都分成单独的命名类，尽管你也可以使用匿名类。
+
+```java
+CapabilityManager.INSTANCE.register(能力接口类, storage, 默认实现Factory);
+```
+
+第一个参数是描述能力特性的类型，在这个例子中是 `IExampleCapability.class`。
+
+第二个参数是一个实现 `Capability.IStorage<T>` 的类实例，T是第一个参数中的类。这个储存(Storage)类将帮助我们对默认实现进行储存和读取管理，它也可以支持其它的实现
+
+```java
+private static class Storage
+    implements Capability.IStorage<IExampleCapability> {
+
+  @Override
+  public NBTBase writeNBT(Capability<IExampleCapability> capability, IExampleCapability instance, EnumFacing side) {
+    // 返回一个NBT Tag
+  }
+
+  @Override
+  public void readNBT(Capability<IExampleCapability> capability, IExampleCapability instance, EnumFacing side, NBTBase nbt) {
+    // 从NBT Tag读取
+  }
+}
+```
+
+最后一个参数是一个可调用的Factory，它会返回默认实现的新建实例。
+
+```java
+private static class Factory implements Callable<IExampleCapability> {
+
+  @Override
+  public IExampleCapability call() throws Exception {
+    return new Implementation();
+  }
+}
+```
+
+最后我们需要一个默认实现，以能在Factory中实例化。这个类的设计完全取决于你，但它至少应该能提供一个简单的骨架让别人测试这个能力，如果它本身不是完全可用的话。
+
+与客户端同步数据
+--------------
+
+默认情况下，能力数据将不会被发送到客户端。为了修复这个问题，Mod需要用数据包(Packet)进行自己的同步。
+
+对于下面三种可选的情况你可能会想发送同步数据包：
+
+1. 当实体生成在世界时，你可能需要与客户端同步初始值
+2. 当储存的数据改变时，你可能需要通知一些看到实体的客户端
+3. 当一个新的客户端开始看到实体，你可能需要提醒它现有的数据
+
+如果你想要更多网络数据包的实现和信息，请去看[网络](../networking/index.md)部分的教程。
+
+在玩家死亡时保持数据
+------------------
+
+默认情况下，实体的能力数据在死亡的时候就会消失。为了改变这一点，在玩家实体重生被克隆时数据需要被复制下来。
+
+这个可以通过处理 `PlayerEvent.Clone` 这个事件来完成。这个事件中，`wasDead` 这个字段可以用来判别是死亡后的重生还是从末地之路返回到主世界。这个检测很重要，因为如果是从末地返回的话数据仍然是存在的。
+
+!!! note
+
+    这篇文档翻译有点混乱，如果有看不懂的建议去看[原文](http://mcforge.readthedocs.org/en/latest/datastorage/capabilities/)(虽然原文也不怎么清楚)。
+
+    另外，建议去看Forge这个测试的mod：[TestCapabilityMod.java](https://github.com/MinecraftForge/MinecraftForge/blob/master/src/test/java/net/minecraftforge/test/TestCapabilityMod.java)
+
+    还有capabilities包里的内容：[capabilities包](https://github.com/MinecraftForge/MinecraftForge/tree/master/src/main/java/net/minecraftforge/common/capabilities)

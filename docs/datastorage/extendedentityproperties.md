@@ -163,8 +163,7 @@ public void playerStartedTracking(PlayerEvent.StartTracking e) {
 
 默认情况下，实体的数据在死亡的时候就会消失。为了改变这一点，在玩家实体重生被克隆时数据需要被复制下来。
 
-这个可以通过处理 `PlayerEvent.Clone` 这个事件来完成。这个事件中，`wasDead` 这个字段可以用来判别是死亡后的重生还是从末地之路返回到主世界。
-这个检测很重要，因为如果是从末地返回的话数据仍然是存在的。
+这个可以通过处理 `PlayerEvent.Clone` 这个事件来完成。这个事件中，`wasDead` 这个字段可以用来判别是死亡后的重生还是从末地之路返回到主世界。这个检测很重要，因为如果是从末地返回的话数据仍然是存在的。
 
 ```java
 @SubscribeEvent
