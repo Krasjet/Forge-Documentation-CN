@@ -13,6 +13,7 @@ pages:
     - 概述: 'networking/overview.md'
     - SimpleImpl: 'networking/simpleimpl.md'
   - 数据储存:
+    - 能力(Capability)系统: 'datastorage/capabilities.md'
     - World Saved Data: 'datastorage/worldsaveddata.md'
     - 拓展实体属性(Extended Entity Properties): 'datastorage/extendedentityproperties.md'
   - 惯例:
