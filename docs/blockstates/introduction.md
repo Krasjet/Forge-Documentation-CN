@@ -1,11 +1,11 @@
-方块状态(Blockstates)简介
+方块状态(Blockstate)JSON简介
 ========================
 
-方块状态(Blockstates)告诉游戏根据方块的数据应当使用哪一个模型。
-一个简单的方块只有**标准(normal)**一个默认的方块状态。
+方块状态(Blockstate)JSON根据方块的[方块状态属性][blockstate](Blockstate Properties)值告诉游戏其应当使用哪一个模型。  
+一个简单的无属性方块只有**标准(normal)**一个默认的方块状态。  
 一个有多种显示方式的更加复杂的方块(译注: 比如能够旋转的方块)有**变种(variants)**。
 
-举个例子，我们来看一看原版的 `oak-log.json`:
+举个例子，我们来看一看原版的 `oak_log.json`:
 
 ```json
 {
@@ -29,3 +29,4 @@
 而这仅仅是其16个变种中的一个。这会很快导致非常大并且冗长的blockstate文件，这也是Minecraft 1.8的主要问题。Minecraft 1.9将会引入一个系统使这个问题得到控制。[Forge's Blockstate Json][forge]让你能在1.8里面解决这个问题。
 
 [forge]: forgeBlockstates.md "Forge's Blockstate Json"
+[blockstate]: states.md "方块状态属性"

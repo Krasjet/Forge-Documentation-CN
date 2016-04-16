@@ -119,7 +119,7 @@ private static class Factory implements Callable<IExampleCapability> {
 }
 ```
 
-最后我们需要一个默认实现，以能在Factory中实例化。这个类的设计完全取决于你，但它至少应该能提供一个简单的骨架让别人测试这个能力，如果它本身不是完全可用的话。
+最后我们需要一个默认实现，以能在Factory中实例化。这个类的设计完全取决于你，但它至少应该能提供一个简单的骨架让别人测试这个能力(如果它本身不是完全可用的话)。
 
 与客户端同步数据
 --------------
@@ -140,6 +140,31 @@ private static class Factory implements Callable<IExampleCapability> {
 默认情况下，实体的能力数据在死亡的时候就会消失。为了改变这一点，在玩家实体重生被克隆时数据需要被复制下来。
 
 这个可以通过处理 `PlayerEvent.Clone` 这个事件来完成。这个事件中，`wasDead` 这个字段可以用来判别是死亡后的重生还是从末地之路返回到主世界。这个检测很重要，因为如果是从末地返回的话数据仍然是存在的。
+
+从IExtendedEntityProperties的移植
+--------------------------------
+
+尽管能力系统可以完成IEEPs(IExtendedEntityProperties)所实现的所有，甚至是更多的功能，这两个概念并不是1:1对应的。在这一节中，我将解释如何将已有的IEEPs转换为能力系统。
+
+下面这个列表将给出IEEP概念的对应能力系统等价：
+
+- Property名称/ID(`String`)：Capability键值(`ResourceLocation`)
+- 注册(Registration, `EntityConstructing`)：附属(Attaching, `AttachCapabilityEvent.Entity`)，Capability真正的注册发生在pre-init的时候。
+- NBT读写方法：不会自动发生。你需要在事件中附属一个 `ICapabilitySerializable`，并运行 `serializeNBT`/ `deserializeNBT` 来读写NBT数据。
+
+你可能不会需要的特性(如果IEEP只在内部使用)：
+
+- 能力系统提供了一个默认实现概念，用来简化第三方用户的使用，但它对一个内部使用的能力就没那么重要的。你可以安全地从Factory返回null值，如果这个能力只是为了内部使用的话。
+- 能力系统提供了一个 `IStorage` 系统，用来从默认实现中读写数据。如果你选择不提供默认实现，那么 `IStorage` 系统将永远不会被调用，所以它可以留空。
+
+在使用下面这几个步骤之前请先阅读本教程的其它部分，并理解能力系统的概念。
+
+转换指南：
+
+1. 转换IEEP的key/id字符串到 `ResourceLocation`(并使用你的MODID作为域)
+2. 在你的处理器(Handler)类中(不是你实现能力接口的那个类)创建一个用来储存 `Capability` 实例的字段
+3. 将 `EntityConstructing` 事件改为 `AttachCapabilityEvent`，并且你需要依附一个 `ICapabilityProvider`(可能是 `ICapabilitySerializable`，让你能够读写NBT)，而不是查询IEEP。
+4. 如果你没有注册方法的话，创建一个(你可能已经有一个用来注册IEEP事件处理器(Event Handler)的了)，并在其中运行能力的注册函数。
 
 !!! note
 

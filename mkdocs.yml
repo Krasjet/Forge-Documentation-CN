@@ -6,8 +6,9 @@ pages:
     - 概述: 'gettingstarted/index.md'
     - 构造您的mod: 'gettingstarted/structuring.md'
   - 模型&渲染:
-    - 方块状态(Blockstates): 'blockstates/introduction.md'
-    - Forge方块状态(Blockstates): 'blockstates/forgeBlockstates.md'
+    - 方块状态(Blockstate)介绍: 'blockstates/states.md'
+    - 方块状态(Blockstate)JSON介绍: 'blockstates/introduction.md'
+    - Forge方块状态(Blockstate)JSON: 'blockstates/forgeBlockstates.md'
   - 网络:
     - 索引: 'networking/index.md'
     - 概述: 'networking/overview.md'
