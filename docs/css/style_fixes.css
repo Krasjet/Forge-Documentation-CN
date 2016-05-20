@@ -26,6 +26,11 @@ table td, table th {
     font-size: 100% !important;
 }
 
+code,.rst-content tt {
+  font-size: 100%;
+  background: #F8F8F8;
+}
+
 /* Disable line wrapping within word boundaries in code tags. Prevents method names etc. being split right down the middle. */
 p code {
     font-size: 80%;
