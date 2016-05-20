@@ -3,15 +3,20 @@
 
 请在开始写代码前将本指南**全部**阅读完。你的理解将会比你阅读部分只更加全面和正确。
 
-在Minecraft 1.8中，方块和Metadata值的直接操作被抽象成了方块状态(Blockstates)。  
-这个系统的目的为避免难看又费解原始Metadata的操作。
+这个指南旨在对方块状态(Block States)提供一个入门等级的介绍。如果你知道什么是拓展状态(Extended States)，你可能会注意到我精简了一下东西。这是有意的，我们不想给初学者太多不会及时用到的信息。如果你不知道什么是拓展状态，不要担心，我们在之后会另外写一个文档。
 
-举个例子，看下列代码：
+使用方块状态的原因
+================
+
+在Minecraft 1.8中，方块和Metadata值的直接操作被抽象成了方块状态。  
+这个系统的目的为避免难看又不直观的原始Metadata的操作。
+
+举个例子，看下面这个switch语句，它是任意一个有朝向的半砖方块：
 
 ```java
 switch(meta) {
   case 0: // 面向南方，在方块的下半部分
-  case 1: // 面向南方，在方块的顶部
+  case 1: // 面向南方，在方块的上半部分
   case 2: // 面向北方，在方块的下半部分
   case 3: // 面向北方，在方块的上半部分
   ... etc.
@@ -32,7 +37,7 @@ switch(meta) {
 
 - `PropertyInteger`：实现 `IProperty<Integer>`。通过调用 `PropertyInteger.create("<name>", <min>, <max>);` 来创建。
 - `PropertyBool`：实现 `IProperty<Boolean>`。通过调用`PropertyBool.create("<name>");` 来创建
-- `PropertyEnum<E extends Enum<E>>`：实现 `IProperty<E>`，定义了一个包含Enum类值的属性。通过调用 `PropertyEnum.create("name", <enumclass>);` 来创建
+- `PropertyEnum<E extends Enum<E>>`：实现 `IProperty<E>`，定义了一个包含Enum类值的属性。通过调用 `PropertyEnum.create("name", <enum_class>);` 来创建
   - 你也可以通过可变参数或者Collection指定特定的有效枚举值。有一个Factory可以在值有效的时候返回true
 - `PropertyDirection`：这是 `PropertyEnum<EnumFacing>` 的一个简便实现
   - 一些简便的断言(Predicate)也有提供。比如说，如果要获取一个表示主方向的属性，你可以调用 `PropertyDirection.create("<name>", EnumFacing.Plane.HORIZONTAL)`。如果你需要获取X方向，调用 `PropertyDirection.create("<name>", EnumFacing.Axis.X)`
@@ -65,7 +70,7 @@ switch(meta) {
 
 !!! warning
 
-	你的 `getMetaFromState` 和 `getStateFromMeta` 方法必须是一对一的！换句话说，相同的属性与值必须映射到同一meta值，反之亦然。如果你没有做到这个，游戏将**不会**崩溃。它只会让所有东西都表现得很奇怪。
+	你的 `getMetaFromState` 和 `getStateFromMeta` 方法**必须**是一对一的！换句话说，相同的属性与值必须映射到同一meta值，反之亦然。如果你没有做到这个，游戏将**不会**崩溃。它只会让所有东西都表现得很奇怪。
 
 `IBlockState`：不仅仅是Block和Meta
 ---------------------------------

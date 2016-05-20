@@ -28,5 +28,5 @@
 
 而这仅仅是其16个变种中的一个。这会很快导致非常大并且冗长的blockstate文件，这也是Minecraft 1.8的主要问题。Minecraft 1.9将会引入一个系统使这个问题得到控制。[Forge's Blockstate Json][forge]让你能在1.8里面解决这个问题。
 
-[forge]: forgeBlockstates.md "Forge's Blockstate Json"
+[forge]: forgeBlockstates.md "Forge's Blockstate JSON"
 [blockstate]: states.md "方块状态属性"

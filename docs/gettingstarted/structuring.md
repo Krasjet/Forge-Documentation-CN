@@ -6,13 +6,13 @@
 包(Packaging)
 -------------
 
-选择一个独一无二的包的名字。如果你拥有一个与你的工程关联的URL，你可以把它当做你顶级包(Top-level package)。比如说你拥有一个网站 "fakemods.com" ，你可以将 `com.fakemods` 当做你的顶级包。
+选择一个独一无二的包的名字。如果你拥有一个与你的工程关联的URL，你可以把它当做你顶级包(Top-level package)。比如说你拥有一个网站 "example.com" ，你可以将 `com.example` 当做你的顶级包。
 
 !!! important
 
     如果你没有一个域名，不要用它当做你的顶级包的名字。用任何东西命名你的包都是可以接受的，比如说你的名字/昵称，或者是mod的名字。
 
-在顶级包之后(如果你有一个)你需要添加一个你唯一的mod名字，比如说 `examplemod`。在这里这个包将会最终是 `com.fakemods.examplemod`。
+在顶级包之后(如果你有一个)你需要添加一个你唯一的mod名字，比如说 `examplemod`。在这里这个包将会最终是 `com.example.examplemod`。
 
 Mod文件
 ------

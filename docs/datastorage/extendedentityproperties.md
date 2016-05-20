@@ -65,9 +65,9 @@ public void entityConstruct(EntityEvent.EntityConstructing e) {
 
 为了使用拓展数据，你需要先从实体上获取IEEP实现的一个实例，由于实体可能会被卸载或者切换维度(Dimension)，缓冲实例的引用并不安全。
 
-为了获取IEEP引用，我们需要使用 `Entity#getExtendedProperties`，并附上相应的属性ID。返回值如果不是null的话就是实体构造时对应的 `IExtendedEntityProperties`了。
+为了获取IEEP引用，我们需要使用 `Entity#getExtendedProperties`，并附上相应的属性ID。返回值如果不是 `null` 的话就是实体构造时对应的 `IExtendedEntityProperties`了。
 
-在你的IEEP实现中创建一个静态get方法是一个很好的主意，它将自动获取实例，并将其到你的实现类中：
+在你的IEEP实现中创建一个静态 `get` 方法是一个很好的主意，它将自动获取实例，并将其到你的实现类中：
 
 ```java
 public static ExampleEntityProperty get(Entity p) {

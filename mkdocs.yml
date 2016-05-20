@@ -17,6 +17,8 @@ pages:
     - 能力(Capability)系统: 'datastorage/capabilities.md'
     - World Saved Data: 'datastorage/worldsaveddata.md'
     - 拓展实体属性(Extended Entity Properties): 'datastorage/extendedentityproperties.md'
+  - 效果:
+    - 音效: 'effects/sounds.md'
   - 惯例:
     - 版本命名: 'conventions/versioning.md'
     - 文件位置: 'conventions/locations.md'
@@ -32,6 +34,6 @@ markdown_extensions:
   - sane_lists
 
 extra_css:
-  - css/code_fixer.css
+  - css/style_fixes.css
 
 theme: readthedocs
