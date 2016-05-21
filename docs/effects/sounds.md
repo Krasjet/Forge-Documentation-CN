@@ -93,7 +93,7 @@ GameRegistry.register(event, location);
 ### `World`
 
 1. <a name="world-playsound-pbecvp"></a>`playSound(EntityPlayer, BlockPos, SoundEvent, SoundCategory, volume, pitch)`
-    - 仅仅转发到了[重载(Overload)(2)](#world-playsound-pxyzecvp)，对每个 `Blockpos` 中的坐标都加了0.5
+    - 仅仅转发到了[重载(Overload)(2)](#world-playsound-pxyzecvp)，对每个 `BlockPos` 中的坐标都加了0.5
 2. <a name="world-playsound-pxyzecvp"></a>`playSound(EntityPlayer, double x, double y, double z, SoundEvent, SoundCategory, volume, pitch)`
     - **客户端行为**：如果传入的玩家是客户端玩家，播放音效事件到客户端玩家。
     - **服务端行为**：对除了被传入的那个玩家以外的任何玩家播放音效事件。 Player可以被设置成 `null`。
@@ -107,7 +107,7 @@ GameRegistry.register(event, location);
 ### `WorldClient`
 
 1. <a name="worldclient-playsound-becvpd"></a>`playSound(BlockPos, SoundEvent, SoundCategory, volume, pitch, distanceDelay)`
-    - 转发到 `World` 的[重载(3)](#world-playsound-xyzecvpd)，对每个 `Blockpos` 中的坐标都加了0.5。
+    - 转发到 `World` 的[重载(3)](#world-playsound-xyzecvpd)，对每个 `BlockPos` 中的坐标都加了0.5。
 
 ### `Entity`
 
