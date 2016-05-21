@@ -18,7 +18,7 @@ pages:
     - World Saved Data: 'datastorage/worldsaveddata.md'
     - 拓展实体属性(Extended Entity Properties): 'datastorage/extendedentityproperties.md'
   - 效果:
-    - 音效: 'effects/sounds.md'
+    - 音效(Sounds): 'effects/sounds.md'
   - 惯例:
     - 版本命名: 'conventions/versioning.md'
     - 文件位置: 'conventions/locations.md'
