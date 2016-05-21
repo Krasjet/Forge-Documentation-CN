@@ -93,44 +93,44 @@ GameRegistry.register(event, location);
 ### `World`
 
 1. <a name="world-playsound-pbecvp"></a>`playSound(EntityPlayer, BlockPos, SoundEvent, SoundCategory, volume, pitch)`
-  - 仅仅转发到了[重载(Overload)(2)](#world-playsound-pxyzecvp)，对每个 `Blockpos` 中的坐标都加了0.5
+    - 仅仅转发到了[重载(Overload)(2)](#world-playsound-pxyzecvp)，对每个 `Blockpos` 中的坐标都加了0.5
 2. <a name="world-playsound-pxyzecvp"></a>`playSound(EntityPlayer, double x, double y, double z, SoundEvent, SoundCategory, volume, pitch)`
-  - **客户端行为**：如果传入的玩家是客户端玩家，播放音效事件到客户端玩家。
-  - **服务端行为**：对除了被传入的那个玩家以外的任何玩家播放音效事件。 Player可以被设置成 `null`。
-  - **用处**：上面两个行为的互补性说明这两个方法都可以从一些在两个逻辑端同时运行，由玩家发起的音效代码中被调用——逻辑客户端将音效播放给用户，逻辑服务端让其他人都听见音效而不让对原始用户重复播放。<br>
+    - **客户端行为**：如果传入的玩家是客户端玩家，播放音效事件到客户端玩家。
+    - **服务端行为**：对除了被传入的那个玩家以外的任何玩家播放音效事件。 Player可以被设置成 `null`。
+    - **用处**：上面两个行为的互补性说明这两个方法都可以从一些在两个逻辑端同时运行，由玩家发起的音效代码中被调用——逻辑客户端将音效播放给用户，逻辑服务端让其他人都听见音效而不让对原始用户重复播放。<br>
   它们也可以同样用来在客户端任一指定地点播放任何声音，只需要传递 `null` 玩家，让所有人都听见即可。
 3. <a name="world-playsound-xyzecvpd"></a>`playSound(double x, double y, double z, SoundEvent, SoundCategory, volume, pitch, distanceDelay)`
- - **客户端行为**：仅仅播放音效事件到客户端世界。如果 `distanceDelay` 为 `true`，那么音效的延迟将会取决于声源距玩家的距离。
- - **服务端行为**：无。
- - **用处**：这个方法只在客户端有效，所以它对那些在自定义数据包(Custom Packet)中发送的音效，或其它只在客户端有效的特效类型音效很有用。打雷的时候用的就是这个方法。
+   - **客户端行为**：仅仅播放音效事件到客户端世界。如果 `distanceDelay` 为 `true`，那么音效的延迟将会取决于声源距玩家的距离。
+   - **服务端行为**：无。
+   - **用处**：这个方法只在客户端有效，所以它对那些在自定义数据包(Custom Packet)中发送的音效，或其它只在客户端有效的特效类型音效很有用。打雷的时候用的就是这个方法。
 
 ### `WorldClient`
 
 1. <a name="worldclient-playsound-becvpd"></a>`playSound(BlockPos, SoundEvent, SoundCategory, volume, pitch, distanceDelay)`
-  - 转发到 `World` 的[重载(3)](#world-playsound-xyzecvpd)，对每个 `Blockpos` 中的坐标都加了0.5。
+    - 转发到 `World` 的[重载(3)](#world-playsound-xyzecvpd)，对每个 `Blockpos` 中的坐标都加了0.5。
 
 ### `Entity`
 
 1. <a name="entity-playsound-evp"></a>`playSound(SoundEvent, volume, pitch)`
-  - 转发到 `World` 的[重载(2)](#world-playsound-pxyzecvp)，player的参数传递为 `null`。
-  - **客户端行为**：无。
-  - **服务端行为**：对该实体(Entity)位置的所有人都播放音效事件。
-  - **用处**：在服务端从任何非玩家实体发出声音。
+    - 转发到 `World` 的[重载(2)](#world-playsound-pxyzecvp)，player的参数传递为 `null`。
+    - **客户端行为**：无。
+    - **服务端行为**：对该实体(Entity)位置的所有人都播放音效事件。
+    - **用处**：在服务端从任何非玩家实体发出声音。
 
 ### `EntityPlayer`
 
 1. <a name="entityplayer-playsound-evp"></a>`playSound(SoundEvent, volume, pitch)` (重写(Override)了 [`Entity`](#entity-playsound-evp) 内的那个方法)
-  - 转发到 `World` 的[重载(2)](#world-playsound-pxyzecvp)，player的参数传递为 `this`。
-  - **客户端行为**：无。可以看一下在 `EntityPlayerSP` 内的[重写](#entityplayersp-playsound-evp)。
-  - **服务端行为**：对**除了**这个玩家以外所有玩家播放音效。
-  - **用处**：见 [`EntityPlayerSP`](#entityplayersp-playsound-evp)
+    - 转发到 `World` 的[重载(2)](#world-playsound-pxyzecvp)，player的参数传递为 `this`。
+    - **客户端行为**：无。可以看一下在 `EntityPlayerSP` 内的[重写](#entityplayersp-playsound-evp)。
+    - **服务端行为**：对**除了**这个玩家以外所有玩家播放音效。
+    - **用处**：见 [`EntityPlayerSP`](#entityplayersp-playsound-evp)
 
 ### `EntityPlayerSP`
 
 1. <a name="entityplayersp-playsound-evp"></a>`playSound(SoundEvent, volume, pitch)` (重写了 [`EntityPlayer`](#entityplayer-playsound-evp) 内的那个方法)
-  - 转发到 `World` 的[重载(2)](#world-playsound-pxyzecvp)，player的参数传递为 `this`。
-  - **客户端行为**：播放音效事件。
-  - **服务端行为**：该方法仅限客户端。
-  - **用处**：就像 `World` 内的方法一样，这玩家类内重写的两个方法可以用在同时运行在两端的代码中。客户端负责播放音效到用户，服务端负责让其他人都听见而不对原始用户重新播放。
+    - 转发到 `World` 的[重载(2)](#world-playsound-pxyzecvp)，player的参数传递为 `this`。
+    - **客户端行为**：播放音效事件。
+    - **服务端行为**：该方法仅限客户端。
+    - **用处**：就像 `World` 内的方法一样，这玩家类内重写的两个方法可以用在同时运行在两端的代码中。客户端负责播放音效到用户，服务端负责让其他人都听见而不对原始用户重新播放。
 
 [wiki]: http://minecraft.gamepedia.com/Sounds.json
