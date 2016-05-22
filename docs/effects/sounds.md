@@ -100,9 +100,9 @@ GameRegistry.register(event, location);
     - **用处**：上面两个行为的互补性说明这两个方法都可以从一些在两个逻辑端同时运行，由玩家发起的音效代码中被调用——逻辑客户端将音效播放给用户，逻辑服务端让其他人都听见音效而不让对原始用户重复播放。<br>
   它们也可以同样用来在客户端任一指定地点播放任何声音，只需要传递 `null` 玩家，让所有人都听见即可。
 3. <a name="world-playsound-xyzecvpd"></a>`playSound(double x, double y, double z, SoundEvent, SoundCategory, volume, pitch, distanceDelay)`
-   - **客户端行为**：仅仅播放音效事件到客户端世界。如果 `distanceDelay` 为 `true`，那么音效的延迟将会取决于声源距玩家的距离。
-   - **服务端行为**：无。
-   - **用处**：这个方法只在客户端有效，所以它对那些在自定义数据包(Custom Packet)中发送的音效，或其它只在客户端有效的特效类型音效很有用。打雷的时候用的就是这个方法。
+     - **客户端行为**：仅仅播放音效事件到客户端世界。如果 `distanceDelay` 为 `true`，那么音效的延迟将会取决于声源距玩家的距离。
+     - **服务端行为**：无。
+     - **用处**：这个方法只在客户端有效，所以它对那些在自定义数据包(Custom Packet)中发送的音效，或其它只在客户端有效的特效类型音效很有用。打雷的时候用的就是这个方法。
 
 ### `WorldClient`
 
