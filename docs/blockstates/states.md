@@ -76,7 +76,7 @@ switch(meta) {
 你可以使用 `setBlockState()` 和 `getBlockState()` 在世界中获取或设定 `IBlockState`。
 
 幻想杀手
-=======
+--------
 
 很遗憾，抽象层在其核心其实是个谎言。我们仍需要翻译每一个 `IBlockState` 到一个从0到15的数字，它将会储存在世界中或者从世界中读取。
 
