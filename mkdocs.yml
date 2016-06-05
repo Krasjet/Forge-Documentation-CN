@@ -22,6 +22,7 @@ pages:
   - 惯例:
     - 版本命名: 'conventions/versioning.md'
     - 文件位置: 'conventions/locations.md'
+    - 加载阶段(Loading Stages): 'conventions/loadstages.md'
   - 概念:
     - Sides: 'concepts/sides.md'
 
