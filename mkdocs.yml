@@ -5,6 +5,7 @@ pages:
   - 入门:
     - 概述: 'gettingstarted/index.md'
     - 构造您的mod: 'gettingstarted/structuring.md'
+    - Forge更新检查器: 'gettingstarted/autoupdate.md'
   - 方块状态(Blockstate):
     - 方块状态介绍: 'blockstates/states.md'
     - 方块状态JSON介绍: 'blockstates/introduction.md'
