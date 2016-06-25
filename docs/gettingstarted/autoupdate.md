@@ -39,4 +39,4 @@ JSON本身的格式很简单，如下所示：
 - 更新日志String可以使用 `\n` 分行。一些人可能会选择仅包含一个简略的更新日志，并提供一个链接到完整的更新日志
 - 手动输入这些东西可能会很麻烦。你可以设置一下 `build.gradle`，在构建的时候自动更新这个文件，Groovy有原生的JSON解析支持。这个就留给读者当做练习了。
  
-你可以参考[Botania Unofficial](https://raw.githubusercontent.com/williewillus/Botania/HEAD/version/update.json)的例子构建你自己的JSON。
+你可以参考[Charset](https://gist.githubusercontent.com/Meow-J/fe740e287c2881d3bf2341a62a7ce770/raw/bf829cdefc84344d86d1922e2667778112b845b1/update.json)和[Botania Unofficial](https://gist.githubusercontent.com/Meow-J/1299068c775c2b174632534a18b65fb8/raw/42c578cf2303aa76d8900f5fdc6366122549d2a8/update.json)的例子构建你自己的JSON。
