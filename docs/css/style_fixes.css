@@ -1,3 +1,7 @@
+body {
+	font-family: "微软雅黑","宋体","Lato","proxima-nova","Helvetica Neue",Arial,sans-serif
+}
+
 .wy-nav-content {
     /* Make better use of modern monitors */
     max-width: 1200px;
