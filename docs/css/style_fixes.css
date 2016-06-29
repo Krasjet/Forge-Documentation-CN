@@ -39,6 +39,7 @@ code,.rst-content tt {
 p code {
     font-size: 80%;
     word-wrap: normal;
+  	font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
 }
 
 /* Fix admonitions having much too large bottom margins */
@@ -58,6 +59,7 @@ div.admonition code {
     color: #404040;
     border: 1px solid rgba(0, 0, 0, 0.2);
     background: rgba(255, 255, 255, 0.7);
+    font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
 }
 
 /* Space out paragraphs in admonitions vertically */
