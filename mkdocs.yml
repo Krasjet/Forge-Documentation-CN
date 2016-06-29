@@ -8,6 +8,7 @@ pages:
     - Forge更新检查器: 'gettingstarted/autoupdate.md'
   - 方块(Blocks):
     - 概述: 'blocks/blocks.md'
+    - 方块互动(Block Interaction): 'blocks/interaction.md'
   - 方块状态(Blockstate):
     - 方块状态介绍: 'blockstates/states.md'
     - 方块状态JSON介绍: 'blockstates/introduction.md'
