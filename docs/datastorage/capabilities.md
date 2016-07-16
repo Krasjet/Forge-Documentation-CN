@@ -10,9 +10,11 @@ Forge对TileEntity、实体、和ItemStack添加了能力支持。它们可以�
 Forge提供的能力
 --------------
 
-在本文写作时，Forge只提供了一种能力：IItemHandler。
+在本文写作时，Forge提供了两种能力：IItemHandler和IFluidHandler。
 
-这一能力展现了一个处理背包格子的接口。它可以被应用到TileEntity(箱子，机器)、实体(玩家更多的背包格子，生物的背包)、或ItemStack(便携背包等)。它通过一个自动化友好的系统代替了以前的 `IInventory` 和 `ISidedInventory`。
+IItemHandler展现了一个处理背包格子的接口。它可以被应用到TileEntity(箱子，机器)、实体(玩家更多的背包格子，生物的背包)、或ItemStack(便携背包等)。它通过一个自动化友好的系统代替了以前的 `IInventory` 和 `ISidedInventory`。
+
+IFluidHandler展现了一个处理液体存储的接口。它可以被应用到TileEntity、实体、或ItemStack。它通过一个更一致和自动化友好的系统代替了以前的`IFluidHandler`
 
 使用现有能力
 -----------
