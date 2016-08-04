@@ -68,11 +68,11 @@ public class MyMessageHandler implements IMessageHandler<MyMessage, IMessage> {
 }
 ```
 
-为了管理的方便，我们建议(但不要求)您将这个类设置为 `MyMessage` 类的内部类(Inner Class)。如果你这样做了，注意这个类也应该被声明为静态类(`static`)。
+为了管理的方便，我们建议（但不要求）您将这个类设置为 `MyMessage` 类的内部类(Inner Class)。如果你这样做了，注意这个类也应该被声明为静态类(`static`)。
 
 !!! warning
 
-    在Minecraft 1.8中，数据包默认由网络线程(Network Thread)来处理(而不是主线程)。
+    在Minecraft 1.8+中，数据包默认由网络线程(Network Thread)来处理（而不是主线程）。
 
     这意味着你的 `IMessageHandler` **不能**直接操作游戏中的大部分对象。也就是说上面的例子不再正确。Minecraft提供了一个简单的方法让你的代码执行在主线程上: 
 
@@ -101,7 +101,7 @@ INSTANCE.registerMessage(MyMessageHandler.class, MyMessage.class, 0, Side.Server
 使用数据包
 -------------
 
-当发送数据包的时候，确保**在接收端**注册了该数据包的处理器。如果没有处理器，数据包会在网络中传输之后被丢弃，变成一个“泄漏”数据包(译注: 即一直占据内存不被释放，直到程序结束。曾经wiki上一个教程导致很多mod都遭受这个问题)。这虽然这在不必要的网络带宽之外没什么影响，我们建议您还是要修复的。
+当发送数据包的时候，确保**在接收端**注册了该数据包的处理器。如果没有处理器，数据包会在网络中传输之后被丢弃，变成一个“泄漏”数据包（译注: 即一直占据内存不被释放，直到程序结束。曾经wiki上一个教程导致很多mod都遭受这个问题）。这虽然这在不必要的网络带宽之外没什么影响，我们建议您还是要修复的。
 
 ### 发送到服务端
 

@@ -12,7 +12,7 @@ Forge提供的能力
 
 在本文写作时，Forge提供了两种能力：IItemHandler和IFluidHandler。
 
-IItemHandler展现了一个处理背包格子的接口。它可以被应用到TileEntity(箱子，机器)、实体(玩家更多的背包格子，生物的背包)、或ItemStack(便携背包等)。它通过一个自动化友好的系统代替了以前的 `IInventory` 和 `ISidedInventory`。
+IItemHandler展现了一个处理背包格子的接口。它可以被应用到TileEntity（箱子，机器）、实体（玩家更多的背包格子，生物的背包）、或ItemStack（便携背包等）。它通过一个自动化友好的系统代替了以前的 `IInventory` 和 `ISidedInventory`。
 
 IFluidHandler展现了一个处理液体存储的接口。它可以被应用到TileEntity、实体、或ItemStack。它通过一个更一致和自动化友好的系统代替了以前的`IFluidHandler`
 
@@ -28,7 +28,7 @@ IFluidHandler展现了一个处理液体存储的接口。它可以被应用到T
 static Capability<IItemHandler> ITEM_HANDLER_CAPABILITY = null;
 ```
 
-这个注解可以被应用在字段(Field)和方法(Method)上。当应用到字段上的时候，它会在能力注册时将能力的实例(同一个实例赋值到所有字段中)赋值到字段上，如果该能力没有被注册，它将保持现有值(`null`)。因为本地静态字段访问会更快，所以您最好保留一份能力对象的引用。这个注解也可以同样应用到方法中，应用的方法将在能力注册时被调用，以便某些特性的应用。
+这个注解可以被应用在字段(Field)和方法(Method)上。当应用到字段上的时候，它会在能力注册时将能力的实例（同一个实例赋值到所有字段中）赋值到字段上，如果该能力没有被注册，它将保持现有值(`null`)。因为本地静态字段访问会更快，所以您最好保留一份能力对象的引用。这个注解也可以同样应用到方法中，应用的方法将在能力注册时被调用，以便某些特性的应用。
 
 `hasCapability` 和 `getCapability` 这两个方法都有第二个参数，类型为 `EnumFacing`，他们可以用来对特定面请求特定的实例。如果传入的是 `null`，那么就可认定请求是从方块内或者从一个面无意义的地方来的，比如说另一个维度(Dimension)。这时候一个不考虑面的通用能力实例将会被请求。`getCapability` 的返回类型将会对应能力声明时的类型。对于Item Handler这个能力，它是 `IItemHandler`。
 
@@ -39,9 +39,9 @@ static Capability<IItemHandler> ITEM_HANDLER_CAPABILITY = null;
 
 有两种方式能获得实例，第一种是通过 `Capability` 本身，第二种是显式实例化一个它的实现。第一种方法是为默认实现设计的，如果那些默认的值对你很有用的话。Item Handler这个能力的默认实现只会展现一个单格背包(Inventory)，可能不是你想要的结果。
 
-第二种方法可以用自定义的实现。在 `IItemHandler` 这个例子中，默认实现使用的是 `ItemStackHandler` 类，它有一个可选的带参数的构造器，参数为格子的个数。然而，我们不应认定默认实现是一直存在的，因为能力系统设计初衷就是为了防止能力不存在时的加载错误。所以实例化之前我们需要检查能力是否被注册了(见上面关于 `@CapabilityInject` 的内容)
+第二种方法可以用自定义的实现。在 `IItemHandler` 这个例子中，默认实现使用的是 `ItemStackHandler` 类，它有一个可选的带参数的构造器，参数为格子的个数。然而，我们不应认定默认实现是一直存在的，因为能力系统设计初衷就是为了防止能力不存在时的加载错误。所以实例化之前我们需要检查能力是否被注册了（见上面关于 `@CapabilityInject` 的内容）。
 
-一旦你有了自己的能力接口实例，你会希望在你展现能力的时候通知能力系统的用户。这个可以通过重写 `hasCapability` 方法进行实现，并将实例和你展示的能力进行对比。如果你的机器根据面的不同有不同数量的格子，你可以通过 `facing` 参数进行判定。对于实体和ItemStack，这个参数可以忽略掉，但是你仍然可以自己对面进行定义以使用这一参数，比如说玩家不同的装备格(顶面 => 头部格子?)，或者背包中四周的格子(西面 => 左边的格子?)。不要忘记回溯到 `super` 中，否则附加的能力将会停止工作。
+一旦你有了自己的能力接口实例，你会希望在你展现能力的时候通知能力系统的用户。这个可以通过重写 `hasCapability` 方法进行实现，并将实例和你展示的能力进行对比。如果你的机器根据面的不同有不同数量的格子，你可以通过 `facing` 参数进行判定。对于实体和ItemStack，这个参数可以忽略掉，但是你仍然可以自己对面进行定义以使用这一参数，比如说玩家不同的装备格（顶面 => 头部格子？），或者背包中四周的格子（西面 => 左边的格子？）。不要忘记回溯到 `super` 中，否则附加的能力将会停止工作。
 
 ```java
 @Override
@@ -121,7 +121,7 @@ private static class Factory implements Callable<IExampleCapability> {
 }
 ```
 
-最后我们需要一个默认实现，以能在Factory中实例化。这个类的设计完全取决于你，但它至少应该能提供一个简单的骨架让别人测试这个能力(如果它本身不是完全可用的话)。
+最后我们需要一个默认实现，以能在Factory中实例化。这个类的设计完全取决于你，但它至少应该能提供一个简单的骨架让别人测试这个能力（如果它本身不是完全可用的话）。
 
 与客户端同步数据
 --------------
@@ -154,7 +154,7 @@ private static class Factory implements Callable<IExampleCapability> {
 - 注册(Registration, `EntityConstructing`)：附属(Attaching, `AttachCapabilityEvent.Entity`)，Capability真正的注册发生在pre-init的时候。
 - NBT读写方法：不会自动发生。你需要在事件中附属一个 `ICapabilitySerializable`，并运行 `serializeNBT`/ `deserializeNBT` 来读写NBT数据。
 
-你可能不会需要的特性(如果IEEP只在内部使用)：
+你可能不会需要的特性（如果IEEP只在内部使用）：
 
 - 能力系统提供了一个默认实现概念，用来简化第三方用户的使用，但它对一个内部使用的能力就没那么重要的。你可以安全地从Factory返回 `null` 值，如果这个能力只是为了内部使用的话。
 - 能力系统提供了一个 `IStorage` 系统，用来从默认实现中读写数据。如果你选择不提供默认实现，那么 `IStorage` 系统将永远不会被调用，所以它可以留空。
@@ -163,14 +163,14 @@ private static class Factory implements Callable<IExampleCapability> {
 
 转换指南：
 
-1. 转换IEEP的key/id字符串到 `ResourceLocation`(并使用你的MODID作为域)
-2. 在你的处理器(Handler)类中(不是你实现能力接口的那个类)创建一个用来储存 `Capability` 实例的字段
-3. 将 `EntityConstructing` 事件改为 `AttachCapabilityEvent`，并且你需要依附一个 `ICapabilityProvider`(可能是 `ICapabilitySerializable`，让你能够读写NBT)，而不是查询IEEP。
-4. 如果你没有注册方法的话，创建一个(你可能已经有一个用来注册IEEP事件处理器(Event Handler)的了)，并在其中运行能力的注册函数。
+1. 转换IEEP的key/id字符串到 `ResourceLocation`（并使用你的MODID作为域）
+2. 在你的处理器(Handler)类中（不是你实现能力接口的那个类）创建一个用来储存 `Capability` 实例的字段
+3. 将 `EntityConstructing` 事件改为 `AttachCapabilityEvent`，并且你需要依附一个 `ICapabilityProvider`（可能是 `ICapabilitySerializable`，让你能够读写NBT），而不是查询IEEP。
+4. 如果你没有注册方法的话，创建一个（你可能已经有一个用来注册IEEP事件处理器(Event Handler)的了），并在其中运行能力的注册函数。
 
 !!! note
 
-    这篇文档翻译有点混乱，如果有看不懂的建议去看[原文](http://mcforge.readthedocs.org/en/latest/datastorage/capabilities/)(虽然原文也不怎么清楚)。
+    这篇文档翻译有点混乱，如果有看不懂的建议去看[原文](http://mcforge.readthedocs.org/en/latest/datastorage/capabilities/)（虽然原文也不怎么清楚）。
 
     另外，建议去看Forge这个测试的mod：[TestCapabilityMod.java](https://github.com/MinecraftForge/MinecraftForge/blob/master/src/test/java/net/minecraftforge/test/TestCapabilityMod.java)
 

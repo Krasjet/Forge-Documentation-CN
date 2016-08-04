@@ -12,7 +12,7 @@
 
     如果你没有一个域名，不要用它当做你的顶级包的名字。用任何东西命名你的包都是可以接受的，比如说你的名字/昵称，或者是mod的名字。
 
-在顶级包之后(如果你有一个)你需要添加一个你唯一的mod名字，比如说 `examplemod`。在这里这个包将会最终是 `com.example.examplemod`。
+在顶级包之后（如果你有一个）你需要添加一个你唯一的mod名字，比如说 `examplemod`。在这里这个包将会最终是 `com.example.examplemod`。
 
 Mod文件
 ------
@@ -22,7 +22,7 @@ Mod文件
 什么是 `@Mod`？
 -------------
 
-这是一个注解(Annotation)，告诉Forge Mod Loader(FML)这个类(Class)是一个Mod的入口点。它可以包含不同的关于这个mod的元数据(Metadata)。它也同样指示了这个类将会收到 `@EventHandler` 事件。更多的信息在这里...(未完成)
+这是一个注解(Annotation)，告诉Forge Mod Loader(FML)这个类(Class)是一个Mod的入口点。它可以包含不同的关于这个mod的元数据(Metadata)。它也同样指示了这个类将会收到 `@EventHandler` 事件。更多的信息在这里...（未完成）
 
 你可以在 [Forge src download](http://files.minecraftforge.net/)找到一个示例mod。
 
@@ -31,7 +31,7 @@ Mod文件
 
 我们推荐您分解你的mod到不同的子包而不是堆在单独一个类和包里面。
 
-我们通常把包分成 `common` 和 `client` 两部分，分别对应运行在服务器/客户端(`common`)与客户端(`client`)的代码。在 `common` 包里面应该放物品、方块、和Tile Entity(可以每个都再分到一个子包里面)。而GUI和渲染相关代码应该放在 `client` 包里面。
+我们通常把包分成 `common` 和 `client` 两部分，分别对应运行在服务器/客户端(`common`)与客户端(`client`)的代码。在 `common` 包里面应该放物品、方块、和Tile Entity（可以每个都再分到一个子包里面）。而GUI和渲染相关代码应该放在 `client` 包里面。
 
 !!! note
 

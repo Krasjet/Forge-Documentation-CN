@@ -77,7 +77,7 @@ SoundEvent event = new SoundEvent(location);
 GameRegistry.register(event, location);
 ```
 
-保存好 `SoundEvent` 这个对象，因为你之后播放音效还会用到它。如果你有一个API，并且想让Addon能够播放你的音效事件，请将这些对象放到API中(不要在API中注册它们，你只需要留一些字段在API中并在初始化阶段的时候赋值。
+保存好 `SoundEvent` 这个对象，因为你之后播放音效还会用到它。如果你有一个API，并且想让Addon能够播放你的音效事件，请将这些对象放到API中（不要在API中注册它们，你只需要留一些字段在API中并在初始化阶段的时候赋值）。
 
 播放音效
 -------
@@ -119,7 +119,7 @@ GameRegistry.register(event, location);
 
 ### `EntityPlayer`
 
-1. <a name="entityplayer-playsound-evp"></a>`playSound(SoundEvent, volume, pitch)` (重写(Override)了 [`Entity`](#entity-playsound-evp) 内的那个方法)
+1. <a name="entityplayer-playsound-evp"></a>`playSound(SoundEvent, volume, pitch)`（重写(Override)了 [`Entity`](#entity-playsound-evp) 内的那个方法）
     - 转发到 `World` 的[重载(2)](#world-playsound-pxyzecvp)，player的参数传递为 `this`。
     - **客户端行为**：无。可以看一下在 `EntityPlayerSP` 内的[重写](#entityplayersp-playsound-evp)。
     - **服务端行为**：对**除了**这个玩家以外所有玩家播放音效。

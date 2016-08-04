@@ -5,7 +5,7 @@ Forge使用的是一种事件总线(Event Bus)的机制，使mod能够从原版�
 
 例子：一个事件可以用来使在原版木棍右键的时候执行一个行为。
 
-对于大部分事件的主事件总线位于 `MinecraftForge.EVENT_BUS`。有一些对于特定事件的(比如说地形生成)其它的总线也在同一个类中。
+对于大部分事件的主事件总线位于 `MinecraftForge.EVENT_BUS`。有一些对于特定事件的（比如说地形生成）其它的总线也在同一个类中。
 
 一个事件处理器(Event Handler)是一个包含有一个或者多个 `public void` 成员方法，并且每一个方法都有 `@SubscribeEvent` 注解的类。
 
@@ -43,9 +43,9 @@ public class MyForgeEventHandler {
 优先级(Priority)
 ---------------
 
-事件处理器方法(被 `@SubscribeEvent`注解的方法)有一个优先级(Priority)。你可以对事件处理器方法的注解加上 `priority` 值作为参数从而设置其优先级。优先级可以是 `EventPriority` 里的任何值(`HIGHEST`、`HIGH`、`NORMAL`、`LOW`、`LOWEST`)。有着 `HIGHEST` 优先级的事件处理器将会最先被执行，之后沿着降序执行直到 `LOWEST` 的事件处理器被最后执行。
+事件处理器方法（被 `@SubscribeEvent`注解的方法）有一个优先级(Priority)。你可以对事件处理器方法的注解加上 `priority` 值作为参数从而设置其优先级。优先级可以是 `EventPriority` 里的任何值(`HIGHEST`、`HIGH`、`NORMAL`、`LOW`、`LOWEST`)。有着 `HIGHEST` 优先级的事件处理器将会最先被执行，之后沿着降序执行直到 `LOWEST` 的事件处理器被最后执行。
 
 子事件(Sub Event)
 ----------------
 
-很多事件都有它们自己不同的变种。一个事件的变种虽然不同但它们都基于共同的因子(比如说 `PlayerEvent`)，或者是一个有多个阶段的事件(比如说 `PotionBrewEvent`。要注意的是，如果你监听了父事件类，这个事件监听器将会在该父事件的任一子类触发时被调用。
+很多事件都有它们自己不同的变种。一个事件的变种虽然不同但它们都基于共同的因子（比如说 `PlayerEvent`），或者是一个有多个阶段的事件（比如说 `PotionBrewEvent`）。要注意的是，如果你监听了父事件类，这个事件监听器将会在该父事件的任一子类触发时被调用。
