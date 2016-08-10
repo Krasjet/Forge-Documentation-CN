@@ -31,6 +31,12 @@
 
 和大多数东西一样，方块可以使用 `GameRegistry.register(...)` 来注册。这个方法中，你的方块需要有一个“注册名(Registry Name)”，或者说是方块的唯一名字。推荐在 `register` 方法内调用 `setRegistryName`来设置注册名。比如说 `GameRegistry.register(myBlock.setRegistryName("foo"))`。
 
+!!! important
+
+	世界中的方块和物品栏中的方块截然不同。世界中的方块由 `Block` 的一个实例管理，它有一个方块状态，一个4 Bit的元数据值，或许还有一个Tile Entity。然而，物品栏中的物品由 `Item` 的一个实例所控制，它由一个16 Bit损害/元数据值，或许有一个NBT标签。作为 `Block` 和 `Item` 之间的桥梁，我们有一个 `ItemBlock` 类。 `ItemBlock` 是 `Item` 的一个子类，它包含一个 `block` 字段用来引用它所代表的 `Block`。`ItemBlock` 定义了方块作为一个物品的一些行为，比如说右击如何放置一个方块。一个 `Block` 没有 `ItemBlock` 也是可以的（比如说 `minecraft:water` 是一个方块，但不是一个物品）。
+
+	当你注册一个方块的时候，你**仅**注册了这个方块。这个方块不会自动有一个 `ItemBlock`。为了给你的方块添加一个 `ItemBlock`，你需要用你的方块构造一个 `ItemBlock`，并注册它。最简单的方法就是：`GameRegistry.register(new ItemBlock(myBlock).setRegistryName(myBlock.getRegistryName()))`。
+
 !!! note
 
 	当使用一个简单String的时候，当前的mod的ID将会被添加作为前缀。所以，如果我是在 "mymod" 中注册的，真实的注册名会是 "mymod:foo"。
