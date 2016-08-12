@@ -53,7 +53,7 @@
 |     logoFile |  string  |   `""`   | Mod Logo的地址。它会根据classpath来解析，所以你可以把它放在任何不会造成命名冲突的位置，比如说你的assets文件夹中 |
 |  screenshots | [string] |   `[]`   | 在信息页面会显示的图片，现在还没有实现 |
 |       parent |  string  |   `""`   | 父Mod的modid，如果可用的话。使用这个可以让别的Mod的模块在信息页面列在这个Mod的下面，比如说BuildCraft中就有用到 |
-| useDependencyInormation |  boolean |  `false` | 如果设置为true并且 `Mod.useMetadata` 也设置为true，Mod将会使用下面这3个依赖列表。如果不是true的话下面3个值则不会生效 |
+| useDependencyInformation |  boolean |  `false` | 如果设置为true并且 `Mod.useMetadata` 也设置为true，Mod将会使用下面这3个依赖列表。如果不是true的话下面3个值则不会生效 |
 | requiredMods | [string] |   `[]`   | 一个modid列表。如果缺少一个，游戏将会弹出提示并停止加载。**这并不会影响到Mod<font color=red>加载</font>顺序！**如果想要同时注明加载顺序和依赖，请在 `dependencies` 中添加相同的条目 |
 | dependencies | [string] |   `[]`   | 一个modid列表。所有列出的Mod将会在当前Mod**加载前**加载。如果这一项为空，则什么都不会发生。 |
 |   dependants | [string] |   `[]`   | 一个modid列表。所有列出的Mod将会在当前Mod**加载后**加载。如果这一项为空，则什么都不会发生。 |
