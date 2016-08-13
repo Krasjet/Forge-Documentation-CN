@@ -6,6 +6,8 @@ pages:
     - 概述: 'gettingstarted/index.md'
     - 构造您的mod: 'gettingstarted/structuring.md'
     - Forge更新检查器: 'gettingstarted/autoupdate.md'
+  - 概念:
+    - Sides: 'concepts/sides.md'
   - 方块(Blocks):
     - 概述: 'blocks/blocks.md'
     - 方块互动(Block Interaction): 'blocks/interaction.md'
@@ -29,8 +31,7 @@ pages:
     - 版本命名: 'conventions/versioning.md'
     - 文件位置: 'conventions/locations.md'
     - 加载阶段(Loading Stages): 'conventions/loadstages.md'
-  - 概念:
-    - Sides: 'concepts/sides.md'
+
 
 # Do not edit in PRs below here
 site_name: Forge文档
