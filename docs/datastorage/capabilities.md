@@ -75,6 +75,7 @@ public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 - `AttachCapabilityEvent.Entity`: 仅对实体触发
 - `AttachCapabilityEvent.TileEntity`: 仅对TileEntity触发
 - `AttachCapabilityEvent.Item`: 仅对ItemStack触发
+- `AttachCapabilityEvent.World`: 仅对世界触发
 
 每个事件都有一个方法 `addCapacity`，它可以用来附加能力到目标对象上。你在能力列表中添加的是能力Provider，而不是能力本身，它可以从特定面返回相应的能力。Provider只需要实现 `ICapabilityProvider`，如果能力需要持久储存数据，你需要实现 `ICapabilitySerializable<T extends NBTBase>`，它不仅能返回能力，还能提供NBT存储与读取函数。
 
