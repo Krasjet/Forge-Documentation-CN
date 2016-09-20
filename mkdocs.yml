@@ -25,6 +25,8 @@ pages:
     - 能力(Capability)系统: 'datastorage/capabilities.md'
     - World Saved Data: 'datastorage/worldsaveddata.md'
     - 拓展实体属性(Extended Entity Properties): 'datastorage/extendedentityproperties.md'
+  - 工具:
+    - 矿物词典: 'utilities/oredictionary.md'
   - 效果:
     - 音效(Sounds): 'effects/sounds.md'
   - 惯例:
