@@ -7,4 +7,4 @@ MinecraftForge文档
 
 翻译也许并不能准确传达原文意思，如果觉得哪里有困惑，可以去原文进行参考：[http://mcforge.readthedocs.io/](http://mcforge.readthedocs.io/)
 
-中文翻译最后更新时间：9/20/2016 10:15:46 PM CST
+中文翻译最后更新时间：9/20/2016 10:25:21 PM CST
