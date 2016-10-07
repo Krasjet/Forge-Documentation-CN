@@ -41,13 +41,13 @@ public class ExampleWorldSavedData extends WorldSavedData {
 
 代码中，这些存储位置通过 `MapStorage` 的两个实例呈现在 `World` 对象上。全局的数据通过 `World#getMapStorage()` 获得，单世界地图通过 `World#getPerWorldStorage()` 获得。
 
-现存数据可以通过 `MapStorage#loadData` 获取，新的数据可以通过 `MapStorage#setData` 附加到世界上。
+现存数据可以通过 `MapStorage#getOrLoadData` 获取，新的数据可以通过 `MapStorage#setData` 附加到世界上。
 
 ```java
 public static ExampleWorldSavedData get(World world) {
   // IS_GLOBAL常量只是为了解释清楚使用的，你应该将其简化为对应的方法
   MapStorage storage = IS_GLOBAL ? world.getMapStorage() : world.getPerWorldStorage();
-  ExampleWorldSavedData instance = (ExampleWorldSavedData) storage.loadData(ExampleWorldSavedData.class, DATA_NAME);
+  ExampleWorldSavedData instance = (ExampleWorldSavedData) storage.getOrLoadData(ExampleWorldSavedData.class, DATA_NAME);
 
   if (instance == null) {
     instance = new ExampleWorldSavedData();
