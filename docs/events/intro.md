@@ -29,6 +29,29 @@ public class MyForgeEventHandler {
 
 	在更早的Forge版本中存在有两个分开的事件总线。一个是Forge的，一个是FML的。然而这个系统已经被弃用很长时间了，所以你以后不需要再使用FML的事件总线了。
 
+### 静态事件处理器
+
+事件处理器也可以是静态的。用于处理的方法仍是用 `@SubscribeEvent` 来注解，和实例化处理器(Instance Handler)唯一的不同只是这个方法使用 `static` 标记了。要想注册一个静态事件处理器，你不能传入类的实例，你必须要将 `Class` 本身传递进去。一个例子：
+
+```java
+public class MyStaticForgeEventHandler {
+    @SubscribeEvent
+    public static void arrowNocked(ArrowNockEvent event) {
+        System.out.println("Arrow nocked!");
+    }
+}
+```
+
+它必须要使用 `MinecraftForge.EVENT_BUS.register(MyStaticForgeEventHandler.class)` 来注册。
+
+### 自动注册静态事件处理器
+
+一个类也可以使用 `@Mod.EventBusSubscriber` 来进行注解。当 `@Mod` 类构造时，这样的类将会自动注册至 `MinecraftForge.EVENT_BUS`。这完全等同于在 `@Mod` 类的构造器最后加上 `MinecraftForge.EVENT_BUS.register(AnnotatedClass.class);`
+
+!!! note
+
+	使用这个注解并不会注册一个类的实例。它注册的是类本身（即事件处理方法必须是静态的）。
+
 取消(Cancel)与结果(Result)
 -------------------------
 
