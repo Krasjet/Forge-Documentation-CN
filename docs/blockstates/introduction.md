@@ -26,6 +26,8 @@
 "east=false,north=false,south=false,west=false": { "model": "oak_fence_post" }
 ```
 
+要注意的是，在原版的Blockstate JSON中，属性的名称必须按照字母表顺序排列，而且资源和属性名称都必须是小写的。这也包括Blockstate的变种（`"east=false"`）。
+
 而这仅仅是其16个变种中的一个。这会很快导致非常大并且冗长的blockstate文件，这也是Minecraft 1.8的主要问题。Minecraft 1.9将会引入一个系统使这个问题得到控制。[Forge's Blockstate Json][forge]让你能在1.8里面解决这个问题。
 
 [forge]: forgeBlockstates.md "Forge's Blockstate JSON"
