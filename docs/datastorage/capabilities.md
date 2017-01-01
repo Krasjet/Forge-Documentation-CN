@@ -10,11 +10,13 @@ Forge对TileEntity、实体、和ItemStack添加了能力支持。它们可以�
 Forge提供的能力
 --------------
 
-在本文写作时，Forge提供了两种能力：IItemHandler和IFluidHandler。
+在本文写作时，Forge提供了三种能力：IItemHandler、IFluidHandler和IEnergyStorage。
 
 IItemHandler展现了一个处理背包格子的接口。它可以被应用到TileEntity（箱子，机器）、实体（玩家更多的背包格子，生物的背包）、或ItemStack（便携背包等）。它通过一个自动化友好的系统代替了以前的 `IInventory` 和 `ISidedInventory`。
 
-IFluidHandler展现了一个处理液体存储的接口。它可以被应用到TileEntity、实体、或ItemStack。它通过一个更一致和自动化友好的系统代替了以前的`IFluidHandler`
+IFluidHandler展现了一个处理液体存储的接口。它可以被应用到TileEntity、实体或ItemStack中。它通过一个更一致和自动化友好的系统代替了以前的`IFluidHandler`
+
+IEnergyStorage展现了一个用于处理能量容器的接口。它可以被应用到TileEntity、实体或ItemStack中。这个能力是基于TeamCoFH的RedstoneFlux API而制作的。
 
 使用现有能力
 -----------
@@ -70,12 +72,14 @@ public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 附加能力
 -------
 
-之前说过，对实体和ItemStack附加能力可以通过 `AttachCapabilityEvent` 来完成。这个事件包括三个更细的子事件：
+之前说过，对实体和ItemStack附加能力可以通过 `AttachCapabilityEvent` 来完成。所有提供了能力的对象使用的都是这同一个事件。`AttachCapabilityEvent` 有四个泛型(Generic)，分别提供了以下几个事件
 
-- `AttachCapabilityEvent.Entity`: 仅对实体触发
-- `AttachCapabilityEvent.TileEntity`: 仅对TileEntity触发
-- `AttachCapabilityEvent.Item`: 仅对ItemStack触发
-- `AttachCapabilityEvent.World`: 仅对世界触发
+- `AttachCapabilityEvent<Entity>`: 仅对实体触发
+- `AttachCapabilityEvent<TileEntity>`: 仅对TileEntity触发
+- `AttachCapabilityEvent<Item>`: 仅对ItemStack触发
+- `AttachCapabilityEvent<World>`: 仅对世界触发
+
+泛型的类型只能是以上几个，不能够更加细化。也就是说如果你想附加一个能力到一个包含子类的对象上，比如说 `EntityPlayer`，你必须要订阅的是 `AttachCapabilityEvent<Entity>`，之后再来判断这个对象是否是 `EntityPlayer`，并附加相应的能力。
 
 每个事件都有一个方法 `addCapacity`，它可以用来附加能力到目标对象上。你在能力列表中添加的是能力Provider，而不是能力本身，它可以从特定面返回相应的能力。Provider只需要实现 `ICapabilityProvider`，如果能力需要持久储存数据，你需要实现 `ICapabilitySerializable<T extends NBTBase>`，它不仅能返回能力，还能提供NBT存储与读取函数。
 
@@ -152,7 +156,7 @@ private static class Factory implements Callable<IExampleCapability> {
 下面这个列表将给出IEEP概念的对应能力系统等价：
 
 - Property名称/ID(`String`)：Capability键值(`ResourceLocation`)
-- 注册(Registration, `EntityConstructing`)：附属(Attaching, `AttachCapabilityEvent.Entity`)，Capability真正的注册发生在pre-init的时候。
+- 注册(Registration, `EntityConstructing`)：附属(Attaching, `AttachCapabilityEvent<Entity>`)，Capability真正的注册发生在pre-init的时候。
 - NBT读写方法：不会自动发生。你需要在事件中附属一个 `ICapabilitySerializable`，并运行 `serializeNBT`/ `deserializeNBT` 来读写NBT数据。
 
 你可能不会需要的特性（如果IEEP只在内部使用）：
