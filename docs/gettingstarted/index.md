@@ -8,17 +8,17 @@ Forge入门
 
 1. 从Forge[下载站点][files]获取Forge的源码发布版（即Mdk版本（1.8/1.7的旧版本为Src））
 2. 解压刚下载的源码到一个空文件夹中。你应该能看见有一些文件在里面，并且我们准备了一个范例mod在 `src/main/java` 中供您参考。只有下面这几个文件是在mod开发中必须的，并且你可以对你所有的工程重用这些文件：
-    * `build.gradle`
-    * `gradlew` (`.bat`和`.sh`)
-    * `gradle` 文件夹
+    - `build.gradle`
+    - `gradlew` (`.bat`和`.sh`)
+    - `gradle` 文件夹
 3. 将上述文件复制到一个新的文件夹中，它将会是你的mod工程文件夹
 4. 在步骤(3)创建的文件夹中打开命令提示符，运行 `gradlew setupDecompWorkspace` (译注: 如果在Linux系统下替换 `gradlew` 为 `./gradlew`，需要自己添加运行权限)。这个指令会从互联网上下载很多的文件，这些文件会用来反编译和构建Minecraft和Forge。由于它会下载一些东西并且反编译Minecraft，这也许会需要很长时间
 5. 选择你的IDE: Forge官方支持使用Eclipse或者是IntelliJ环境进行开发，但你可以使用任何开发环境，从NetBeans到vi/emacs，都可以正常工作
-    * 对于Eclipse用户，你需要运行 `gradlew eclipse` - 这会下载更多为了构建Eclipse工程的产物，并且将Eclipse工程输出到你当前的目录
-    * 对于IntelliJ用户，直接导入build.gradle文件就可以了（译注：IDEA启动界面Import Project选build.gradle）
+    - 对于Eclipse用户，你需要运行 `gradlew eclipse` - 这会下载更多为了构建Eclipse工程的产物，并且将Eclipse工程输出到你当前的目录
+    - 对于IntelliJ用户，直接导入build.gradle文件就可以了（译注：IDEA启动界面Import Project选build.gradle）
 6. 加载你的工程到IDE
-    * 对于Eclipse用户，在任意地方创建一个工作空间(Workspace)（当然最方便的就是在工程文件夹的上一级目录中创建）。之后以工程的形式导入你的工程文件夹，之后的事情软件都会自动处理
-    * 对于IntelliJ用户，你只需要创建运行配置就行了。你可以运行 `gradlew genIntellijRuns` 来自动生成
+    - 对于Eclipse用户，在任意地方创建一个工作空间(Workspace)（当然最方便的就是在工程文件夹的上一级目录中创建）。之后以工程的形式导入你的工程文件夹，之后的事情软件都会自动处理
+    - 对于IntelliJ用户，你只需要创建运行配置就行了。你可以运行 `gradlew genIntellijRuns` 来自动生成
 
 !!! note
 
@@ -34,6 +34,19 @@ Forge入门
 !!! note
 
     注意，通常情况下，`gradlew setupDecompWorkspace` 的文件只需要被下载并且反编译一次，除非你删除了Gradle产物缓存。
+
+无需控制台的IntelliJ IDEA配置
+----------------------------
+
+在开始这部分之前，请按照步骤1到3先将工程文件夹创建好。也正因为这个原因，这一部分的序号将从4开始。
+
+4. 启动IDEA，并选择打开(Open)或导入(Import) `build.gradle` 文件，使用默认的Gradle Wrapper设置。当这个步骤完成之后，你可以打开右边的Gradle面板，当导入完成后里面将会有所有的Gradle任务(Task)。
+5. 运行 `setupDecompWorkspace` 这个任务（在 `forgegradle` 任务组中）。这应该会需要一点时间，并且会占用很大的内存。如果失败的话，在IDEA的Gradle设置窗口的 `Gradle VM options` 中添加 `-Xmx3G`，或者也可以修改你的全局Gradle配置。
+6. 这个配置任务完成后，你需要运行 `genIntellijRuns` 这个任务，它将会配置工程的运行/调试对象。
+7. 完成后，你需要点击**Gradle面板中的**蓝色刷新按钮（在工具栏上也有一个刷新按钮，但不是那个）。这将会重新同步IDEA工程与Gradle数据，保证所有的依赖项与配置都是最新的。
+8. 最后，如果你用的是IDEA 2016或者更新版本，你需要修复类路径模块。进入 `Edit configurations`，在 `Minecraft Client` 和 `Minecraft Server` 中，将 `Use classpath of module` 指向类似于 `<project>_main` 这样名字的模块。
+
+如果所有步骤都没有问题，你现在应该可以从下拉列表中选择Minecraft的运行任务，接下来点击Run/Debug按钮来测试你的配置。
 
 自定义你的mod信息
 ---------------
