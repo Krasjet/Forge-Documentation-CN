@@ -99,6 +99,10 @@ switch(meta) {
 
 然而，你需要在你的 `Block` 类中重写 `getActualState`。这里你将会接收到对应世界中Metadata值的 `IBlockState` ，你需要返回另一个包含缺失信息的 `IBlockState`，比如说栅栏链接，红石链接等。你需要用 `withProperty` 来附加属性。你也可以用这个来对一个值读TileEntity数据（当然你需要恰当的安全检查！）。
 
+!!! warning
+
+	当你在 `getActualState` 中读取TileEntity的数据时，你必须采取进一步的安全检查。默认情况下，`getTileEntity` 将会在TileEntity不存在时尝试创建这个TileEntity。然而，`getActualState` 和 `getExtendedState` 可以并且会被另外的线程调用，这将会导致在它尝试创建丢失TIleEntity时，世界的TileEntity列表会抛出 `ConcurrentModificationException`。所以，你必须检查 `IBlockAccess` 参数是否为 `ChunkCache`（传给其它线程的对象），如果是的话，将其强制转换为 `ChunkCache` 类型，并使用 `getTileEntity` 不可写的变种。安全检查的例子可以在 `BlockFlowerPot.getActualState()` 中找到。
+
 !!! note
 
 	调用 `world.getBlockState()` 将会返回代表metadata的 `IBlockState`。所以返回的 `IBlockState` 将不会包含 `getActualState` 内的数据。如果这写数据对你的代码很重要，请务必调用 `getActualState`！
