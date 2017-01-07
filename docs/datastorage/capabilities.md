@@ -10,7 +10,7 @@ Forge对TileEntity、实体、和ItemStack添加了能力支持。它们可以�
 Forge提供的能力
 --------------
 
-在本文写作时，Forge提供了三种能力：IItemHandler、IFluidHandler和IEnergyStorage。
+Forge提供了三种能力：IItemHandler、IFluidHandler和IEnergyStorage。
 
 IItemHandler展现了一个处理背包格子的接口。它可以被应用到TileEntity（箱子，机器）、实体（玩家更多的背包格子，生物的背包）、或ItemStack（便携背包等）。它通过一个自动化友好的系统代替了以前的 `IInventory` 和 `ISidedInventory`。
 
@@ -79,7 +79,7 @@ public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 - `AttachCapabilityEvent<Item>`: 仅对ItemStack触发
 - `AttachCapabilityEvent<World>`: 仅对世界触发
 
-泛型的类型只能是以上几个，不能够更加细化。也就是说如果你想附加一个能力到一个包含子类的对象上，比如说 `EntityPlayer`，你必须要订阅的是 `AttachCapabilityEvent<Entity>`，之后再来判断这个对象是否是 `EntityPlayer`，并附加相应的能力。
+泛型的类型只能是以上几个，不能够更加细化。比如说，如果你想附加一个能力到 `EntityPlayer` 上，你必须要订阅的是 `AttachCapabilityEvent<Entity>`，之后在附加相应能力之前判断所提供的对象是否是 `EntityPlayer`。
 
 每个事件都有一个方法 `addCapacity`，它可以用来附加能力到目标对象上。你在能力列表中添加的是能力Provider，而不是能力本身，它可以从特定面返回相应的能力。Provider只需要实现 `ICapabilityProvider`，如果能力需要持久储存数据，你需要实现 `ICapabilitySerializable<T extends NBTBase>`，它不仅能返回能力，还能提供NBT存储与读取函数。
 
