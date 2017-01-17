@@ -27,21 +27,14 @@
 注册方块
 -------
 
-好了，现在你已经创建好一个方块类，现在该将其放到游戏里了。这是个很简单的事情。
-
-和大多数东西一样，方块可以使用 `GameRegistry.register(...)` 来注册。这个方法中，你的方块需要有一个“注册名(Registry Name)”，或者说是方块的唯一名字。推荐在 `register` 方法内调用 `setRegistryName`来设置注册名。比如说 `GameRegistry.register(myBlock.setRegistryName("foo"))`。
+方块必须要[注册]至函数中。
 
 !!! important
 
-	世界中的方块和物品栏中的方块截然不同。世界中的方块由 `Block` 的一个实例管理，它有一个方块状态，一个4 Bit的元数据值，或许还有一个Tile Entity。然而，物品栏中的物品由 `Item` 的一个实例所控制，它由一个16 Bit损害/元数据值，或许有一个NBT标签。作为 `Block` 和 `Item` 之间的桥梁，我们有一个 `ItemBlock` 类。 `ItemBlock` 是 `Item` 的一个子类，它包含一个 `block` 字段用来引用它所代表的 `Block`。`ItemBlock` 定义了方块作为一个物品的一些行为，比如说右击如何放置一个方块。一个 `Block` 没有 `ItemBlock` 也是可以的（比如说 `minecraft:water` 是一个方块，但不是一个物品）。
+	世界中的方块和物品栏中的“方块”截然不同。世界中的方块由 `IBlockState` 来表示，它的行为由 `Block` 的实例来定义。而物品栏中的物品是一个 `ItemStack`，由 `Item` 来控制。作为 `Block` 与 `Item` 之间的桥梁，`ItemStack` 类诞生了。`ItemStack` 是 `Item` 的一个子类，但它封装了其对应 `Block` 的引用。`ItemBlock` 定义了一个“方块”作为物品的行为，比如说右键如何能放置这个方块。一个 `Block` 没有 `ItemBlock` 也是可以的。（比如说 `minecraft:water` 存在有这个方块，但没有这个物品。所以不能将它放在物品栏中。）
 
-	当你注册一个方块的时候，你**仅**注册了这个方块。这个方块不会自动有一个 `ItemBlock`。为了给你的方块添加一个 `ItemBlock`，你需要用你的方块构造一个 `ItemBlock`，并注册它。最简单的方法就是：`GameRegistry.register(new ItemBlock(myBlock).setRegistryName(myBlock.getRegistryName()))`。
+	当你注册一个方块的时候，你**仅**注册了这个方块。这个方块不会自动有一个 `ItemBlock`。为了给你的方块添加一个最基础的 `ItemBlock`，你应该使用 `new ItemBlock(block).setRegistryName(block.getRegistryName())`。它的非本地化名称和方块的是一样的。你也可以使用自定义的 `ItemBlock` 子类。 当 `ItemBlock` 注册到一个方块上之后，可以使用 `Item.getItemFromBlock` 来获取它。如果这个 `Block` 没有 `ItemBlock`，`Item.getItemFromBlock` 将会返回 `null`，所以如果你不确定你要使用的方块是否有 `ItemBlock`，先检查 `null` 值。
 
-!!! note
-
-	当使用一个简单String的时候，当前的mod的ID将会被添加作为前缀。所以，如果我是在 "mymod" 中注册的，真实的注册名会是 "mymod:foo"。
-
-直接将一个 `ResourceLocation` 传入 `register` 也是可以的，但调用 `setRegistryName` 并传入一个事先准备好的 `ResourceLocation` 会更方便一点。
 
 拓展阅读
 -------
@@ -49,4 +42,5 @@
 对于更多方块属性的信息，比如说原版的木头类型、栅栏、墙等，请阅读[方块状态]小节。
 
 [音效]: ../effects/sounds.md
+[注册]: ../concepts/registries.md#registering-things
 [方块状态]: ../blockstates/states.md
