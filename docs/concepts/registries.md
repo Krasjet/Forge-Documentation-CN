@@ -83,4 +83,4 @@ class UnannotatedHolder { // 注意这个类没有注解
 }
 ```
 
-[ObjectHolder]: #injecting-registry-values-into-fields
+[ObjectHolder]: #_4

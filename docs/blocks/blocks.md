@@ -42,5 +42,5 @@
 对于更多方块属性的信息，比如说原版的木头类型、栅栏、墙等，请阅读[方块状态]小节。
 
 [音效]: ../effects/sounds.md
-[注册]: ../concepts/registries.md#registering-things
+[注册]: ../concepts/registries.md#_2
 [方块状态]: ../blockstates/states.md

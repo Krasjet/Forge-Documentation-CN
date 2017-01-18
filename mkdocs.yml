@@ -8,7 +8,7 @@ pages:
     - Forge更新检查器: 'gettingstarted/autoupdate.md'
   - 概念:
     - Sides: 'concepts/sides.md'
-    - 注册: 'concepts/registries.md'
+    - 注册表: 'concepts/registries.md'
   - 方块(Blocks):
     - 概述: 'blocks/blocks.md'
     - 方块互动(Block Interaction): 'blocks/interaction.md'

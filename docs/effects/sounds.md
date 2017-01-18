@@ -116,5 +116,5 @@ SoundEvent event = new SoundEvent(location);
     - **用处**：就像 `World` 内的方法一样，这玩家类内重写的两个方法可以用在同时运行在两端的代码中。客户端负责播放音效到用户，服务端负责让其他人都听见而不对原始用户重新播放。
 
 [wiki]: http://minecraft.gamepedia.com/Sounds.json
-[注册]: ../concepts/registries.md#registering-things
+[注册]: ../concepts/registries.md#_2
 [sides]: ../concepts/sides.md
