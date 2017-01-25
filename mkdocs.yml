@@ -9,31 +9,33 @@ pages:
   - 概念:
     - Sides: 'concepts/sides.md'
     - 注册表: 'concepts/registries.md'
-  - 方块(Blocks):
+  - 方块:
     - 概述: 'blocks/blocks.md'
-    - 方块互动(Block Interaction): 'blocks/interaction.md'
-  - 方块状态(Blockstate):
+    - 方块互动: 'blocks/interaction.md'
+  - 方块状态:
     - 方块状态介绍: 'blockstates/states.md'
     - 方块状态JSON介绍: 'blockstates/introduction.md'
     - Forge方块状态JSON: 'blockstates/forgeBlockstates.md'
-  - 事件(Event):
+  - 物品:
+    - 主页: 'items/items.md'
+  - 事件:
     - 基本用法: 'events/intro.md'
   - 网络:
     - 索引: 'networking/index.md'
     - 概述: 'networking/overview.md'
     - SimpleImpl: 'networking/simpleimpl.md'
   - 数据储存:
-    - 能力(Capability)系统: 'datastorage/capabilities.md'
+    - 能力系统: 'datastorage/capabilities.md'
     - World Saved Data: 'datastorage/worldsaveddata.md'
-    - 拓展实体属性(Extended Entity Properties): 'datastorage/extendedentityproperties.md'
+    - 拓展实体属性: 'datastorage/extendedentityproperties.md'
   - 工具:
     - 矿物词典: 'utilities/oredictionary.md'
   - 效果:
-    - 音效(Sounds): 'effects/sounds.md'
+    - 音效: 'effects/sounds.md'
   - 惯例:
     - 版本命名: 'conventions/versioning.md'
     - 文件位置: 'conventions/locations.md'
-    - 加载阶段(Loading Stages): 'conventions/loadstages.md'
+    - 加载阶段: 'conventions/loadstages.md'
 
 
 # Do not edit in PRs below here
