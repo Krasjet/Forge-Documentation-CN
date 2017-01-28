@@ -10,7 +10,7 @@
 注册对象
 -------
 
-注册对象推荐的方式是使用 `RegistryEvent`。在 `RegistryEvent.NewRegistry` 中，注册表应该会被创建。之后，`RegistryEvent.Register` 会在每一个注册表注册的时候被触发。由于 `Register` 是一个泛型事件，事件处理器应该将类型参数设置为被注册对象的类型。这个事件将会包含可以注册对象的注册表(`getRegistry`)，对象可以在注册表中使用 `register`(`All`) 注册。下面是一个注册方块的事件处理器例子：
+注册对象推荐的方式是使用 `RegistryEvent`。在 `RegistryEvent.NewRegistry` 中，注册表应该会被创建。之后，`RegistryEvent.Register` 会在每一个注册表注册的时候被触发。由于 `Register` 是一个泛型事件，事件处理器应该将类型参数设置为被注册对象的类型。这个事件将会包含可以注册对象的注册表(`getRegistry`)，对象可以在注册表中使用 `register`（或 `registerAll`）注册。下面是一个注册方块的事件处理器例子：
 
 ```java
 @SubscribeEvent
