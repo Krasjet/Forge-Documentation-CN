@@ -1,5 +1,5 @@
-方块状态(Block States)
-=====================
+方块状态介绍
+===========
 
 请在开始写代码前将本指南**全部**阅读完。你的理解将会比你阅读部分只更加全面和正确。
 
@@ -28,7 +28,7 @@ switch(meta) {
 新的思考方式
 -----------
 
-与其到处用一些意义不明的数字，我们不如使用一些系统来使保存的数据从方块语义本身抽象出来。这就是为什么我们现在会有 `IProperty<?>`。每一个 `Block` 都有一个集合的0个或更多个这样的对象。自然它描述了方块的属性(Properties)。比如说，方块可能包含颜色(`IProperty<EnumDyeColor>`)，朝向(`IProperty<EnumFacing>`)，整数或boolean值等。每一个属性都可以有一个在 `IProperty` 内指定的类型的**值**。比如说，对于我们之前例子里的属性，我们可以有值 `EnumDyeColor.WHITE`，`EnumFacing.EAST`，`1`，或 `false`。
+与其到处用一些意义不明的数字，我们不如使用一些系统来使保存的数据从方块语义本身抽象出来。这就是为什么我们现在会有 `IProperty<?>`。每一个 `Block` 都有一组0个或更多个这样的对象。自然它描述了方块的属性(Properties)。比如说，方块可能包含颜色（`IProperty<EnumDyeColor>`），朝向（`IProperty<EnumFacing>`），整数或boolean值等。每一个属性都可以有一个在 `IProperty` 内指定的类型的**值**。比如说，对于我们之前例子里的属性，我们可以有值 `EnumDyeColor.WHITE`，`EnumFacing.EAST`，`1`，或 `false`。
 
 接下来，我们可以看到每一个特定的三元组（Block，属性集合，属性值的集合）都是一个对Block和Metadata的合适并且抽象的替代物。现在，我们有了“minecraft:stone_button[facing=east,powered=true]”，而不是 “minecraft:stone_button meta 9”，猜猜两个之中哪个更明确？
 
@@ -42,11 +42,11 @@ switch(meta) {
 在你的 `Block` 类，为方块的每个属性都创建一个 `static final` 的 `IProperty<>` 对象。原版提供给我们几个方便的实现：
 
 - `PropertyInteger`：实现 `IProperty<Integer>`。通过调用 `PropertyInteger.create("<name>", <min>, <max>);` 来创建。
-- `PropertyBool`：实现 `IProperty<Boolean>`。通过调用`PropertyBool.create("<name>");` 来创建
-- `PropertyEnum<E extends Enum<E>>`：实现 `IProperty<E>`，定义了一个包含Enum类值的属性。通过调用 `PropertyEnum.create("name", <enum_class>);` 来创建
-  - 你也可以只用Enum值的一个子集（比如说你可以只用16个 `EnumDyeColor` 值中的4个值。你可以看一看 `PropertyEnum.create` 的其它重载）
-- `PropertyDirection`：这是 `PropertyEnum<EnumFacing>` 的一个简便实现
-  - 一些简便的限制(Predicate)也有提供。比如说，如果要获取一个表示主方向的属性，你可以调用 `PropertyDirection.create("<name>", EnumFacing.Plane.HORIZONTAL)`。如果你需要获取X方向，调用 `PropertyDirection.create("<name>", EnumFacing.Axis.X)`
+- `PropertyBool`：实现 `IProperty<Boolean>`。通过调用`PropertyBool.create("<name>");` 来创建。
+- `PropertyEnum<E extends Enum<E>>`：实现 `IProperty<E>`，定义了一个包含Enum类值的属性。通过调用 `PropertyEnum.create("name", <enum_class>);` 来创建。
+  - 你也可以只用Enum值的一个子集（比如说你可以只用16个 `EnumDyeColor` 值中的4个值。你可以看一看 `PropertyEnum.create` 的其它重载）。
+- `PropertyDirection`：这是 `PropertyEnum<EnumFacing>` 的一个简便实现。
+  - 也有提供一些简便的限制(Predicate)。比如说，如果要获取一个表示主方向的属性，你可以调用 `PropertyDirection.create("<name>", EnumFacing.Plane.HORIZONTAL)`。如果你需要获取X方向，调用 `PropertyDirection.create("<name>", EnumFacing.Axis.X)`
 
 注意你也可以制作你自己的 `IProperty<>`，但具体的方法将不会在这篇文章里讲到。
 
@@ -58,9 +58,9 @@ switch(meta) {
 
 在你创建了 `IProperty<>` 对象之后，你还需要在 `Block` 类中重写 `createBlockState`。这个方法中，你只需要写一句 `return new BlockState()`。`BlockState` 构造器第一个参数是你的方块，`this`，之后的参数是你想要声明的所有 `IProperty`。注意在1.9及以后的版本中，`BlockState` 类被改名为 `BlockStateContainer`，这其实更准确地描述了这个类的实际作用。
 
-你刚刚创建的这个对象非常神奇——它管理了所有三元组的生成。也就是说，它会对每一个属性每一个值生成所有可能的组合（如果你懂数学，它获取了每一属性所有可能值的集合，并计算所有属性值集合的笛卡尔积）。所以，它将会生成所有可能的不同（Block，属性，值）三元组——一个属性所有可能的 `IBlockState`。
+你刚刚创建的这个对象非常神奇——它管理了所有三元组的生成。也就是说，它会对每一个属性每一个值生成所有可能的组合（如果你数学比较好，它获取了每一属性所有可能值的集合，并计算所有属性值集合的笛卡尔积）。所以，它将会生成所有可能的不同（Block，属性，值）三元组——一个属性所有可能的 `IBlockState`。
 
-如果你不设置其中一个 `IBlockState` 来作为方块的默认状态，那么有一个还是会被选中。你可能不会想要这个（这通常会造成奇怪的情况），所以在你的Block构造器最后，调用 `setDefaultState()`，并传递你想要作为默认值的 `IBlockState`。你可以使用 `this.blockState.getBaseState()` 获得被选中的那个，并对每一个属性用 `withProperty` 设置值。
+如果你不设置其中一个 `IBlockState` 来作为方块的默认状态，那么则会随机选中一个。你可能不会想要这个情况发生（这通常会造成奇怪的情况），所以在你的Block构造器最后，调用 `setDefaultState()`，并传递你想要作为默认值的 `IBlockState`。你可以使用 `this.blockState.getBaseState()` 获得被选中的那个，并对**每一个**属性都用 `withProperty` 设置值。
 
 由于 `IBlockState` 是不可变和预先生成的，调用 `IBlockState.withProperty(<PROPERTY>, <NEW_VALUE>)` 将会转到 `BlockState`/`BlockStateContainer` 并请求(Request)一个对应你需求值的 `IBlockState`，而不是创建一个新的 `IBlockState`。
 

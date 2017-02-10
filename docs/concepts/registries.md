@@ -5,7 +5,7 @@
 
 游戏中大部分需要注册的东西都是由Forge注册表(Registry)来处理的。注册表是一个类似于键值映射的对象。它会自动将整数ID分配到值上。Forge采用的是使用 `ResourceLocation` 作为键的注册表来注册对象，而对象则是 `IForgeRegistryEntry` 类型的。这就让 `ResourceLocation` 变成了对象的“注册表名"。对象的注册表名可以通过 `get`/`setRegistryName` 来访问。Setter只可以被调用一次，如果调用第二次的话会导致异常。每一种可注册对象都有它自己的注册表，在两个不同注册表中的名字将不会冲突。（比如说 `Block` 有一个注册表， `Item` 也有一个注册表，而有着相同名字 `mod:example` 的一个 `Block` 和一个 `Item` 注册时将不会冲突。然而，如果是两个方块使用同一个名字注册，则会导致抛出异常。）`IForgeRegistryEntry`默认的实现（`IForgeRegistryEntry.Impl`）也提供了两个 `setRegistryName` 简便的实现：一个的参数只有一个字符串，另一个的参数是两个字符串。需求一个字符串的重载会检测输入是否包含有一个 `:`（即，它检查是否字符串化的 `ResourceLocation` 存在域），如果没有的化，则使用当前的modid作为资源域。拥有两个参数的重载则将使用 `modID` 作为域，`name` 作为路径，构建一个注册表名。
 
-除此之外也有“注册表的注册表”，一个注册其它注册表的注册表。这个注册表使用 `ResourceLocation` 与一个附加 `Class` 键来注册注册表。这让我们可以查找注册特定类的注册表（比如说，可以通过 `GameRegistry.findRegistry` 来在注册表的注册表中查找 `Block.class` 来获取注册方块的注册表。）
+除此之外也有“注册表的注册表”，一个用于注册其它注册表的注册表。这个注册表使用 `ResourceLocation` 与一个附加 `Class` 键来注册注册表。这让我们可以查找注册特定类的注册表（比如说，可以通过 `GameRegistry.findRegistry` 来在注册表的注册表中查找 `Block.class` 来获取注册方块的注册表。）
 
 注册对象
 -------
@@ -19,11 +19,11 @@ public void registerBlocks(RegistryEvent.Register<Block> event) {
 }
 ```
 
-`RegistryEvent.Register` 事件触发的顺序是随机的，除了 `Block` **一定**会第一个被触发，并且 `Item` **一定**会在 `Block` 之后，第二个触发。在 `Register<Block>` 事件被触发之后，所有的[`ObjectHolder`][ObjectHolder] 注解将会被刷新，在 `Register<Item>` 被触发之后，它们会被再次刷新。当其它**所有的** `Register` 事件都触发之后，它们会刷新第三次。
+`RegistryEvent.Register` 事件触发的顺序是基本随机的，除了 `Block` **一定**会第一个被触发，并且 `Item` **一定**会在 `Block` 之后，第二个触发。在 `Register<Block>` 事件被触发之后，所有的[`ObjectHolder`][ObjectHolder] 注解将会被刷新，在 `Register<Item>` 被触发之后，它们会被再次刷新。当其它**所有的** `Register` 事件都触发之后，它们会刷新第三次。
 
 !!! important
 
-	这些事件都在preInit**之前**触发。这也就意味着 `@Mod.EventBusSubscriber`（或在不支持 `static` 的比如Scala mod里 `@Mod` 类的构造器中的 `MinecraftForge.EVENT_BUS.register`）应该用来在preInit之前注册事件处理器。
+	这些事件都在preInit**之前**触发。这也就意味着 `@Mod.EventBusSubscriber`（或在不支持 `static` 的比如Scala mod里 `@Mod` 类构造器中的 `MinecraftForge.EVENT_BUS.register`）应该用来在preInit之前注册事件处理器。
 
 也有另外一种老的方法可以用来注册对象到注册表，使用 `GameRegistry.register`。任何时候有人建议你使用这个方法，你都应该将其替换为对应正确注册表事件的事件处理器。这个方法使用 `IForgeRegistryEntry::getRegistryType` 找到对应于 `IForgeRegistryEntry` 的注册表，再将对象注册到这个注册表中。还有一个方便的重载需求一个 `IForgeRegistryEntry`(`ifre`)和一个 `ResourceLocation`，它等同于 `GameRegistry.register(ifre.setRegistryName(rl))`。
 

@@ -8,7 +8,7 @@
 
 ### 简单物品
 
-没有特殊功能的简单物品（比如木棍或者糖）不需要自定义的类。你可以直接实例化一个 `Item`，再调用setter去设置物品一些简单的属性。
+没有特殊功能的简单物品（比如木棍或者糖）不需要自定义的类。你可以直接实例化一个 `Item`，再调用Setter去设置物品一些简单的属性。
 
 |         方法         |                  描述                  |
 |:----------------------:|:----------------------------------------------|
@@ -17,7 +17,7 @@
 |    `setMaxStackSize`   | 设置最大的堆(Stack)大小                  |
 |      `setNoRepair`     | 让这个物品无法修复，即使它是可损害的(Damagable) |
 |  `setUnlocalizedName`  | 设置物品的未本地化名，有 "item." 前缀 |
-|    `setHarvestLevel`   | 添加或者移除一对挖掘(Harvest)类别（`"shovel"`，`"axe"`）和挖掘等级。这个方法不可链(Not Chainable)的 |
+|    `setHarvestLevel`   | 添加或者移除一对挖掘(Harvest)类别（`"shovel"`，`"axe"`）和挖掘等级。这个方法是不可链(Not Chainable)的 |
 
 除非特殊说明，上面的方法都是可链的(Chainable)，也就是说它们会 `return this` 从而让你能够连续调用它们。
 
