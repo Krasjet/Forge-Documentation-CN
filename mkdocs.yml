@@ -1,10 +1,9 @@
-# If you add a page, you must add it to the index here
 pages:
   - 主页: 'index.md'
   - 样式指南: 'styleguide.md'
   - 入门:
     - 概述: 'gettingstarted/index.md'
-    - 构造您的mod: 'gettingstarted/structuring.md'
+    - Mod的结构: 'gettingstarted/structuring.md'
     - Forge更新检查器: 'gettingstarted/autoupdate.md'
   - 概念:
     - Sides: 'concepts/sides.md'
@@ -21,7 +20,7 @@ pages:
   - 事件:
     - 基本用法: 'events/intro.md'
   - 网络:
-    - 索引: 'networking/index.md'
+    - 主页: 'networking/index.md'
     - 概述: 'networking/overview.md'
     - SimpleImpl: 'networking/simpleimpl.md'
   - 数据储存:
