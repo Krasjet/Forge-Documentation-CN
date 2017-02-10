@@ -1,9 +1,9 @@
-能力(Capability)系统
-===================
+能力系统
+========
 
 能力(Capability)使特性更动态和灵活地展现(Expose)，而不必直接实现很多接口(Interface)。
 
-总的来说，每个能力提供了一个接口形式的特性，一个可被调用的默认实现，和一个至少对于默认实现的储存处理器(Storage Handler)。储存管理器可以支持其它的实现，但是这个是取决于能力的实现者，所以你应该先看一下它们的文档之后再试着对非默认实现使用默认储存。
+总的来说，每个能力以接口形式提供了一个特性，一个可被调用的默认实现，和一个至少对于默认实现的储存处理器(Storage Handler)。储存管理器可以支持其它的实现，但是这个是取决于能力的实现者，所以你应该先看一下它们的文档之后再决定是否对非默认实现使用默认储存。
 
 Forge对TileEntity、实体、和ItemStack添加了能力支持。它们可以通过事件附加上去，也可以通过在你的实现中重写能力的方法来展现。这将在后面的小节中进行更详细地解释。
 
@@ -32,14 +32,14 @@ static Capability<IItemHandler> ITEM_HANDLER_CAPABILITY = null;
 
 这个注解可以被应用在字段(Field)和方法(Method)上。当应用到字段上的时候，它会在能力注册时将能力的实例（同一个实例赋值到所有字段中）赋值到字段上，如果该能力没有被注册，它将保持现有值(`null`)。因为本地静态字段访问会更快，所以您最好保留一份能力对象的引用。这个注解也可以同样应用到方法中，应用的方法将在能力注册时被调用，以便某些特性的应用。
 
-`hasCapability` 和 `getCapability` 这两个方法都有第二个参数，类型为 `EnumFacing`，他们可以用来对特定面请求特定的实例。如果传入的是 `null`，那么就可认定请求是从方块内或者从一个面无意义的地方来的，比如说另一个维度(Dimension)。这时候一个不考虑面的通用能力实例将会被请求。`getCapability` 的返回类型将会对应能力声明时的类型。对于Item Handler这个能力，它是 `IItemHandler`。
+`hasCapability` 和 `getCapability` 这两个方法都有第二个参数，类型为 `EnumFacing`，他们可以用来对特定面请求特定的实例。如果传入的是 `null`，那么就可以认定请求是从方块内或者从一个与面无意义的地方来的，比如说另一个维度(Dimension)。这时候一个不考虑面的通用能力实例将会被请求。`getCapability` 的返回类型将会对应能力声明时的类型。对于Item Handler这个能力，它是 `IItemHandler`。
 
 展现一个能力
 -----------
 
 要想展现(Expose)一个能力，你需要先获得一个潜在能力类型的实例。注意你需要对每个存有能力的对象赋值不同的实例，因为能力很可能会和包含的对象联系起来。
 
-有两种方式能获得实例，第一种是通过 `Capability` 本身，第二种是显式实例化一个它的实现。第一种方法是为默认实现设计的，如果那些默认的值对你很有用的话。Item Handler这个能力的默认实现只会展现一个单格背包(Inventory)，可能不是你想要的结果。
+有两种方式能获得实例，第一种是通过 `Capability` 本身，第二种是显式实例化一个它的实现。第一种方法是为使用默认实现设计的，如果那些默认的值对你很有用的话，你可以选择使用它。Item Handler这个能力的默认实现只会展现一个单格背包(Inventory)，可能不是你想要的结果。
 
 第二种方法可以用自定义的实现。在 `IItemHandler` 这个例子中，默认实现使用的是 `ItemStackHandler` 类，它有一个可选的带参数的构造器，参数为格子的个数。然而，我们不应认定默认实现是一直存在的，因为能力系统设计初衷就是为了防止能力不存在时的加载错误。所以实例化之前我们需要检查能力是否被注册了（见上面关于 `@CapabilityInject` 的内容）。
 
@@ -131,7 +131,7 @@ private static class Factory implements Callable<IExampleCapability> {
 与客户端同步数据
 --------------
 
-默认情况下，能力数据将不会被发送到客户端。为了修复这个问题，Mod需要用数据包(Packet)进行自己的同步。
+默认情况下，能力数据将不会被发送到客户端。为了修复这个问题，Mod需要用网络数据包(Packet)进行自己的同步。
 
 对于下面三种可选的情况你可能会想发送同步数据包：
 
@@ -155,28 +155,30 @@ private static class Factory implements Callable<IExampleCapability> {
 
 下面这个列表将给出IEEP概念的对应能力系统等价：
 
-- Property名称/ID(`String`)：Capability键值(`ResourceLocation`)
+- Property名称/ID(`String`)：Capability键(`ResourceLocation`)
 - 注册(Registration, `EntityConstructing`)：附属(Attaching, `AttachCapabilityEvent<Entity>`)，Capability真正的注册发生在pre-init的时候。
 - NBT读写方法：不会自动发生。你需要在事件中附属一个 `ICapabilitySerializable`，并运行 `serializeNBT`/ `deserializeNBT` 来读写NBT数据。
 
 你可能不会需要的特性（如果IEEP只在内部使用）：
 
-- 能力系统提供了一个默认实现概念，用来简化第三方用户的使用，但它对一个内部使用的能力就没那么重要的。你可以安全地从Factory返回 `null` 值，如果这个能力只是为了内部使用的话。
+- 能力系统提供了一个默认实现概念，用来简化第三方用户的使用，但它对一个内部使用的能力就没那么重要的。如果这个能力只是为了内部使用的话，你可以安全地从Factory返回 `null` 值。
 - 能力系统提供了一个 `IStorage` 系统，用来从默认实现中读写数据。如果你选择不提供默认实现，那么 `IStorage` 系统将永远不会被调用，所以它可以留空。
 
 在使用下面这几个步骤之前请先阅读本教程的其它部分，并理解能力系统的概念。
 
 转换指南：
 
-1. 转换IEEP的key/id字符串到 `ResourceLocation`（并使用你的MODID作为域）
+1. 转换IEEP的key/id字符串到 `ResourceLocation`（并使用你的Mod ID作为域）
 2. 在你的处理器(Handler)类中（不是你实现能力接口的那个类）创建一个用来储存 `Capability` 实例的字段
 3. 将 `EntityConstructing` 事件改为 `AttachCapabilityEvent`，并且你需要依附一个 `ICapabilityProvider`（可能是 `ICapabilitySerializable`，让你能够读写NBT），而不是查询IEEP。
 4. 如果你没有注册方法的话，创建一个（你可能已经有一个用来注册IEEP事件处理器(Event Handler)的了），并在其中运行能力的注册函数。
 
-!!! note
+!!! note "译注"
 
-    这篇文档翻译有点混乱，如果有看不懂的建议去看[原文](http://mcforge.readthedocs.org/en/latest/datastorage/capabilities/)（虽然原文也不怎么清楚）。
+    这篇文档翻译可能有点混乱，如果有看不懂的建议去看[原文](http://mcforge.readthedocs.org/en/latest/datastorage/capabilities/)（虽然原文也不怎么清楚）。
 
     另外，建议去看Forge这个测试的mod：[TestCapabilityMod.java](https://github.com/MinecraftForge/MinecraftForge/blob/master/src/test/java/net/minecraftforge/test/TestCapabilityMod.java)
 
     还有capabilities包里的内容：[capabilities包](https://github.com/MinecraftForge/MinecraftForge/tree/master/src/main/java/net/minecraftforge/common/capabilities)
+
+	ustc_zzzz也写了一篇关于Capability很棒的教程，也可以来[这里](https://fmltutor.ustc-zzzz.net/3.3.1-Capability%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%B7%B2%E6%9C%89%E5%AE%9E%E4%BD%93%E9%99%84%E5%8A%A0%E5%B1%9E%E6%80%A7.html)看一下。

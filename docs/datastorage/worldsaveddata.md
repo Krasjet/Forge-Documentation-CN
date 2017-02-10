@@ -12,7 +12,7 @@ World Saved Data系统使你能对世界附加数据，你既可以对某个维�
 - `readFromNBT`: 允许实现对世界读取之前写入的数据
 - `markDirty`: 这个方法并不是要由实现重写(Override)的。它需要在数据改变之后被调用，以提醒Minecraft写入这些改变。如果这个方法没有被调用，现有数据将会被暂时保存，`writeToNBT` 将不会被调用。
 
-这个类需要被一个实现(Implementation)进行重写(Override)，并且这个实现的实例(Instance)将会被附加到 `World` 对象上，以备存储任何需要的数据。
+这个类需要被一个实现(Implementation)进行重写，并且这个实现的实例(Instance)将会被附加到 `World` 对象上，以备存储任何需要的数据。
 
 实现的简单骨架会像这样：
 

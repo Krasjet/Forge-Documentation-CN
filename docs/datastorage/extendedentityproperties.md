@@ -1,11 +1,11 @@
-拓展实体属性(Extended Entity Properties)
-=======================================
+拓展实体属性
+===========
 
 拓展实体属性(Extended Entity Properties, EEP)使我们能对实体(Entity)附加数据。
 
 !!! warning
 
-	这个系统已经弃用，被能力(Capability)系统所代替。
+	这个系统已经弃用，被[能力](capabilities.md)(Capability)系统所代替。
 
 声明与注册
 ---------
@@ -16,7 +16,7 @@ EEP的基础是 `IExtendedEntityProperties` 这个接口(Interface)。这个结�
 - `saveNBTData`：允许实现在save文件中保存数据，以便实体载入回世界之后读取
 - `loadNBTData`：允许实现读取之前保存的数据
 
-实现将会是一个实现(Implement)这个接口的类，这个类的实例将会附加到实体上，以备存储任何需要的数据。
+实现是一个实现(Implement)这个接口的类，这个类的实例将会附加到实体上，以备存储任何需要的数据。
 
 实现的简单骨架会像这样：
 

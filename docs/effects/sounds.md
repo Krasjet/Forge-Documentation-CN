@@ -1,4 +1,4 @@
-音效(Sounds)
+音效
 ===========
 
 术语
@@ -70,7 +70,7 @@ SoundEvent event = new SoundEvent(location);
 
 	下面的信息是通过研究并归类这几个不同方法得来的。它们在Forge 1907都是最新的，如果这些东西过时了请告诉我。
 
-注意每个方法都需求一个 `SoundEvent`，也就是你上面注册的那个。而且，**服务端行为(Server Behavior)**和**客户端行为(Client Behavior)**这两个术语都指的是对应的[**逻辑**(Logical)端][sides]。
+注意每个方法都需求一个 `SoundEvent`，也就是你上面注册的那个。而且，**服务端行为**(Server Behavior)和**客户端行为**(Client Behavior)这两个术语都指的是对应的[**逻辑**(Logical)端][sides]。
 
 ### `World`
 
