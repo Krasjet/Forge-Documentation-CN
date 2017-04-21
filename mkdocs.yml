@@ -15,6 +15,8 @@ pages:
     - 方块状态介绍: 'blockstates/states.md'
     - 方块状态JSON介绍: 'blockstates/introduction.md'
     - Forge方块状态JSON: 'blockstates/forgeBlockstates.md'
+  - TileEntity:
+    - 特殊渲染器: 'tileentities/tesr.md'
   - 物品:
     - 主页: 'items/items.md'
   - 事件:
