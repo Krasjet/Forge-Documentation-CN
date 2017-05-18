@@ -14,7 +14,7 @@
 `sounds.json`
 -------------
 
-这个JSON应该被储存在你的asset目录中：`src/main/resources/assets/<modid>/sounds.json`。这个文件声明了音效事件(Sound Events)和对应的音效文件(Sound Files)。
+这个JSON定义了音效事件，并且也定义了播放的音效文件以及字幕等信息。声音事件是通过 [`ResourceLocation`][ResourceLocation] 来判定的。`sounds.json` 应该放在资源域(Resource Domain)的根目录中（`assets/<domain>/sounds.json`），并且它定义的是仅仅那一个域中的音效事件（`assets/<domain>/sounds.json` 定义了 `domain` 这个域下的音效事件）。
 
 完整的格式可以在原版的[wiki]上找到，但这个例子中只强调重要的部分：
 
@@ -37,11 +37,7 @@
 }
 ```
 
-!!! important
-
-	和资源系统的其它部分一样，所有东西都应该使用snake_case。
-
-在顶级对象之下，每个key都对应一个声音事件。注意它们在 `sounds.json` 文件中没有modid。每个事件都有一个类别(Category)，以及一个本地化key，它将在字幕打开时显示。最后指定的是需要播放的音效文件。注意这个值是一个数组。如果指定了多个音效文件，游戏将会在音效事件触发时随机选择一个进行播放。
+在顶级对象之下，每个key都对应一个声音事件。注意，这里并没有加域的名字，因为这是从JSON的域中所得的。每个事件都有一个类别(Category)，以及一个本地化key，它将在字幕打开时显示。最后指定的是需要播放的音效文件。注意这个值是一个数组。如果指定了多个音效文件，游戏将会在音效事件触发时随机选择一个进行播放。
 
 上面的两个例子代表了两种不同的指定音效文件的办法。[Wiki]中提供了详细的资料，但通常来说，对于像是BGM和音乐唱片之类的长音效文件，应该使用第二个形式，因为 `"stream"` 参数告诉Minecraft不要加载整个音效文件到内存中，而是从硬盘中串流(Stream)。使用第二种形式同样允许你指定音量，音调，和音效文件的随机权重。
 
@@ -117,4 +113,5 @@ SoundEvent event = new SoundEvent(location);
 
 [wiki]: http://minecraft.gamepedia.com/Sounds.json
 [注册]: ../concepts/registries.md#_2
+[ResourceLocation]: ../concepts/resources.md#_1
 [sides]: ../concepts/sides.md
