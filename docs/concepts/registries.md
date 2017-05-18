@@ -5,7 +5,7 @@
 
 游戏中大部分需要注册的东西都是由Forge注册表(Registry)来处理的。注册表是一个类似于键值映射的对象。它会自动将整数ID分配到值上。Forge采用的是使用 `ResourceLocation` 作为键的注册表来注册对象，而对象则是 `IForgeRegistryEntry` 类型的。这就让 `ResourceLocation` 变成了对象的“注册表名"。对象的注册表名可以通过 `get`/`setRegistryName` 来访问。Setter只可以被调用一次，如果调用第二次的话会导致异常。每一种可注册对象都有它自己的注册表，在两个不同注册表中的名字将不会冲突。（比如说 `Block` 有一个注册表， `Item` 也有一个注册表，而有着相同名字 `mod:example` 的一个 `Block` 和一个 `Item` 注册时将不会冲突。然而，如果是两个方块使用同一个名字注册，则会导致抛出异常。）`IForgeRegistryEntry`默认的实现（`IForgeRegistryEntry.Impl`）也提供了两个 `setRegistryName` 简便的实现：一个的参数只有一个字符串，另一个的参数是两个字符串。需求一个字符串的重载会检测输入是否包含有一个 `:`（即，它检查是否字符串化的 `ResourceLocation` 存在域），如果没有的化，则使用当前的modid作为资源域。拥有两个参数的重载则将使用 `modID` 作为域，`name` 作为路径，构建一个注册表名。
 
-除此之外也有“注册表的注册表”，一个用于注册其它注册表的注册表。这个注册表使用 `ResourceLocation` 与一个附加 `Class` 键来注册注册表。这让我们可以查找注册特定类的注册表（比如说，可以通过 `GameRegistry.findRegistry` 来在注册表的注册表中查找 `Block.class` 来获取注册方块的注册表。）
+除此之外也有一个全局注册表，它被用于储存其它所有的注册表。你可以通过注册表所储存对象的 `Class` 或者其 `ResourceLocation` 名字来获取这个对象类型的注册表。比如说，你可以通过 `GameRegistry.findRegistry(Block.class)` 来获取方块的注册表。
 
 注册对象
 -------
