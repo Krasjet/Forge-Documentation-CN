@@ -113,5 +113,5 @@ SoundEvent event = new SoundEvent(location);
 
 [wiki]: http://minecraft.gamepedia.com/Sounds.json
 [注册]: ../concepts/registries.md#_2
-[ResourceLocation]: ../concepts/resources.md#_1
+[ResourceLocation]: ../concepts/resources.md#resourcelocation
 [sides]: ../concepts/sides.md

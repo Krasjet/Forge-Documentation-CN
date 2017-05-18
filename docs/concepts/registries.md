@@ -85,5 +85,5 @@ class UnannotatedHolder { // 注意这个类没有注解
 }
 ```
 
-[ResourceLocation]: resources.md#_1
+[ResourceLocation]: resources.md#resourcelocation
 [ObjectHolder]: #_4
