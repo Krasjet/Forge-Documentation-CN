@@ -21,6 +21,7 @@ pages:
     - 特殊渲染器: 'tileentities/tesr.md'
   - 物品:
     - 主页: 'items/items.md'
+    - 战利品表: 'items/loot_tables.md'
   - 事件:
     - 基本用法: 'events/intro.md'
   - 网络:
