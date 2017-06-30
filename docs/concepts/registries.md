@@ -23,10 +23,6 @@ public void registerBlocks(RegistryEvent.Register<Block> event) {
 
 `RegistryEvent.Register` 事件触发的顺序是基本随机的，除了 `Block` **一定**会第一个被触发，并且 `Item` **一定**会在 `Block` 之后，第二个触发。在 `Register<Block>` 事件被触发之后，所有的[`ObjectHolder`][ObjectHolder] 注解将会被刷新，在 `Register<Item>` 被触发之后，它们会被再次刷新。当其它**所有的** `Register` 事件都触发之后，它们会刷新第三次。
 
-!!! important
-
-	这些事件都在preInit**之前**触发。这也就意味着 `@Mod.EventBusSubscriber`（或在不支持 `static` 的比如Scala mod里 `@Mod` 类构造器中的 `MinecraftForge.EVENT_BUS.register`）应该用来在preInit之前注册事件处理器。
-
 也有另外一种老的方法可以用来注册对象到注册表，使用 `GameRegistry.register`。任何时候有人建议你使用这个方法，你都应该将其替换为对应正确注册表事件的事件处理器。这个方法使用 `IForgeRegistryEntry::getRegistryType` 找到对应于 `IForgeRegistryEntry` 的注册表，再将对象注册到这个注册表中。还有一个方便的重载需求一个 `IForgeRegistryEntry`(`ifre`)和一个 `ResourceLocation`，它等同于 `IForgeRegistryEntry::setRegistryName` 接一个 `GameRegistry.register` 调用。
 
 创建注册表
