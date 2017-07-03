@@ -52,23 +52,30 @@ public class MyStaticForgeEventHandler {
 
 	使用这个注解并不会注册一个类的实例。它注册的是类本身（即事件处理方法必须是静态的）。
 
-取消与结果
--------------------------
+取消
+----
 
-如果一个事件可以被取消(Cancel)，它将会被注解为 `@Cancelable`。事件可以通过调用 `setCanceled`，并传入一个boolean值来标示这个事件是否被取消了。如果一个事件不可以被取消，`IllegalArgumentException` 将会被抛出。
+如果一个事件可以被取消(Candel)，它将会被注解为 `@Cancelable`，并且 `Event#isCancelable()` 方法将会返回 `true`。一个可取消事件的取消状态可以通过调用 `Event#setCanceled(boolean canceled)` 来变更，在这个函数内传入 `true` 将取消这个事件，而传入 `false` 的话则重新启用这个事件。然而，如果这个事件不能被取消（通过 `Event#isCancelable()` 来定义），不论传入什么boolean值都将抛出 `UnsupportedOperationException`，因为不可取消的事件中的取消状态是不可变的。
+
+!!! important
+
+	不是所有的事件都可以被取消！尝试取消一个不可被取消的事件将会导致抛出 `UnsupportedOperationException`，这很可能会导致游戏崩溃！在尝试取消一个事件之前确保先使用 `Event#isCancelable()` 来检测它是否能够被取消。
+
+结果
+----
+
+一些事件会有一个 `Event.Result` 结果(Result)。可能的结果有三个：`DENY` 停止事件、`DEFAULT` 使用原版行为、`ALLOW` 强制动作发生，不论原本动作是否要发生。一个事件的结果可以通过调用 `setResult`，并传入一个 `Event.Result` 参数。并不是所有的事件都有结果，一个有结果的事件将会被注解为 `@HasResult`。
 
 !!! important
 
 	不同的事件可能对结果(Result)有着不同的用法，使用结果之前请先查看事件对应的JavaDoc。
 
-一些事件会有一个 `Event.Result` 结果(Result)。可能的结果有三个：`DENY` 停止事件、`DEFAULT` 使用原版行为、`ALLOW` 强制动作发生，不论原本动作是否要发生。一个事件的结果可以通过调用 `setResult`，并传入一个 `Event.Result` 参数。并不是所有的事件都有结果，一个有结果的事件将会被注解为 `@HasResult`。
-
 优先级
----------------
+------
 
 事件处理器方法（被 `@SubscribeEvent`注解的方法）有一个优先级(Priority)。你可以对事件处理器方法的注解加上 `priority` 值作为参数从而设置其优先级。优先级可以是 `EventPriority` 里的任何值(`HIGHEST`、`HIGH`、`NORMAL`、`LOW`、`LOWEST`)。有着 `HIGHEST` 优先级的事件处理器将会最先被执行，之后沿着降序执行直到 `LOWEST` 的事件处理器被最后执行。
 
 子事件
-----------------
+------
 
 很多事件都有它们自己不同的变种。一个事件的变种虽然不同但它们都基于共同的因子（比如说 `PlayerEvent`），或者是一个有多个阶段的事件（比如说 `PotionBrewEvent`）。要注意的是，如果你监听了父事件类，这个事件监听器将会在该父事件的**任一**子类触发时被调用。
