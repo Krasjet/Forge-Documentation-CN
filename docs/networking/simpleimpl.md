@@ -80,6 +80,14 @@ public class MyMessageHandler implements IMessageHandler<MyMessage, IMessage> {
 
 	你可以使用 `Minecraft` 实例（客户端）或者是 `WorldServer` 实例来获取`IThreadListener`（译注: `Minecraft` 实例（客户端）与 `WorldServer`实例（服务端）都实现了 `IThreadListener`.你可以将他们获取并创建为一个 `mainThread` 对象来使用.我自己把这个MyMessage重新写了一遍正确的，地址在这里:[http://git.io/vqhqF](http://git.io/vqhqF)）
 
+!!! warning
+
+	在服务端处理数据包时请采取防御性(Defensive)的方式。客户端是可以通过发送意外的数据从而利用数据包处理的。
+
+	很常见的一个问题是**任意区块生成**(Arbitrary Chunk Generation)的漏洞。这通常会在服务端使用了客户端发送来的方块位置来访问方块或者TileEntity时发生。当在世界中未加载的区域中访问方块或者TileEntity时，服务器将会生成或者从硬盘中读取这块区域，并立刻将其写回硬盘。这一点可以被轻松利用，对服务器的性能和储存空间造成**灾难性伤害**，而且不会留下什么痕迹。
+
+	要想避免这个问题，通常常用的方法是仅仅在 `world.isBlockLoaded(pos)` 为 `true` 的时候访问方块或者TileEntity。
+
 注册数据包
 ---------
 
