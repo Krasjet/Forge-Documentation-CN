@@ -40,6 +40,9 @@ pages:
     - 版本命名: 'conventions/versioning.md'
     - 文件位置: 'conventions/locations.md'
     - 加载阶段: 'conventions/loadstages.md'
+  - 参与Forge开发:
+    - 入门: 'forgedev/index.md'
+    - PR指南: 'forgedev/prguidelines.md'
 
 
 # Do not edit in PRs below here
