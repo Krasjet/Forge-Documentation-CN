@@ -68,7 +68,7 @@ int colorMultiplier(
 
 ### 为`ItemBlock`注册处理器
 
-`ItemBlock`的实例是物品，所以它们必须要像物品一样[注册和着色](../items/items.md#coloring-an-item)。
+`ItemBlock`的实例是物品，所以它们必须要像物品一样[注册和着色](../items/items.md#_6)。
 
 拓展阅读
 -------
