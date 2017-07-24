@@ -1,18 +1,14 @@
 注册表
 =====
 
-注册是一个让游戏了解一个MOD中的对象（物品、方块、声音等）的过程。注册对象是非常重要的，因为如果没有注册的话，游戏将不能知道Mod中的对象，并会展现出大量不可预料的行为（并且可能会崩溃）。
+注册是一个让游戏了解一个MOD中的对象（物品、方块、声音等）的过程。注册对象是非常重要的，因为如果没有注册的话，游戏将不能知道Mod中的对象，并会展现出大量不可预料的行为（并且可能会崩溃）。通常需要注册的东西有`Block`、`Item`、`Biome`。
 
-游戏中大部分需要注册的东西都是由Forge注册表(Registry)来处理的。注册表是一个类似于键值映射的对象。它会自动将整数ID分配到值上。Forge采用的是使用 [`ResourceLocation`][ResourceLocation] 作为键的注册表来注册对象，而对象则是 `IForgeRegistryEntry` 类型的。这就让 `ResourceLocation` 变成了对象的“注册表名"。对象的注册表名可以通过 `get`/`setRegistryName` 来访问。Setter只可以被调用一次，如果调用第二次的话会导致异常。每一种可注册对象都有它自己的注册表，在两个不同注册表中的名字将不会冲突。（比如说 `Block` 有一个注册表， `Item` 也有一个注册表，而有着相同名字 `mod:example` 的一个 `Block` 和一个 `Item` 注册时将不会冲突。然而，如果是两个方块使用同一个名字注册，则会导致抛出异常。）
-
-`IForgeRegistryEntry`默认的实现（`IForgeRegistryEntry.Impl`）也提供了两个 `setRegistryName` 简便的实现：一个的参数只有一个字符串，另一个的参数是两个字符串。需求一个字符串的重载会检测输入是否包含有一个 `:`（即，它检查是否字符串化的 `ResourceLocation` 存在域），如果没有的化，则使用当前的modid作为资源域。拥有两个参数的重载则将使用 `modID` 作为域，`name` 作为路径，构建一个注册表名。
-
-除此之外也有一个全局注册表，它被用于储存其它所有的注册表。你可以通过注册表所储存对象的 `Class` 或者其 `ResourceLocation` 名字来获取这个对象类型的注册表。比如说，你可以通过 `GameRegistry.findRegistry(Block.class)` 来获取方块的注册表。
+游戏中大部分需要注册的东西都是由Forge注册表(Registry)来处理的。注册表是一个类似于键值映射的对象。它会自动将整数ID分配到值上。Forge采用的是使用 [`ResourceLocation`][ResourceLocation] 作为键的注册表来注册对象。这就让 `ResourceLocation` 变成了对象的“注册表名"。对象的注册表名可以通过 `get`/`setRegistryName` 来访问。Setter只可以被调用一次，如果调用第二次的话会导致异常。每一种可注册对象都有它自己的注册表，在两个不同注册表中的名字将不会冲突。（比如说 `Block` 有一个注册表， `Item` 也有一个注册表，而有着相同名字 `mod:example` 的一个 `Block` 和一个 `Item` 注册时将不会冲突。然而，如果是两个方块使用同一个名字注册，则会导致抛出异常。）
 
 注册对象
 -------
 
-注册对象推荐的方式是使用 `RegistryEvent`。在 `RegistryEvent.NewRegistry` 中，注册表应该会被创建。之后，`RegistryEvent.Register` 会在每一个注册表注册的时候被触发。由于 `Register` 是一个泛型事件，事件处理器应该将类型参数设置为被注册对象的类型。这个事件将会包含可以注册对象的注册表(`getRegistry`)，对象可以在注册表中使用 `register`（或 `registerAll`）注册。下面是一个注册方块的事件处理器例子：
+注册对象推荐的方式是使用 `RegistryEvent`。这些[事件](../events/intro.md)将会在预初始化之后触发。在 `RegistryEvent.NewRegistry` 中，注册表应该会被创建。之后，`RegistryEvent.Register` 会在每一个注册表注册的时候被触发。由于 `Register` 是一个泛型事件，事件处理器应该将类型参数设置为被注册对象的类型。这个事件将会包含可以注册对象的注册表(`getRegistry`)，对象可以在注册表中使用 `register`（或 `registerAll`）注册。下面是一个注册方块的事件处理器例子：
 
 ```java
 @SubscribeEvent
@@ -30,7 +26,9 @@ public void registerBlocks(RegistryEvent.Register<Block> event) {
 创建注册表
 ---------
 
-并不是只有Forge才能有注册表。任何Mod都可以创建它们自己的注册表，并且任何Mod都可以注册东西到其它Mod的注册表中。注册表可以通过 `RegistryBuilder` 来创建。这个类需要一些参数来描述它将生成的注册表，比如说名字，值的 `Class`，以及一些回调函数用于提示注册表的改动。在调用 `RegistryBuilder::create` 的时候，这个注册表就创建了，并且注册至注册表的注册表，并返回到调用者处。
+所有的注册表将储存在一个全局注册表中。通过注册表所储存的`Class`或者它的`ResourceLocation`名称，我们可以从这个全局注册表中获取对应的注册表。比如说，我们可以使用`GameRegistry.findRegistry(Block.class)`来获取方块的注册表。任何Mod都可以创建它们自己的注册表，并且任何Mod都可以注册东西到其它Mod的注册表中。注册表可以通过 `RegistryBuilder` 来创建。这个类需要一些参数来描述它将生成的注册表，比如说名字，值的 `Class`，以及一些回调函数用于提示注册表的改动。在调用 `RegistryBuilder::create` 的时候，这个注册表就创建了，并且注册至注册表的注册表，并返回到调用者处。
+
+如果想让一个类拥有一个注册表，它需要实现`IForgeRegistryEntry`。这个接口定义了`getRegistryName(ResourceLocation)`、`setRegistryName(ResourceLocation)`和`getRegistryType()`。`getRegistryType`是对象需要注册至的注册表的基类`Class`。建议是继承默认的`IForgeRegistryEntry.Impl`类而不是直接实现`IForgeRegistryEntry`。这个类还提供了`setRegistryName`的两个方便实现：一个的参数有一个字符串，另一个有两个字符串参数。需要一个字符串的重载检查输入是否包含一个`:`（即它检查传入的字符串化的`ResourceLocation`是否有域），如果没有，则使用当前的ModID作为资源域。有两个参数的重载会使用`modID`作为域名，`name`作为路径，构建一个注册表名。
 
 注入注册表值到字段中
 ------------------
