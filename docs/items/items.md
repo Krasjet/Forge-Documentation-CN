@@ -30,4 +30,33 @@
 
 物品必须要[注册][registering]到函数中。
 
+为物品着色
+---------
+
+物体的纹理是可以在程序中着色的。许多原版的物品都用到了这一功能。比如说：皮革帽子、生成蛋、药水等。
+
+### 物品颜色处理器
+
+物体颜色处理器是对一个物体着色所必须的东西，它是`IItemColor`的一个实例，它添加了以下方法：
+
+```java
+int getColorFromItemstack(
+  ItemStack stack, 
+  int tintIndex)
+```
+
+#### 返回值
+
+这个方法返回一个十六进制值(Hex)，用整数表示一个颜色。
+
+#### 参数
+
+色调指数(Tint Index)是定义在物品模型JSON文件中的一个元素的面中的。没有色调指数的面是不会被着色的，所以它的颜色处理器将不会被调用。当物品的模型是从`builtin/generted`继承而来时，层指数会被用作色调指数。
+
+### 注册物体颜色处理器
+
+物体颜色处理器必须要通过调用`ItemColors#registerItemColorHandler(IItemColor, Item...)`函数来注册。`ItemColors`的实例可以通过调用`Minecraft#getItemColors()`来获取。
+
+这必须要在初始化阶段中，仅在客户端调用。
+
 [registering]: ../concepts/registries.md#_2
