@@ -61,7 +61,10 @@ public class MyMessageHandler implements IMessageHandler<MyMessage, IMessage> {
     EntityPlayerMP serverPlayer = ctx.getServerHandler().playerEntity;
     // 发送的值
     int amount = message.toSend;
-    serverPlayer.inventory.addItemStackToInventory(new ItemStack(Items.diamond, amount));
+    // 添加为一个计划任务(Scheduled Task)，在主服务器线程上执行操作
+    serverPlayer.getServerWorld().addScheduledTask(() -> {
+      serverPlayer.inventory.addItemStackToInventory(new ItemStack(Items.DIAMOND, amount));
+    });
     // 没有回应数据包
     return null;
   }
@@ -74,11 +77,13 @@ public class MyMessageHandler implements IMessageHandler<MyMessage, IMessage> {
 
     在Minecraft 1.8+中，数据包默认由网络线程(Network Thread)来处理（而不是主线程）。
 
-    这意味着你的 `IMessageHandler` **不能**直接操作游戏中的大部分对象。也就是说上面的例子不再正确。Minecraft提供了一个简单的方法让你的代码执行在主线程上: 
+    这意味着你的 `IMessageHandler` **不能**直接操作游戏中的大部分对象。Minecraft提供了一个简单的方法让你的代码执行在主线程上: 
 
 	使用 `IThreadListener.addScheduledTask`。
 
-	你可以使用 `Minecraft` 实例（客户端）或者是 `WorldServer` 实例来获取`IThreadListener`（译注: `Minecraft` 实例（客户端）与 `WorldServer`实例（服务端）都实现了 `IThreadListener`.你可以将他们获取并创建为一个 `mainThread` 对象来使用.我自己把这个MyMessage重新写了一遍正确的，地址在这里:[http://git.io/vqhqF](http://git.io/vqhqF)）
+	你可以使用 `Minecraft` 实例（客户端）或者是 `WorldServer` 实例来获取`IThreadListener`。上面的例子中，我们从`EntityPlayerMP`中获取一个`WorldServer`实例
+
+	（译注: `Minecraft` 实例（客户端）与 `WorldServer`实例（服务端）都实现了 `IThreadListener`。你可以将它们获取并创建为一个 `mainThread` 对象来使用。）
 
 !!! warning
 
