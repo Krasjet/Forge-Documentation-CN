@@ -32,7 +32,7 @@ Mod的结构
   "url": "minecraftforge.net/",
   "updateJSON": "minecraftforge.net/versions.json",
   "authorList": ["Author"],
-  "credits": "I'd like to thank my mother and father.",
+  "credits": "I'd like to thank my mother and father."
 }]
 ```
 
