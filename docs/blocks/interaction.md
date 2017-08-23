@@ -81,4 +81,35 @@ public boolean onBlockActivated(World worldIn,
 
 **未完成**
 
+`onBlockClicked`
+----------------
+
+```java
+public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn)
+```
+
+当玩家点击一个方块时会被触发。
+
+!!! note
+
+	这个方法是在玩家**左击**一个方块时调用的。
+	不要将它和`onBlockActivated`弄混了，它是当玩家右击一个方块才会激活的。
+
+### 参数
+
+|      类型       |     名称     |                  描述                  |
+|:---------------:|:------------:|:----------------------------------------------|
+|     `World`     |  `worldIn`   | 被点击方块所处的世界       |
+|    `BlockPos`   |    `pos`     | 被点击方块所处的位置    |
+|  `EntityPlayer` |  `playerIn`  | 点击的玩家               |
+
+### 使用范例
+
+这个方法可以很方便地在玩家点击一个方块时添加一些自定义的事件。
+
+默认情况下这个方法不会做任何操作。  
+复写了这一方法的两个方块是**音符盒**(Note Block)和**红石矿石**(Redstone Ore)。
+
+音符盒会在左击的时候播放一个音效。红石矿石方块会在左击的时候发光几秒钟。
+
 [端]: ../concepts/sides.md
