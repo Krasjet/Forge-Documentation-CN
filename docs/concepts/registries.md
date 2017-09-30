@@ -17,7 +17,7 @@ public void registerBlocks(RegistryEvent.Register<Block> event) {
 }
 ```
 
-`RegistryEvent.Register` 事件触发的顺序是基本随机的，除了 `Block` **一定**会第一个被触发，并且 `Item` **一定**会在 `Block` 之后，第二个触发。在 `Register<Block>` 事件被触发之后，所有的[`ObjectHolder`][ObjectHolder] 注解将会被刷新，在 `Register<Item>` 被触发之后，它们会被再次刷新。当其它**所有的** `Register` 事件都触发之后，它们会刷新第三次。
+`RegistryEvent.Register` 事件触发的顺序是按照字母顺序的，除了 `Block` **一定**会第一个被触发，并且 `Item` **一定**会在 `Block` 之后，第二个触发。在 `Register<Block>` 事件被触发之后，所有的[`ObjectHolder`][ObjectHolder] 注解将会被刷新，在 `Register<Item>` 被触发之后，它们会被再次刷新。当其它**所有的** `Register` 事件都触发之后，它们会刷新第三次。
 
 `RegistryEvent`当前支持以下类型：`Block`、`Item`、`Potion`、`Biome`、`SoundEvent`、`PotionType`、`Enchantment`、`IRecipe`、`VillagerProfession`、`EntityEntry`。
 
@@ -26,7 +26,7 @@ public void registerBlocks(RegistryEvent.Register<Block> event) {
 创建注册表
 ---------
 
-所有的注册表将储存在一个全局注册表中。通过注册表所储存的`Class`或者它的`ResourceLocation`名称，我们可以从这个全局注册表中获取对应的注册表。比如说，我们可以使用`GameRegistry.findRegistry(Block.class)`来获取方块的注册表。任何Mod都可以创建它们自己的注册表，并且任何Mod都可以注册东西到其它Mod的注册表中。注册表可以通过 `RegistryBuilder` 来创建。这个类需要一些参数来描述它将生成的注册表，比如说名字，值的 `Class`，以及一些回调函数用于提示注册表的改动。在调用 `RegistryBuilder::create` 的时候，这个注册表就创建了，并且注册至注册表的注册表，并返回到调用者处。
+所有的注册表将储存在一个全局注册表中。通过注册表所储存的`Class`或者它的`ResourceLocation`名称，我们可以从这个全局注册表中获取对应的注册表。比如说，我们可以使用`GameRegistry.findRegistry(Block.class)`来获取方块的注册表。任何Mod都可以创建它们自己的注册表，并且任何Mod都可以注册东西到其它Mod的注册表中。注册表可以使用 `RegistryEvent.NewRegistry` 中的 `RegistryBuilder` 来创建。这个类需要一些参数来描述它将生成的注册表，比如说名字，值的 `Class`，以及一些回调函数用于提示注册表的改动。在调用 `RegistryBuilder::create` 的时候，这个注册表就成功创建了，它会被注册至元注册表，并返回到调用者处。
 
 如果想让一个类拥有一个注册表，它需要实现`IForgeRegistryEntry`。这个接口定义了`getRegistryName(ResourceLocation)`、`setRegistryName(ResourceLocation)`和`getRegistryType()`。`getRegistryType`是对象需要注册至的注册表的基类`Class`。建议是继承默认的`IForgeRegistryEntry.Impl`类而不是直接实现`IForgeRegistryEntry`。这个类还提供了`setRegistryName`的两个方便实现：一个的参数有一个字符串，另一个有两个字符串参数。需要一个字符串的重载检查输入是否包含一个`:`（即它检查传入的字符串化的`ResourceLocation`是否有域），如果没有，则使用当前的ModID作为资源域。有两个参数的重载会使用`modID`作为域名，`name`作为路径，构建一个注册表名。
 
@@ -63,7 +63,7 @@ class AnnotatedHolder {
                                                     // 注入的对象：ManaType注册表中的 "neomagicae:coffeinum"
 
     public static final Item ENDER_PEARL = null;    // 注意实际的名称是 "minecraft:ender_pearl"，而不是 "minecraft:ENDER_PEARL"
-                                                    // 所以，注入将会失败，这个字段必须要小写或者被注解才行
+                                                    // 然而，由于在构建一个 ResourceLocation 时会让所有字母变为小写，所以这个能够正常工作
 }
 
 class UnannotatedHolder { // 注意这个类没有注解
