@@ -87,15 +87,16 @@ JetBrains的旗舰级IDE对[Gradle](https://www.gradle.org)，Forge所用的构�
 
 要想启用Forge自带的测试Mod，你需要将编译器输出添加到Classpath。同样，cpw也发布了一个[视频](https://www.youtube.com/watch?v=pLWQk6ed56Q)来解释这些步骤。
 
-1. 打开`File -> Project Structure`内的“Project Structure”窗口
-2. 前往“Modules”选项，展开`Forge`模组
-3. 选择`Forge_test`子模组，前往“Paths”面板
-4. 记住"Test output path"标签内的路径，从树中选择`Forge_main`子模组
-5. 打开“Dependencies”面板，点击右侧的绿色加号按钮，并选择“JARs or directories”
-6. 选择之前显示在`Forge_test`输出路径中的路径，点击确认
-7. 将新添加依赖项的“Scope”设置为“Runtime”（当前为“Compile”），因为主代码编译并不依赖于测试代码
+1. 在工程视图中选择`src/main/test`目录，并从菜单中运行`Build -> Build module 'Forge_test'`
+2. 打开`File -> Project Structure`内的“Project Structure”窗口
+3. 前往“Modules”选项，展开`Forge`模组
+4. 选择`Forge_test`子模组，前往“Paths”面板
+5. 记住"Test output path"标签内的路径，从树中选择`Forge_main`子模组
+6. 打开“Dependencies”面板，点击右侧的绿色加号按钮，并选择“JARs or directories”
+7. 选择之前显示在`Forge_test`输出路径中的路径，点击确认
+8. 将新添加依赖项的“Scope”设置为“Runtime”（当前为“Compile”），因为主代码编译并不依赖于测试代码
 
-现在你已经添加测试Mod到类路径中了，你需要在每次做出变动时重新构建它们，因为它们不能自动构建。要想构建的话，在工程视图中选择`src/main/test`目录，并从菜单中运行`Build -> Build module 'Forge_test'`。如果你对测试Mod文件进行了修改，想要重新构建，只需要点击`Build -> Rebuild project`或者对应的键盘快捷键（默认是Ctrl+F9）。
+现在你已经添加测试Mod到类路径中了，你需要在每次做出变动时重新构建它们，它们是不会自动构建的。要想构建的话，重复步骤1，或者，如果你对测试Mod文件进行了修改，想要重新构建，只需要点击`Build -> Rebuild project`或者对应的键盘快捷键（默认是Ctrl+F9）就可以了。
 
 #### 使用已有的Mod测试
 

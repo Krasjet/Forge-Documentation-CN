@@ -5,7 +5,7 @@
 
 总的来说，每个能力以接口形式提供了一个特性，一个可被调用的默认实现，和一个至少对于默认实现的储存处理器(Storage Handler)。储存管理器可以支持其它的实现，但是这个是取决于能力的实现者，所以你应该先看一下它们的文档之后再决定是否对非默认实现使用默认储存。
 
-Forge对TileEntity、实体、和ItemStack添加了能力支持。它们可以通过事件附加上去，也可以通过在你的实现中重写能力的方法来展现。这将在后面的小节中进行更详细地解释。
+Forge对TileEntity、实体、ItemStack、世界和区块添加了能力支持。它们可以通过事件附加上去，也可以通过在你的实现中重写能力的方法来展现。这将在后面的小节中进行更详细地解释。
 
 Forge提供的能力
 --------------
@@ -72,12 +72,13 @@ public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 附加能力
 -------
 
-之前说过，对实体和ItemStack附加能力可以通过 `AttachCapabilityEvent` 来完成。所有提供了能力的对象使用的都是这同一个事件。`AttachCapabilityEvent` 有四个泛型(Generic)，分别提供了以下几个事件
+之前说过，对实体和ItemStack附加能力可以通过 `AttachCapabilityEvent` 来完成。所有提供了能力的对象使用的都是这同一个事件。`AttachCapabilityEvent` 有五个泛型(Generic)，分别提供了以下几个事件
 
 - `AttachCapabilityEvent<Entity>`: 仅对实体触发
 - `AttachCapabilityEvent<TileEntity>`: 仅对TileEntity触发
 - `AttachCapabilityEvent<Item>`: 仅对ItemStack触发
 - `AttachCapabilityEvent<World>`: 仅对世界触发
+- `AttachCapabilityEvent<Chunk>`：仅对区块触发
 
 泛型的类型只能是以上几个，不能够更加细化。比如说，如果你想附加一个能力到 `EntityPlayer` 上，你必须要订阅的是 `AttachCapabilityEvent<Entity>`，之后在附加相应能力之前判断所提供的对象是否是 `EntityPlayer`。
 
@@ -127,6 +128,11 @@ private static class Factory implements Callable<IExampleCapability> {
 ```
 
 最后我们需要一个默认实现，以能在Factory中实例化。这个类的设计完全取决于你，但它至少应该能提供一个简单的骨架让别人测试这个能力（如果它本身不是完全可用的话）。
+
+!!! warning
+
+	和其它拥有能力的对象不同，区块只会在该区块被标记(Mark Dirty)的时候才会写入磁盘。`Chunk`的能力实现必须要保证在改变状态时，对区块进行标记。
+
 
 与客户端同步数据
 --------------
