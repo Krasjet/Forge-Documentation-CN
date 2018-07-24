@@ -44,7 +44,6 @@ pages:
     - 入门: 'forgedev/index.md'
     - PR指南: 'forgedev/prguidelines.md'
 
-
 # Do not edit in PRs below here
 site_name: Forge文档
 
@@ -52,8 +51,15 @@ markdown_extensions:
   - admonition
   - smarty
   - sane_lists
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      use_pygments: false
+  - toc:
+      permalink: ' '
 
-extra_css:
-  - css/style_fixes.css
-
-theme: readthedocs
+theme:
+  name: null
+  custom_dir: forge_theme
+# Technically deprecated, but RTD overrides theme.custom_dir with their default style
+# They still seem to respect the old option, though
+theme_dir: forge_theme
