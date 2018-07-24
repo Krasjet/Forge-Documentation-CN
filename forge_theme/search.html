@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title_prefix %}Search Results{% endblock %}
+{% block title_prefix %}搜索结果{% endblock %}
 
 {% block search_form %}
 <form class="search" id="content_search" action="search.html">
@@ -8,16 +8,16 @@
     <input type="submit" value="&#xf002;">
     <div class="search-field">
         <input type="search" title="Search" name="q" id="mkdocs-search-query"
-               class="search_input search-query ui-autocomplete-input" autocomplete="off" placeholder="Search...">
+               class="search_input search-query ui-autocomplete-input" autocomplete="off" placeholder="搜索...">
     </div>
 </form>
 {% endblock %}
 
 {% block content %}
-<h1 id="search">Search Results</h1>
+<h1 id="search">搜索结果</h1>
 
 <div id="mkdocs-search-results">
-    Searching...
+    正在搜索...
 </div>
 {% endblock %}
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -64,7 +64,7 @@
         </div>
         <nav>
             <ul class="links clearfix">
-                <li><a href="http://minecraftforge.net/">Forums</a></li>
+                <li><a href="http://minecraftforge.net/">论坛</a></li>
             </ul>
         </nav>
         {% block search_form %}
@@ -81,7 +81,7 @@
     <div class="sidebar-left sidebar-sticky">
         <aside>
             <section class="sidebar-nav">
-                <h2><a href="#" class="close-sidebar"><i class="fa fa-bars"></i></a> Navigation</h2>
+                <h2><a href="#" class="close-sidebar"><i class="fa fa-bars"></i></a> 导航</h2>
                 <ul class="section-content scroll-pane">
                     {% for nav_item in nav %}
                     {% include "nav.html" %}
@@ -101,10 +101,10 @@
         {% if next_page or previous_page %}
         <div class="docs-entry-footer-buttons" role="navigation" aria-label="footer navigation">
             {% if previous_page %}
-            <a href="{{ page.previous_page.url }}" title="{{ page.previous_page.title }}" class="btn"><span class="fa fa-arrow-left"></span> Previous</a>
+            <a href="{{ page.previous_page.url }}" title="{{ page.previous_page.title }}" class="btn"><span class="fa fa-arrow-left"></span> 上一页</a>
             {% endif %}
             {% if next_page %}
-            <a href="{{ page.next_page.url }}" title="{{ page.next_page.title }}" class="float-right btn">Next <span class="fa fa-arrow-right"></span></a>
+            <a href="{{ page.next_page.url }}" title="{{ page.next_page.title }}" class="float-right btn">下一页 <span class="fa fa-arrow-right"></span></a>
             {% endif %}
         </div>
         {% endif %}
@@ -113,9 +113,9 @@
 </main>
 <div class="wrapper">
     <footer>
-        Built with <a href="http://www.mkdocs.org">MkDocs</a> using a custom theme. Hosted by <a href="https://readthedocs.org">Read the Docs</a>.
+        基于 <a href="http://www.mkdocs.org">MkDocs</a> 使用自定义主题构建. 托管于 <a href="https://readthedocs.org">Read the Docs</a>.
         <div class="theme-switch-wrapper">
-            Enable Dark Theme
+            启用夜间模式
             <label class="theme-switch">
                 <input type="checkbox">
                 <span class="slider round"></span>
