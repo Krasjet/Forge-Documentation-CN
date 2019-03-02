@@ -40,14 +40,14 @@ Mod的结构
 
 |     属性 |   类型   | 默认值  | 简介 |
 |-------------:|:--------:|:--------:|:------------|
-|        modid |  string  | 必填 | 这篇介绍所链接的modid。如果这个Mod没有加载，那么这篇介绍将会被忽略 |
+|        modid |  string  |   必填   | 这篇介绍所链接的modid。如果这个Mod没有加载，那么这篇介绍将会被忽略 |
 |         name |  string  | 必填 | Mod显示的名字 |
 |  description |  string  |   `""`   | 1-2段话的Mod简介 |
 |      version |  string  |   `""`   | Mod的版本 |
 |    mcversion |  string  |   `""`   | Minecraft的版本 |
 |          url |  string  |   `""`   | Mod主页的链接 |
 |    updateUrl |  string  |   `""`   | 有定义但没有实际用处。现在被updateJSON取代了 |
-|   updateJSON |  string  |   `""`   | [version JSON](autoupdate#forge)的地址 |
+|   updateJSON |  string  |   `""`   | [version JSON](autoupdate#forge-update-checker)的地址 |
 |   authorList | [string] |   `[]`   | Mod作者的列表 |
 |      credits |  string  |   `""`   | 可以包含任何你想感谢的东西 |
 |     logoFile |  string  |   `""`   | Mod Logo的地址。它会根据classpath来解析，所以你可以把它放在任何不会造成命名冲突的位置，比如说你的assets文件夹中 |
@@ -68,7 +68,29 @@ Mod文件
 什么是 `@Mod`？
 -------------
 
-这是一个注解，它会告诉Forge Mod Loader(FML)这个类(Class)是一个Mod的入口点。它可以包含不同的关于这个mod的元数据(Metadata)。它也同样指示了这个类将会收到 `@EventHandler` 事件。更多的信息在这里...（未完成）
+这是一个注解，它会告诉Forge Mod Loader(FML)这个类(Class)是一个Mod的入口点。它可以包含不同的关于这个mod的元数据(Metadata)。它也同样指示了这个类将会收到 `@EventHandler` 事件。
+
+下面是`@Mod`的属性表
+
+|     属性 |   类型   | 默认值  | 简介 |
+|---------------------------------:|:------------------:|:--------------:|:------------|
+|modid |String|必填| 指定mod的唯一标识符。 它必须是小写的，并且将被截断为64个字符的长度。 |
+|name |String|`""`| 指定mod的对用户友好的名称。 |
+|version |String|`""`| 指定mod的版本. 它只能是被点分隔开的数字, 应该符合 [Semantic Versioning](https://semver.org/)标准。 即使`useMetadata` 设为 `true`, 也建议在这里设置版本 |
+|dependencies |String | `""` | 指定该mod的依赖. Forge `@Mod`的 javadoc中描述了该规范 <br><blockquote><p>依赖关系字符串可以有以下四个前缀: `"before"`, `"after"`, `"required-before"`, `"required-after"`; 然后加上`":"` 和 `modid`.</p><p>你可以用`“@”`设置版本范围，可以为mod指定版本范围。[\*](#version-ranges)</p><p>如果一个"必选"的mod缺失,或者一个mod的版本不在版本范围之内,游戏将无法启动,并且会显示一个错误界面告诉用户需要哪个版本。</p> |
+|useMetadata |       boolean      |     `false`     | 如果为`true`, `@Mod`的参数会被`mcmod.info`覆盖。 |
+| clientSideOnly<br>serverSideOnly | boolean<br>boolean | `false`<br>`false` | 如果其中任意一个为 `true`,jar包会在另一端被跳过，不会被加载. 如果都为`true`，游戏会崩溃。 |
+|        acceptedMinecraftVersions |       String       |       `""`       | 指定可适用的minecraft的版本范围.[\*](#version-ranges) 空字符串表示适用所有minecraft版本。 |
+|         acceptableRemoteVersions |       String       |       `""`       | 指定此mod允许的服务器版本范围[*](#version-ranges). `""` 匹配当前版本,  `"*"` 匹配所有版本. 注意: `"*"` 即使服务器上根本不存在该mod，也会匹配. |
+|           acceptableSaveVersions |       String       |       `""`       | 指定兼容的保存版本信息的版本范围.[\*](#version-ranges)如果您遵循不寻常的版本约定，请改用`SaveInspectionHandler`。 |
+|           certificateFingerprint |       String       |       `""`       | 参见教程 [Jar签名](../concepts/jarsigning.md). |
+|                      modLanguage |       String       |     `"java"`     | 指定该mod所用的编程语言. 可以是 `"java"` 或 `"scala"`. |
+|               modLanguageAdapter |       String       |       `""`       | 指定mod的语言适配器的路径. 该类必须具有默认构造函数，并且必须实现`ILanguageAdapter`. 否则，forge会崩溃.如果设置了该属性, 将会覆盖`modLanguage`属性. |
+|                 canBeDeactivated |       boolean      |      `false`       | 这不会生效,但如果mod可以被停用(如小地图mod)，可以将其设为`true`，那么该mod将会[收到](../events/intro.md#creating-an-event-handler)`FMLDeactivationEvent`来执行清理任务。 |
+|                       guiFactory |       String       |       `""`       | 指定该mod的GUI factory的路径(如果存在). GUI factory用于制作自定义配置界面, 必须实现`IModGuiFactory`. 例如参考 `FMLConfigGuiFactory`. |
+|                       updateJSON |       String       |       `""`       | 指定更新的JSON文件发URL. 参考[Forge更新检查器](autoupdate.md) |
+
+<a name="version-ranges" style="color: inherit; text-decoration: inherit">\* 所有版本的取值范围可以在 [Maven Version Range Specification](https://maven.apache.org/enforcer/enforcer-rules/versionRanges.html)查看.</a>
 
 你可以在 [Forge src download](http://files.minecraftforge.net/)找到一个示例mod。
 
@@ -92,8 +114,8 @@ Mod文件
 
 例如:
 
-- 一个叫做 `PowerRing` 的 `Item`（物品）应该放在 `item` 包下，并且类名为 `ItemPowerRing`
-- 一个叫做 `NotDirt` 的 `Block`（方块）应该放在 `block` 包下，类名为 `BlockNotDirt`
-- 最后，一个叫做 `SuperChewer` 的方块的 `TileEntity` 应该放在 `tile` 或者是 `tileentity`包下，类名为 `TileSuperChewer`
+* 一个叫做 `PowerRing` 的 `Item`（物品）应该放在 `item` 包下，并且类名为 `ItemPowerRing`
+* 一个叫做 `NotDirt` 的 `Block`（方块）应该放在 `block` 包下，类名为 `BlockNotDirt`
+* 最后，一个叫做 `SuperChewer` 的方块的 `TileEntity` 应该放在 `tile` 或者是 `tileentity`包下，类名为 `TileSuperChewer`
 
 在你的类名前面加上这个对象所属的**种类**可以让人更容易弄清楚这个类是什么，或者通过一个对象来猜测类的名字。
