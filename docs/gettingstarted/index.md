@@ -8,17 +8,17 @@ Forge入门
 
 1. 从Forge[下载站点][files]获取Forge的源码发布版（即Mdk版本，如果是1.8/1.7的旧版本则是Src）。
 2. 解压刚下载的源码到一个空文件夹中。你应该能看见有一些文件在里面，我们在 `src/main/java` 中准备了一个范例mod供您参考。只有下面这几个文件是在mod开发中必须的，你可以在你所有的工程中重复使用这些文件：
-    - `build.gradle`
-    - `gradlew` (`.bat`和`.sh`)
-    - `gradle` 文件夹
+    * `build.gradle`
+    * `gradlew` (`.bat`和`.sh`)
+    * `gradle` 文件夹
 3. 将上述文件复制到一个新的文件夹中，它将会是你的mod工程文件夹。
-4. 在步骤(3)创建的文件夹中打开命令提示符，运行 `gradlew setupDecompWorkspace` (译注: 如果在Linux系统下替换 `gradlew` 为 `./gradlew`，需要自己添加运行权限)。这个指令会从互联网上下载很多的文件，这些文件会用来反编译和构建Minecraft和Forge。由于它会下载一些东西并且反编译Minecraft，这也许会需要很长时间。
+4. 在步骤(3)创建的文件夹中打开命令提示符，运行 `gradlew setupDecompWorkspace` (译注: 如果在Linux系统和powershell下替换 `gradlew` 为 `./gradlew`，需要自己添加运行权限)。这个指令会从互联网上下载很多的文件，这些文件会用来反编译和构建Minecraft和Forge。由于它会下载一些东西并且反编译Minecraft，这也许会需要很长时间。
 5. 选择你的IDE: Forge官方支持使用Eclipse或者是IntelliJ环境进行开发，但你可以使用任何开发环境，不论是NetBeans还是vi/emacs，都可以正常工作
-    - 对于Eclipse用户，你需要运行 `gradlew eclipse` - 这会下载更多文件以能够让工程在Eclipse中构建，并且将Eclipse工程输出到你当前的目录
-    - 对于IntelliJ用户，直接导入build.gradle文件就可以了（译注：IDEA启动界面Import Project选build.gradle）
+    * 对于Eclipse用户，你需要运行 `gradlew eclipse` - 这会下载更多文件以能够让工程在Eclipse中构建，并且将Eclipse工程输出到你当前的目录
+    * 对于IntelliJ用户，直接导入build.gradle文件就可以了（译注：IDEA启动界面Import Project选build.gradle）
 6. 加载你的工程到IDE
-    - 对于Eclipse用户，在任意地方创建一个工作空间(Workspace)（当然最方便的就是在工程文件夹的上一级目录中创建）。之后以工程的形式导入你的工程文件夹，之后的事情软件都会自动处理
-    - 对于IntelliJ用户，你只需要创建运行配置就行了。你可以运行 `gradlew genIntellijRuns` 来自动生成
+    * 对于Eclipse用户，在任意地方创建一个工作空间(Workspace)（当然最方便的就是在工程文件夹的上一级目录中创建）。之后以工程的形式导入你的工程文件夹，之后的事情软件都会自动处理
+    * 对于IntelliJ用户，你只需要创建运行配置就行了。你可以运行 `gradlew genIntellijRuns` 来自动生成
 
 !!! note
 
@@ -71,9 +71,9 @@ Forge入门
 
 这些自定义设置是非常推荐所有工程都应用的。
 
-- 改变构建文件的文件名 - 修改 `archivesBaseName` 的值
-- 改变你的“Maven坐标” - 修改 `group` 的值
-- 改变版本号 - 修改 `version` 的值
+* 改变构建文件的文件名 - 修改 `archivesBaseName` 的值
+* 改变你的“Maven坐标” - 修改 `group` 的值
+* 改变版本号 - 修改 `version` 的值
 
 构建并测试你的mod
 ---------------

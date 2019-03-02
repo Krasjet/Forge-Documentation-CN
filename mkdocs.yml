@@ -5,6 +5,8 @@ pages:
     - 概述: 'gettingstarted/index.md'
     - Mod的结构: 'gettingstarted/structuring.md'
     - Forge更新检查器: 'gettingstarted/autoupdate.md'
+    - 依赖管理: 'gettingstarted/dependencymanagement.md'
+    - 调试分析器: 'gettingstarted/debugprofiler.md'
   - 概念:
     - Sides: 'concepts/sides.md'
     - 资源: 'concepts/resources.md'
