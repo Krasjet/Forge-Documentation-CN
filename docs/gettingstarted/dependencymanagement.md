@@ -1,23 +1,24 @@
-Dependency Management
+依赖管理
 =====================
 
-Forge has some support for managing and loading mod dependencies. Libraries, and even other mods, can be embedded in builds in a way that lets Forge extract and load them at runtime in a compatible manner.
+Forge对管理和加载mod依赖项有一些支持。 库，甚至其他mod都可以嵌入到构建中，使Forge能够以兼容的方式在运行时提取和加载它们。
 
-The mod repository
+mod存储库
 ------------------
 
-The mod repository is a Maven-like repository containing mods and libraries. An artifact in this repository is identified by its Maven coordinate: `groupId:artifactId:version:classifier@extention`. Classifer and extension are optional. Forge can archive, manage and load mods and libraries in this repository. The mod repository may contain multiple versions of mods and libraries, including snapshot versions.
+mod存储库是一个类似Maven的存储库，包含mods和库。 此存储库中的工件由其Maven坐标标识：`groupId：groupId:artifactId:version:classifier@extention`。 分类和扩展是可选的。 Forge可以存档，管理和加载此存储库中的mod和库。 mod存储库可能包含多个版本的mod和库，包括快照版本。
 
-Forge can archive a jar in the repository if its `Maven-Artifact` manifest attribute is defined. The value of this attribute should be its Maven coordinate.
+如果定义了`Maven-Artifact`清单属性，Forge可以在存储库中存档jar。 此属性的值应为其Maven坐标。
 
-The mod repository supports snapshot artifacts. If the artifact version ends with `-SNAPSHOT`, the artifact will be resolved as the version with the latest timestamp. The timestamp can be set as the `Timestamp` manifest attribute, which should be the time since the epoch in milliseconds.
+mod存储库支持快照工件。 如果工件版本以`-SNAPSHOT`结尾，则工件将被解析为具有最新时间戳的版本。 时间戳可以设置成清单中`Timestamp`属性，该属性应该是自纪元以来的时间（以毫秒为单位）。
 
 
-Dependency extraction
+依赖扩展
 ---------------------
 
-Forge provides a simple way to embed dependencies in a mod and have them extracted at runtime. By placing dependency jars in your own jar, Forge can extract them into the mod repository and load them. This can be used as an alternative to shading, and comes with the potential benefit of resolving dependency version conflicts.
+Forge提供了一种在mod中嵌入依赖项和运行时提取它们的简单方法。 通过将依赖jar包放在您自己的jar包中，Forge可以将从mod存储库提取到并加载它们。 这可以用作shading的替代方法，并具有解决依赖项版本冲突的潜在好处。
 
-The contained dependencies of a jar file are marked by the `ContainedDeps` manifest attribute. Its value should be a space separated list of the names of contained jar files that will be extracted. These jar files should be placed in `/META-INF/libraries/{entry}`.
+jar包的包含依赖项由`ContainedDeps`清单属性标记。 它的值应该是一个空格分隔的列表，其中包含将要提取的jar包的名称。 这些jar包应该放在`/META-INF/libraries/{entry}`中。
 
-Forge will inspect the manifest of the contained jar to determine its Maven coordinate so that it may be archived. If a file `/META-INF/libraries/{entry}.meta` exists, Forge will read this as the jar's manifest instead. The dependency will be archived in the local repository according to its `Maven-Artifact` manifest attribute.
+Forge将检查清单中所包含的jar包，以确定其Maven坐标，以便它可以存档。 如果存在文件`/ META-INF / libraries / {entry} .meta`，Forge将把它读作jar包的清单。 依赖项将根据其`Maven-Artifact`清单属性存储到本地存储库中。
+
