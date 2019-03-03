@@ -12,6 +12,7 @@ pages:
     - 资源: 'concepts/resources.md'
     - 注册表: 'concepts/registries.md'
     - Jar签名: 'concepts/jarsigning.md'
+    - 国际化和本地化: 'concepts/internationalization.md'
   - 方块:
     - 概述: 'blocks/blocks.md'
     - 方块互动: 'blocks/interaction.md'
