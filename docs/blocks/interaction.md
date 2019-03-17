@@ -112,4 +112,38 @@ public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn)
 
 音符盒会在左击的时候播放一个音效。红石矿石方块会在左击的时候发光几秒钟。
 
+`onBlockDestroyedByPlayer`
+---
+
+```java
+public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
+```
+
+当玩家摧毁一个方块时会被触发。
+
+### 参数:
+
+|     类型      |   名称    | 描述                   |
+| :-----------: | :-------: | :--------------------- |
+|    `World`    | `worldIn` | 被摧毁的方块所在的世界 |
+|  `BlockPos`   |   `pos`   | 被摧毁方块的坐标       |
+| `IBlockState` |  `state`  | 被摧毁的方块的状态     |
+
+!!! warning "警告"
+    
+
+```
+参数`pos`可能不保持指示的状态
+```
+
+### 使用范例
+
+此方法非常适合添加自定义方块破坏事件。
+
+该方法默认为空。
+
+**TNT 方块**为了在摧毁时引发爆炸重写了该方法。  
+激活的活塞使用该方法因为激活的活塞由两部分（头部和基部）组成，
+当**移动的活塞**块被破坏时，它利用这个方法来破坏基部。
+
 [端]: ../concepts/sides.md
