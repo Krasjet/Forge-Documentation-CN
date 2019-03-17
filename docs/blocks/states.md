@@ -97,7 +97,7 @@ In addition, note that you can share the same `IProperty` object between differe
 
 !!! warning "警告"
 
-	当你在 `getActualState` 中读取TileEntity的数据时，你必须采取进一步的安全检查。默认情况下，`getTileEntity` 将会在TileEntity不存在时尝试创建这个TileEntity。然而，`getActualState` 和 `getExtendedState` 可以并且会被另外的线程调用，这将会导致在它尝试创建丢失TIleEntity时，世界的TileEntity列表会抛出 `ConcurrentModificationException`。所以，你必须检查 `IBlockAccess` 参数是否为 `ChunkCache`（传给其它线程的对象），如果是的话，将其强制转换为 `ChunkCache` 类型，并使用 `getTileEntity` 不可写的变种。安全检查的例子可以在 `BlockFlowerPot.getActualState()` 中找到。
+    当你在 `getActualState` 中读取TileEntity的数据时，你必须采取进一步的安全检查。默认情况下，`getTileEntity` 将会在TileEntity不存在时尝试创建这个TileEntity。然而，`getActualState` 和 `getExtendedState` 可以并且会被另外的线程调用，这将会导致在它尝试创建丢失TIleEntity时，世界的TileEntity列表会抛出 `ConcurrentModificationException`。所以，你必须检查 `IBlockAccess` 参数是否为 `ChunkCache`（传给其它线程的对象），如果是的话，将其强制转换为 `ChunkCache` 类型，并使用 `getTileEntity` 不可写的变种。安全检查的例子可以在 `BlockFlowerPot.getActualState()` 中找到。
 
 !!! note "提示"
 

@@ -17,6 +17,11 @@ nav:
     - 概述: 'blocks/blocks.md'
     - 介绍方块状态: 'blocks/states.md'
     - 方块互动: 'blocks/interaction.md'
+  - 动画 API:
+    - 介绍动画 API: 'animation/intro.md'
+    - 骨骼: 'animation/armature.md'
+    - 动画状态机: 'animation/asm.md'
+    - 使用API: 'animation/implementing.md'
   - TileEntity:
     - 特殊渲染器: 'tileentities/tesr.md'
   - 物品:

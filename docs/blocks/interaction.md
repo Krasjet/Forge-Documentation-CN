@@ -130,11 +130,8 @@ public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState st
 | `IBlockState` |  `state`  | 被摧毁的方块的状态     |
 
 !!! warning "警告"
-    
 
-```
-参数`pos`可能不保持指示的状态
-```
+    参数`pos`可能不保持指示的状态
 
 ### 使用范例
 
