@@ -25,7 +25,7 @@ public class MyForgeEventHandler {
 
 要想注册一个事件处理器，请使用 `MinecraftForge.EVENT_BUS.register()`，并将你的事件处理器的一个实例传进去。
 
-!!! note
+!!! note "提示"
 
 	在更早的Forge版本中存在有两个分开的事件总线。一个是Forge的，一个是FML的。然而这个系统已经被弃用很长时间了，所以你以后不需要再使用FML的事件总线了。
 
@@ -48,7 +48,7 @@ public class MyStaticForgeEventHandler {
 
 一个类也可以使用 `@Mod.EventBusSubscriber` 来进行注解。当 `@Mod` 类构造时，这样的类将会自动注册至 `MinecraftForge.EVENT_BUS`。这完全等同于在 `@Mod` 类的构造器最后加上 `MinecraftForge.EVENT_BUS.register(AnnotatedClass.class);`
 
-!!! note
+!!! note "提示"
 
 	使用这个注解并不会注册一个类的实例。它注册的是类本身（即事件处理方法必须是静态的）。
 
@@ -57,7 +57,7 @@ public class MyStaticForgeEventHandler {
 
 如果一个事件可以被取消(Candel)，它将会被注解为 `@Cancelable`，并且 `Event#isCancelable()` 方法将会返回 `true`。一个可取消事件的取消状态可以通过调用 `Event#setCanceled(boolean canceled)` 来变更，在这个函数内传入 `true` 将取消这个事件，而传入 `false` 的话则重新启用这个事件。然而，如果这个事件不能被取消（通过 `Event#isCancelable()` 来定义），不论传入什么boolean值都将抛出 `UnsupportedOperationException`，因为不可取消的事件中的取消状态是不可变的。
 
-!!! important
+!!! important "重要"
 
 	不是所有的事件都可以被取消！尝试取消一个不可被取消的事件将会导致抛出 `UnsupportedOperationException`，这很可能会导致游戏崩溃！在尝试取消一个事件之前确保先使用 `Event#isCancelable()` 来检测它是否能够被取消。
 
@@ -66,7 +66,7 @@ public class MyStaticForgeEventHandler {
 
 一些事件会有一个 `Event.Result` 结果(Result)。可能的结果有三个：`DENY` 停止事件、`DEFAULT` 使用原版行为、`ALLOW` 强制动作发生，不论原本动作是否要发生。一个事件的结果可以通过调用 `setResult`，并传入一个 `Event.Result` 参数。并不是所有的事件都有结果，一个有结果的事件将会被注解为 `@HasResult`。
 
-!!! important
+!!! important "重要"
 
 	不同的事件可能对结果(Result)有着不同的用法，使用结果之前请先查看事件对应的JavaDoc。
 

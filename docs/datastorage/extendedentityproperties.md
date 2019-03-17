@@ -3,7 +3,7 @@
 
 拓展实体属性(Extended Entity Properties, EEP)使我们能对实体(Entity)附加数据。
 
-!!! warning
+!!! warning "警告"
 
 	这个系统已经弃用，被[能力](capabilities.md)(Capability)系统所代替。
 
@@ -43,7 +43,7 @@ public class ExampleEntityProperty implements IExtendedEntityProperties {
 
 为了能识别你的属性并且避免重复，这个方法需要填写一个String参数作为属性的识别码(Identifier)。一个很好的做法就是将你的modid包括在这个String中，以防与其他mod中的属性冲突。
 
-!!! warning
+!!! warning "警告"
 
 	如果同一个属性识别码被添加了两次，Forge将会在识别码上添加一个数字，并通过 `registerExtendedProperties` 方法的返回值返回修改后的识别码。如果你不想这种事情发生，你可以使用 `Entity#getExtendedProperties` 来检查是否这个名字的IEEP被添加过了。
 

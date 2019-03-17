@@ -10,7 +10,7 @@
 矿物词典名称规范
 ---------------
 
-!!! note
+!!! note "提示"
 
 	由于矿物词典名称需要在不同Mod间共享，它们应该是比较统一的。请使用其它Mod可能会使用的名称。
 
@@ -38,13 +38,13 @@ WILDCARD_VALUE
 
 如果想要让一个配方使用矿物词典条目，创建一个 `ShapelessOreRecipe` 条目或者 `ShapedOreRecipe` 实例，并且调用 `GameRegistry.addRecipe(IRecipe recipe)` 注册它。
 
-!!! note
+!!! note "提示"
 
 	你可以通过调用 `OreDictionary.doesOreNameExist(String name)`，检测返回值是否为一个有效的 `ItemStack` 来验证矿物词典名称的有效性。
 
 在合成中矿物词典的另一种用途就是 `[WILDCARD_VALUE]()`，你可以将 `OreDictionary.WILDCARD_VALUE` 传入一个 `ItemStack` 的构造器。
 
-!!! note
+!!! note "提示"
 
 	`OreDictionary.WILDCARD_VALUE` 应该只被用在配方的输入中，在配方输出中使用 `WILDCARD_VALUE` 只会改变输出 `ItemStack` 的损害值(Damage)。
 

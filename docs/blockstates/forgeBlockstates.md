@@ -4,7 +4,7 @@ Forge的方块状态
 Forge有它自己的方块状态JSON格式来迎合mod开发者的需求。它引入了子模型(Submodel)，子模型允许你能通过不同的部件构建最终的方块状态。你能够由不同的部件构建模型的**标准**(normal)方块状态，也能够根据方块的属性创建一个非常复杂的变种(variant)。
 
 
-!!! Attention
+!!! important "重要"
 
 	注意所有引用的模型和材质都是原版Minecraft里的。对于你自己的mod.你需要使用完整的路径！
 	例如: `"mymod:blocks/blockTexture"`。

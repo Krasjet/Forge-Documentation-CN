@@ -36,7 +36,7 @@ public boolean onBlockActivated(World worldIn,
 
 接下来的一个参数 `heldItem` 是玩家激活方块时拿着的 `ItemStack`。注意这个参数为 `@Nullable`，也就是说这个参数可以为null（即手里没拿东西）。
 
-!!! important
+!!! important "重要"
 
 	如果你需要检测玩家手里的物品，请使用方法传进来的这个 `ItemStack`。检测玩家当前握着的物品是不可靠的，因为它可能在激活方块以后已经变了。
 
@@ -46,7 +46,7 @@ public boolean onBlockActivated(World worldIn,
 
 返回的那个boolean到底是什么呢？简单来说，它代表了这个方法是否“做了”什么。如果任何执行了任何动作，那就返回true，这将防止之后更多的事情发生，比如说激活物品。
 
-!!! important
+!!! important "重要"
 
 	在客户端返回 `false` 将会防止这个方法在服务端被调用。通常，我们会检查 `worldIn.isRemote` 并返回 `true`，否则进入正常的激活逻辑。原版中有很多这样的例子，比如说箱子(Chest)
 
@@ -62,7 +62,7 @@ public boolean onBlockActivated(World worldIn,
 
 激活的另一个用处，是激活。这里指的是打开一个开关或者是激活方块执行一个特定的行为。比如说，一个方块可以在激活时发光。原版中可以参考按钮或者拉杆的例子。
 
-!!! important
+!!! important "重要"
 
 	`onBlockActivated` 在客户端和服务端都会被调用，所以一定要记住代码所处的[端]。许多东西，比如说打开GUI和变动世界，应该只在服务端调用。
 
@@ -90,7 +90,7 @@ public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn)
 
 当玩家点击一个方块时会被触发。
 
-!!! note
+!!! note "提示"
 
 	这个方法是在玩家**左击**一个方块时调用的。
 	不要将它和`onBlockActivated`弄混了，它是当玩家右击一个方块才会激活的。

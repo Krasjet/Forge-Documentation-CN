@@ -29,7 +29,7 @@
 
 方块必须要[注册]至函数中。
 
-!!! important
+!!! important "重要"
 
 	世界中的方块和物品栏中的“方块”截然不同。世界中的方块由 `IBlockState` 来表示，它的行为由 `Block` 的实例来定义。而物品栏中的物品是一个 `ItemStack`，由 `Item` 来控制。作为 `Block` 与 `Item` 之间的桥梁，`ItemStack` 类诞生了。`ItemStack` 是 `Item` 的一个子类，但它封装了其对应 `Block` 的引用。`ItemBlock` 定义了一个“方块”作为物品的行为，比如说右键如何能放置这个方块。一个 `Block` 没有 `ItemBlock` 也是可以的。（比如说 `minecraft:water` 存在有这个方块，但没有这个物品。所以不能将它放在物品栏中。）
 

@@ -10,7 +10,7 @@ Fork并Clone仓库
 
 如果你是使用Git的新手，那么下面这两个步骤能帮助你快速入门。
 
-!!! note
+!!! note "提示"
 
 	这篇指南假设你已经注册了一个GitHub账号。如果你没有的话，访问它的[注册页面](https://www.github.com/join)来创建一个账号。另外，这篇指南并不是Git的使用教程，如果你不能让其正常工作的话，请查阅其它的资源。
 
@@ -63,7 +63,7 @@ JetBrains的旗舰级IDE对[Gradle](https://www.gradle.org)，Forge所用的构�
 
 如果你更喜欢视频教程，cpw上传了一个[视频](https://www.youtube.com/watch?v=yanCpy8p2ZE)，里面介绍了非常相似的步骤，也能配置成功。
 
-!!! note
+!!! note "提示"
 
 	这些步骤只在IDEA 2016版之后能够稳定工作。更旧的版本没有正式的Gradle支持，而且也不支持Forge的开发工作空间。
 
@@ -111,7 +111,7 @@ JetBrains的旗舰级IDE对[Gradle](https://www.gradle.org)，Forge所用的构�
 7. 在刚打开的窗口中，选择`Forge_main`模组
 8. 在这之后，重复测试Mod部分中的步骤，只是记得将`Forge_test`替换为你的工程的`_main`模组
 
-!!! note
+!!! note "提示"
 
 	你可能会想要移除正常开发环境中的已有的依赖项（主要是指的`forgeSrc`这个Jar），或者将Forge模组移动到依赖项列表的上方。
 
@@ -134,6 +134,6 @@ JetBrains的旗舰级IDE对[Gradle](https://www.gradle.org)，Forge所用的构�
 
 提交变动到Forge前的最后一步就是Pull Request了（简写PR）。这是将你Fork的代码融入到正式代码库的一个正式请求。创建PR是很容易的，只需要前往[这个GitHub页面](https://github.com/MinecraftForge/MinecraftForge/compare)，并按照指定的步骤操作即可。在这里分支的重要性就体现出来了，你能够准确地选择你需要提交的改动。
 
-!!! note
+!!! note "提示"
 
 	Pull Request是遵循一些规则的，不是所有的请求都会被盲目地接受。请参考[这篇文档](https://github.com/MinecraftForge/MinecraftForge/blob/1.10.x/CONTRIBUTING.md)来获得更多的信息，并保证你的PR的质量！如果你希望将PR被接受的几率最大化，请遵循这个[PR指南](prguidelines.md)！

@@ -7,14 +7,14 @@ MinecraftForge文档
 
 可以在[GitHub]上投稿.
 
-> 译者注
+!!! note "译者注"
+    翻译也许并不能准确传达原文意思，如果觉得哪里有困惑，可以去[readthedocs]参考原文。
 
-
-> 翻译也许并不能准确传达原文意思，如果觉得哪里有困惑，可以去[readthedocs]参考原文。
-
-
-> 本文档会在原版文档更新之后及时更新，中文翻译最后更新时间：3/2/2019 15:34:28 PM CST
+    本文档会在原版文档更新之后及时更新，中文翻译最后更新时间：3/2/2019 15:34:28 PM CST
+	
+    mod开发入门路线可以参照[Mouse0w0/MinecraftDeveloperGuide]
 
 [MinecraftForge]: http://minecraftforge.net
 [GitHub]: https://github.com/MinecraftForge/Documentation
 [readthedocs]: http://mcforge.readthedocs.io/
+[Mouse0w0/MinecraftDeveloperGuide]: https://github.com/Mouse0w0/MinecraftDeveloperGuide

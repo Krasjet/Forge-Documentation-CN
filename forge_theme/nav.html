@@ -1,18 +1,18 @@
 {% if not nav_item.children %}
 <li {% if nav_item.active %}class="elem-active{% if page.toc %} elem-toc{% endif %}" {% endif %}>
     {% if nav_item.active %}
-    <a href="{{ (page.toc|first).url }}" class="elem-text">{{ nav_item.title }}</a>
+    <a href="{{ base_url }}/{{ (page.toc|first).url }}" class="elem-text">{{ nav_item.title }}</a>
     {% else %}
-    <a href="{{ nav_item.url }}" class="elem-text">{{ nav_item.title }}</a>
+    <a href="{{ base_url }}/{{ nav_item.url }}" class="elem-text">{{ nav_item.title }}</a>
     {% endif %}
     {% if nav_item.active %}
     <ul class="table-of-contents">
         {% for toc_item in page.toc %}
         {% if toc_item != (page.toc|first) %}
-        <li class="toc-item"><a href="{{ toc_item.url }}">{{ toc_item.title }}</a></li>
+        <li class="toc-item"><a href="{{ base_url }}/{{ toc_item.url }}">{{ toc_item.title }}</a></li>
         {% endif %}
         {% for toc_item in toc_item.children %}
-        <li class="toc-subitem"><a href="{{ toc_item.url }}">{{ toc_item.title }}</a></li>
+        <li class="toc-subitem"><a href="{{ base_url }}/{{ toc_item.url }}">{{ toc_item.title }}</a></li>
         {% endfor %}
         {% endfor %}
     </ul>

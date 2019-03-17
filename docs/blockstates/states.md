@@ -52,7 +52,7 @@ switch(meta) {
 
 另外，注意你可以共享同一个 `IProperty` 对象到不同的方块中。原版通常会分开放在每一个方块内，但这仅仅是个人喜好。
 
-!!! note
+!!! note "提示"
 
 	如果你的mod有一个API，或者需要与其他mod进行互动。我**非常非常**建议你将你的 `IProperty`(及其值的类) 储存在你的API中。这样的话用户就可以使用方块状态来改变你的方块，而不是用一些意义不明的Metadata。
 
@@ -84,7 +84,7 @@ switch(meta) {
 
 这里你将会读取属性的值，并返回一个合适的0到15之间的整数，或者是倒过来。读者们可以自己看看原版方块的例子。
 
-!!! warning
+!!! warning "警告"
 
 	你的 `getMetaFromState` 和 `getStateFromMeta` 方法**必须**是一对一的！换句话说，相同的属性与值必须映射到同一meta值，反之亦然。如果你没有做到这个，游戏将**不会**崩溃。它只会让所有东西都表现得很奇怪。
 
@@ -99,11 +99,11 @@ switch(meta) {
 
 然而，你需要在你的 `Block` 类中重写 `getActualState`。这里你将会接收到对应世界中Metadata值的 `IBlockState` ，你需要返回另一个包含缺失信息的 `IBlockState`，比如说栅栏链接，红石链接等。你需要用 `withProperty` 来附加属性。你也可以用这个来对一个值读TileEntity数据（当然你需要恰当的安全检查！）。
 
-!!! warning
+!!! warning "警告"
 
 	当你在 `getActualState` 中读取TileEntity的数据时，你必须采取进一步的安全检查。默认情况下，`getTileEntity` 将会在TileEntity不存在时尝试创建这个TileEntity。然而，`getActualState` 和 `getExtendedState` 可以并且会被另外的线程调用，这将会导致在它尝试创建丢失TIleEntity时，世界的TileEntity列表会抛出 `ConcurrentModificationException`。所以，你必须检查 `IBlockAccess` 参数是否为 `ChunkCache`（传给其它线程的对象），如果是的话，将其强制转换为 `ChunkCache` 类型，并使用 `getTileEntity` 不可写的变种。安全检查的例子可以在 `BlockFlowerPot.getActualState()` 中找到。
 
-!!! note
+!!! note "提示"
 
 	调用 `world.getBlockState()` 将会返回代表metadata的 `IBlockState`。所以返回的 `IBlockState` 将不会包含 `getActualState` 内的数据。如果这写数据对你的代码很重要，请务必调用 `getActualState`！
 

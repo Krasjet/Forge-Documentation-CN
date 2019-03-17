@@ -20,5 +20,5 @@ Forge提供了一种在mod中嵌入依赖项和运行时提取它们的简单方
 
 jar包的包含依赖项由`ContainedDeps`清单属性标记。 它的值应该是一个空格分隔的列表，其中包含将要提取的jar包的名称。 这些jar包应该放在`/META-INF/libraries/{entry}`中。
 
-Forge将检查清单中所包含的jar包，以确定其Maven坐标，以便它可以存档。 如果存在文件`/ META-INF / libraries / {entry} .meta`，Forge将把它读作jar包的清单。 依赖项将根据其`Maven-Artifact`清单属性存储到本地存储库中。
+Forge将检查清单中所包含的jar包，以确定其Maven坐标，以便它可以存档。 如果存在文件`/META-INF/libraries/{entry}.meta`，Forge将把它读作jar包的清单。 依赖项将根据其`Maven-Artifact`清单属性存储到本地存储库中。
 

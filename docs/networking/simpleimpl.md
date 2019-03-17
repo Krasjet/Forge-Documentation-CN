@@ -73,7 +73,7 @@ public class MyMessageHandler implements IMessageHandler<MyMessage, IMessage> {
 
 为了管理的方便，我们建议（但不要求）您将这个类设置为 `MyMessage` 类的内部类(Inner Class)。如果你这样做了，注意这个类也应该被声明为静态类(`static`)。
 
-!!! warning
+!!! warning "警告"
 
     在Minecraft 1.8+中，数据包默认由网络线程(Network Thread)来处理（而不是主线程）。
 
@@ -85,7 +85,7 @@ public class MyMessageHandler implements IMessageHandler<MyMessage, IMessage> {
 
 	（译注: `Minecraft` 实例（客户端）与 `WorldServer`实例（服务端）都实现了 `IThreadListener`。你可以将它们获取并创建为一个 `mainThread` 对象来使用。）
 
-!!! warning
+!!! warning "警告"
 
 	在服务端处理数据包时请采取防御性(Defensive)的方式。客户端是可以通过发送意外的数据从而利用数据包处理的。
 

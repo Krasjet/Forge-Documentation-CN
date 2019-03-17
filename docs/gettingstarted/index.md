@@ -20,7 +20,7 @@ Forge入门
     * 对于Eclipse用户，在任意地方创建一个工作空间(Workspace)（当然最方便的就是在工程文件夹的上一级目录中创建）。之后以工程的形式导入你的工程文件夹，之后的事情软件都会自动处理
     * 对于IntelliJ用户，你只需要创建运行配置就行了。你可以运行 `gradlew genIntellijRuns` 来自动生成
 
-!!! note
+!!! note "提示"
 
 	如果你在运行第4步时看到在 `:decompileMC` 这个任务报错
 
@@ -31,7 +31,7 @@ Forge入门
 
     请分配更多的内存给Gradle，在 `~/.gradle/gradle.properties` 文件中（如果没有请创建一个）加入 `org.gradle.jvmargs=-Xmx2G` 参数。`~` 符号代表用户的[Home目录][home directory]。
 
-!!! note
+!!! note "提示"
 
     注意，通常情况下，`gradlew setupDecompWorkspace` 的文件只需要被下载并且反编译一次，除非你删除了Gradle的产物缓存。
 
@@ -57,7 +57,7 @@ Forge入门
 
 修改 `build.gradle` 文件从而自定义你的Mod的构建（文件名，版本或者是其它东西）。
 
-!!! important
+!!! important "重要"
 
     **不要**修改build.gradle文件里的 `buildscript {}` 部分，默认的代码对ForgeGradle的运行至关重要。
 
@@ -83,7 +83,7 @@ Forge入门
 3. 你也可以通过运行配置启动一个专门的服务器，或者使用 `gradlew runServer` 指令。这将会启动一个带有GUI的Minecraft服务器。。
 
 
-!!! note
+!!! note "提示"
 
 	如果你想让你的mod运行在服务器上，我们始终建议您在专门的服务器环境下测试您的mod。
 	
