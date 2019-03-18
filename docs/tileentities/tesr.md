@@ -1,4 +1,4 @@
-TileEntitySpecialRenderer
+TileEntity特殊渲染器
 =========================
 
 `TileEntitySpecialRenderer`（TESR）是用来渲染不能被一个静态的烘焙模型（Static Baked Model，即JSON、OBJ、B3D等）所表示的方块的。TESR需要方块拥有一个TileEntity。

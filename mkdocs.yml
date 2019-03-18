@@ -23,6 +23,7 @@ nav:
     - 动画状态机: 'animation/asm.md'
     - 使用API: 'animation/implementing.md'
   - TileEntity:
+    - 概述: 'tileentities/tileentity.md'
     - 特殊渲染器: 'tileentities/tesr.md'
   - 物品:
     - 主页: 'items/items.md'
