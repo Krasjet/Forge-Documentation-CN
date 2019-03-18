@@ -28,6 +28,8 @@ nav:
   - 物品:
     - 主页: 'items/items.md'
     - 战利品表: 'items/loot_tables.md'
+  - 渲染:
+    - TileEntityItemStackRenderer: 'rendering/teisr.md'
   - 事件:
     - 基本用法: 'events/intro.md'
   - 网络:
