@@ -1,68 +1,66 @@
 动画状态机文件
 ===========
 
-动画状态机 (ASM) 文件 are the meat of the animation API. These define how the animation is carried out and how to use the clips defined in the armature file.
+动画状态机 (ASM) 文件是动画API的核心. 它们定义了动画的执行方式以及如何使用骨架文件中定义的剪辑。
 
-Concepts
+概念
 ----------
 
-The ASM contains _parameters_, _clips_, _states_, and _transitions_.
+ASM包含_参数_，_剪辑_，_状态_和_转换_(parameters, clips, states 和transitions)。
 
-### States
+### 状态(States )
 
-The Animation _State_ Machine can be in many different _states_. You define which states there are in the states section.
+动画_状态_ 机可以在许多不同的_状态_中。 您可以在状态部分中定义哪些状态。
 
-### Transitions
+### 转换(Transitions)
 
-Transistions define which states are allowed to go to other states, for example allowing a `closed` state to go to an `open` state.
+转换定义允许哪些状态进入其他状态，例如允许“关闭”状态进入“打开”状态。
 
-!!! note
+!!! note "提示"
 	
-	Transitions do _not_ define animations that are played between states, however. If you want to do that you must create an additional state
-	that plays an animation then uses an event to go to the next state.
+	但是，转换 _不会_ 定义状态之间播放的动画。 如果要这样做，则必须创建一个播放动画的附加状态，然后使用事件转到下一个状态。
 
-### Parameters
+### 参数(Parameters)
 
-!!! note
+!!! note "提示"
     
-    Parameters are called `TimeValues` in the code, hence the naming convention of SomethingValue.
+    参数在代码中称为`TimeValues`，因此这是SomethingValue的命名约定。
 
-All parameters take an input, usually the current game time in seconds as a float (factoring in partial ticks) and outputs another time. This output is then used as the input to a clip, telling it the
-current progress of the animation.
+所有参数都采用输入，通常以秒为单位的当前游戏时间作为浮点数（考虑特定tick）并输出另一个时间。 此输出用作剪辑的输入，告诉它当前动画的进展。
 
-Each parameter can either be defined in the ASM or when you load the ASM in the code. Load-time parameters are usually of the type `VariableValue`, which returns a value changeable in-code, ignoring its input.
-Other types allow you to do math on the input (`SimpleExprValue`), return a constant (`ConstValue`), refer to other parameters (`ParameterValue`), return the 
-input unmodified (`IdentityValue`) and perform composition of two parameters (`CompositionValue`).
+每个参数都可以在ASM中定义，也可以在代码中加载ASM时定义。 加载时参数通常是`VariableValue`类型，它返回一个代码内可变的值，忽略其输入。
+其他类型允许你对输入进行数学运算（`SimpleExprValue`），返回一个常量（`ConstValue`），引用其他参数（`ParameterValue`），返回
+输入unmodified（`IdentityValue`）并执行两个参数的组合（`CompositionValue`）。
 
-### Clips
+### 剪辑(Clips)
 
-!!! note
+!!! note "提示"
     
-    Clips can either be ASM-clips, ones that are defined in the ASM, or armature-clips, ones that are defined in the armature file.
-    For the rest of this page, "clips" will refer to ASM-clips unless otherwise stated.
+    剪辑可以是ASM剪辑，在ASM中定义的剪辑，也可以是电枢剪辑，在骨架文件中定义的剪辑。
+    对于本页的其余部分，除非另有说明，否则“剪辑”将引用ASM剪辑。
 
-A clip takes in an input, usually the time, and does something to the model with it. Different types of clips do different things, the simplest being animating an
-armature-clip (`ModelClip`). You can also override the input to another ASM-clip (`TimeClip`), trigger an event while animating another clip if the input is positive (`TriggerClip`), 
-smoothly blend between two clips (`SlerpClip`), refer to another clip in the ASM (`ClipReference`) or do nothing (`IdentityClip`).
+剪辑接收输入，通常是时间，并使用它对模型执行某些操作。 不同类型的剪辑做不同的事情，最简单的是动画电影剪辑（`ModelClip`）。 您还可以覆盖另一个ASM剪辑的输入（`TimeClip`）。如果输入为正，则在动画另一个剪辑时触发事件（`TriggerClip`）。在两个剪辑之间平滑混合（`SlerpClip`）。 在ASM参考另一个剪辑（`ClipReference`）或什么也不做（`IdentityClip`）。
 
-### Events
+### 事件(Events)
 
 Various things can trigger events in the ASM. Events in the ASM are represented using only text.
 Some events are special, with text that is formatted like this: `!event_type:event_value`. Right now there is only one kind of `event_type`, namely `transition`. This tries to transition to whatever state is defined in the `event_value`. Anything else is a normal event and can be used from the `pastEvents` callback, but more information about that is on the [implementing][] page.
 
+各种东西可以触发ASM中的事件。 ASM中的事件仅使用文本表示。
+有些事件很特殊，文本格式如下：`!event_type:event_value`。 现在只有一种`event_type`，即`transition`。 这会尝试转换为`event_value`中定义的任何状态。 其他任何东西都是正常事件，可以从`pastEvents`回调中使用，但有关它的更多信息在[使用API][implementation]页面上。
 
-Code API
+
+编程API
 ----------
 
-!!! warning
+!!! warning "警告"
 
-    The ASM code API can only be used _client side_. When storing ASMs in code, use the side-agnostic `IAnimationStateMachine` interface.
+    ASM代码API只能用于 _客户端_ 。 在代码中存储ASM时，请使用一端不可知的“IAnimationStateMachine”接口。
 
+可以通过调用`ModelLoaderRegistry.loadASM`来加载ASM。 它需要两个参数，第一个是`ResourceLocation`表示
+存储ASM的位置，以及第二个加载时定义参数的`ImmutableMap`。
 
-ASMs can be loaded by calling `ModelLoaderRegistry.loadASM`. It takes two parameters, the first being a `ResourceLocation` denoting 
-where the ASM is stored, and second an ImmutableMap of load-time defined parameters.
-
-An example:
+一个例子:
 ```java
 @Nullable
 private final IAnimationStateMachine asm;
@@ -73,20 +71,18 @@ public Spin() {
 }
 ```
 
-Here, an ASM is loaded (from a sidedproxy to avoid crashing on server) with one extra parameter, named `cycle_length`. This parameter is of the type `VariableValue`, so we can
-set it from within our code.
+在这里，使用一个名为`cycle_length`的额外参数加载ASM（用端代理SidedProxy以避免在服务器上崩溃）。 这个参数的类型是`VariableValue`，所以我们可以从我们的代码中设置它。
 
-Using an ASM instance, you can get the current state with `.currentState()` and transition to another state with `.transition(nextState)`
+使用ASM实例，您可以使用`.currentState()`获取当前状态，并使用`.transition(nextState)`转换到另一个状态。
 
-`VariableValue` parameters can have their value set by calling `.setValue`, but you can not read this value back. There is no need
-to inform the ASM of this change, it happens automatically.
+`VariableValue`参数可以通过调用`.setValue`来设置它们的值，但是你不能读回这个值。 无需通知ASM此更改，它会自动更改。
 
-File Format
+文件格式
 -------------
 
-The ASMs are stored in json files. The location does not matter, but they are usually placed in an `asms` folder.
+ASM存储在json文件中。 位置无关紧要，但它们通常放在`asms`文件夹中。
 
-First, a simple example:
+首先是一个例子:
 ```json
 {
   "parameters": {
@@ -103,11 +99,11 @@ First, a simple example:
 }
 ```
 
-As stated above, the files have parameters, clips, states and transitions, as well as the starting state of the ASM.
+如上所述，文件具有参数，剪辑，状态和转换，以及ASM的起始状态。
 
-All of these tags are required, even if they are empty.
+所有这些标签都是必需的，即使它们是空的。
 
-### Parameters
+### 参数(Parameters)
 
 ```javascript
 {
@@ -115,17 +111,17 @@ All of these tags are required, even if they are empty.
 }
 ```
 
-Different types of parameters have different formats for `<parameter_definition>`, and the simple ones are:
+`<parameter_definition>`不同类型的参数有不同的格式，简单的参数是：
 
-- `IdentityValue`: the string `#identity`,
-- `ParameterValue`: the parameter to reference, prefixed with `#`, e.g. `#my_awesome_parameter`
-- `ConstValue`: a number to use as the constant to return
+- `IdentityValue`:字符串`#identity`,
+- `ParameterValue`: 要引用的参数，前缀为`#`，例如`＃my_awesome_parameter`
+- `ConstValue`: 一个数字用作返回的常量
 
-#### Mathematical expression (`SimpleExprValue`)
+#### 数学表达式 (`SimpleExprValue`)
 
-Format: `[ regex("[+\\-*/mMrRfF]+"), <parameter_definition>, ... ]`
+格式: `[ regex("[+\\-*/mMrRfF]+"), <parameter_definition>, ... ]`
 
-##### Examples:
+##### 示例:
 ```json
 [ "+", 4 ]
 [ "/+", 5, 1]
@@ -133,56 +129,54 @@ Format: `[ regex("[+\\-*/mMrRfF]+"), <parameter_definition>, ... ]`
 [ "++", "#other", [ "compose", "#cycle", 3] ]
 ```
 
-##### Explanation
+##### 说明
 
-The `SimpleExprValue` takes its input and applies operations to it.
-The first parameter is the sequence of operations to apply, and the rest represent the operands to those operations. The
-input to each operation is either the input to this entire parameter (for the first operation) or the result of the previous operation.
+`SimpleExprValue`获取其输入并对其应用操作。
+第一个参数是要应用的操作序列，其余参数表示这些操作的操作数。每个操作的输入是整个参数的输入（对于第一个操作）或前一个操作的结果。
 
-##### Operations (case-sensitive):
+##### 操作(区分大小写):
 
-| Operator | Meaning |
+| 操作 | 含义 |
 | --- | --- |
-| `+` | `output = input + arg` |
-| `-` | `output = input - arg` |
-| `*` | `output = input * arg` |
-| `/` | `output = input / arg` |
-| `m` | `output = min(input, arg)` |
-| `M` | `output = max(input, arg)` |
-| `r` | `output = floor(input / arg) * arg` |
-| `R` | `output = ceil(input / arg) * arg` |
-| `f` | `output = input - floor(input / arg) * arg` |
-| `F` | `output = ceil(input / arg) * arg - input` |
+| `+` | `输出 = 输入 + 参数` |
+| `-` | `输出 = 输入 - 参数` |
+| `*` | `输出 = 输入 * 参数` |
+| `/` | `输出 = 输入 / 参数` |
+| `m` | `输出 = min(输入, 参数)` |
+| `M` | `输出 = max(输入, 参数)` |
+| `r` | `输出 = floor(输入 / 参数) * 参数` (向下取整) |
+| `R` | `输出 = ceil(输入 / 参数) * 参数`  (向上取整) |
+| `f` | `输出 = 输入 - floor(输入 / 参数) * 参数`  (取余) |
+| `F` | `输出 = ceil(输入 / 参数) * 参数 - 输入`  (参数减余数) |
 
-##### Example explanations:
-- input + 4
-- (input / 5) + 1
-- input + 2 + value of parameter `other`
-- input + value of parameter `other` + value of parameter `cycle` given input 3
+##### 示例说明:
+- 输入 + 4
+- (输入 / 5) + 1
+- 输入 + 2 +参数 `other`的值
+- 输入 + 参数`other` 的值+ 参数 `cycle`的值 赋值为 3
 
-#### Function composition (`CompositionValue`)
+#### 功能组件 (`CompositionValue`)
 
-Format: `[ "compose", <parameter_definition>, <parameter_definition> ]`
+格式: `[ "compose", <parameter_definition>, <parameter_definition> ]`
 
-##### Examples:
+##### 示例:
 ```json
 [ "compose", "#cycle", 3]
 [ "compose", "#test", "#other"]
 [ "compose", [ "+", 3], "#other"]
 [ "compose", [ "compose", "#other2", "#other3"], "#other"]
 ```
-##### Explanation
+##### 说明
 
-`CompositionValue` takes two parameter definitions as inputs, and does `value1(value2(input))`. In other words, it chains
-the two inputs, calling the second one with the given input, and the first one with the output of the second one.
+`CompositionValue`将两个 参数定义 作为输入，并执行`value1(value2(input))`。 换句话说，它连接两个输入，用给定的输入调用第二个函数，用第二个输出调用第一个函数。
 
-##### Example explanations:
-- value of parameter `cycle` when given input 3
-- value of parameter `test` when given the output of parameter other when called with the current input
-- 3 + the output of other with the current `input`
-- `other2(other3(other(input)))` because `value1` = `other2(other3(input))` and `value2` = `other(input)`
+##### 示例说明:
+- `cycle(3)`
+- `test(other(输入))`
+- `3 + other(输入) `
+- `other2(other3(other(输入)))` 因为 `value1` = `other2(other3(输入))` ，`value2` = `other(输入)`
 
-### Clips
+### 剪辑(Clips)
 
 ```javascript
 {
@@ -190,80 +184,80 @@ the two inputs, calling the second one with the given input, and the first one w
 }
 ```
 
-As with parameters, different kinds of clips have different formats for `<clip_definition>`, but the simple ones are:
+与参数一样，不同类型的剪辑<clip_definition>`格式不同，但简单的剪辑是：
 
-- `IdentityClip`: the string `#identity`
-- `ClipReference`: the clip name prefixed with `#`, e.g. `#my_amazing_clip`
-- `ModelClip`: a model resource location + `@` + the name of the armature-clip, e.g. `mymod:block/test@default` or `mymod:block/test#facing=east@moving`
+- `IdentityClip`: 字符串 `#identity`
+- `ClipReference`: 要引用的剪辑名，前缀为`#`，例如`＃my_amazing_clip`
+- `ModelClip`: 模型资源位置+`@`+骨骼剪辑的名称，例如 `mymod:block/test@default` ，`mymod:block/test#facing=east@moving`
 
-#### Overriding input (`TimeClip`)
+#### 覆盖输入 (`TimeClip`)
 
-Format: `[ "apply", <clip_definition>, <parameter_definition> ]`
+格式: `[ "apply", <clip_definition>, <parameter_definition> ]`
 
-##### Examples:
+##### 示例:
 ```json
 ["apply", "mymod:block/animated_thing@moving", "#cycle_time"]
 ["apply", [ "apply", "mymod:block/animated_thing@moving", [ "+", 3 ] ], "#cycle"]
 ```
 
-##### Explanation
+##### 说明
 
-The `TimeClip` takes another clip and applies it using a custom parameter instead of the current time. Usually used to apply a `ModelClip` with
-a parameter instead of the current time.
+`TimeClip`采用另一个剪辑并使用自定义参数而不是当前时间来调用它。 通常用于使用参数而不是当前时间来调用`ModelClip`。
 
-##### Example explanations:
+##### 示例说明:
 
-- apply the armature-clip for model `mymod:block/animated_thing` named moving with the output of the parameter `cycle_time`
-- apply the armature-clip for model `mymod:block/animated_thing` named moving with 3 + the output of the parameter `cycle`
+- `mymod:block/animated_thing@moving(#cycle_time)`
+- `mymod:block/animated_thing@moving(#cycle + 3)`
 
-#### Triggering an event (`TriggerClip`)
+#### 触发事件 (`TriggerClip`)
 
-Format: `[ "trigger_positive", <clip_definition>, <parameter_definition>, "<event_text>"]`
+格式: `[ "trigger_positive", <clip_definition>, <parameter_definition>, "<event_text>"]`
 
-##### Examples
+##### 示例
 
 ```json
 [ "trigger_positive", "#default", "#end_cycle", "!transition:moving" ]
 [ "trigger_positive", "mymod:block/animated_thing@moving", "#end_cycle", "boop" ] 
 ```
 
-##### Explanation
+##### 说明
 
-The `TriggerClip` visually acts as a `TimeClip`, but also fires the event in `event_text` when the `parameter_description` goes positive.
-At the same time, it applies the clip in `clip_definition` with the same `parameter_description`.
+`TriggerClip`在看起来上相当于`TimeClip`，但当`parameter_description`变为正时，也会在`event_text`中触发事件。
+同时，它将`clip_definition`中的剪辑应用于相同的`parameter_description`。
 
-##### Example explanations
+##### 示例说明
 
-- apply the clip with name default given the input of parameter `end_cycle`, and when `end_cycle` is positive transition to the `moving` state
-- apply the armature-clip `mymod:block/animated_thing@moving` with parameter `end_cycle`, and when `end_cycle` is positive fire event `"boop"`
+- 在给定参数`end_cycle`的输入的情况下应用名为`default`的剪辑，当`end_cycle`为正变为到`moving`状态
+- 在给定参数`end_cycle`的输入的情况下应用名为`mymod:block/animated_thing@moving`的剪辑，当`end_cycle`为正触发`boop`事件
 
-#### Blend between two clips (`SlerpClip`)
+#### 两个剪辑之间的混合 (`SlerpClip`)
 
-Format: `[ "slerp", <clip_definition>, <clip_definition>, <parameter_definition>, <parameter_definition> ]`
+格式: `[ "slerp", <clip_definition>, <clip_definition>, <parameter_definition>, <parameter_definition> ]`
 
-##### Examples
+##### 示例
 
 ```json
 [ "slerp", "#closed", "#open", "#identity", "#progress" ]
 [ "slerp", [ "apply", "#move", "#mover"], "#end", "#identity", "#progress" ]
 ```
 
-##### Explanation
+##### 说明
 
-The `SlerpClip` performs a spherical linear blend between two separate clips. In other words, it will morph one clip into another smoothly.
-The two `clip_definition`s are the clips to blend from and to respectively. The first `parameter_definition` is the "input". Both the from and to clips
-are passed the output of this parameter with the current animation time. The second `parameter_definition` is the "progress", a value between 0 and 1 to denote
-how far into the blend we are. Combining this clip with trigger_positive and transition special events can allow for simple transitions between two solid states.
+`SlerpClip`在两个独立的剪辑之间执行球形线性混合(spherical linear blend)。 换句话说，它会将一个剪辑平滑地变换为另一个剪辑。
 
-###### Example explanations
+两个`clip_definition`分别是要混合的剪辑。 第一个`parameter_definition`是“输入”。 from和to剪辑都以当前动画时间传递此参数的输出。 第二个`parameter_definition`是“progress”，一个介于0和1之间的值，表示我们在混合中的距离。 将此剪辑与trigger_positive和转换特殊事件组合可以允许两个固态之间的简单转换。
 
-- blend the closed clip to the open clip, giving both clips the unaltered time as input and blend progress `#progress`.
-- blend the result of the move clip when given the input parameter `mover` to the end clip with the unaltered time as the input with blend progress `#progress`.
+###### 示例说明
 
-### States
+- 将“关闭”剪辑混合到“打开”剪辑中，为两个剪辑提供未更改的时间作为输入并混合进度`#progress`。
+- 当输入参数`mover`给定结束剪辑时，将移动剪辑的结果混合，其中未改变的时间作为混合进度`#progress`的输入。
 
-The states section of the file is simply a list of all possible states.
-For example 
+### 状态(States)
+
+状态部分只是所有可能状态的列表。
+
+例如
+
 ```json
 "states": [
   "open",
@@ -273,16 +267,17 @@ For example
   "dancing"
 ]
 ```
-defines 5 states: open, closed, opening, closing and dancing.
+定义5 种状态: open, closed, opening, closing 和 dancing.
 
-## Transitions
+### 转换(Transitions)
 
 The transitions section defines which states can go to what other states. A state can go to 0, 1, or many other states.
-To define a state as going to no other states, omit it from the section. To define a state as going to only one other state, create a key
-with the value of the state it can go to, for example `"open": "opening"`. To define a state as going to many other states, do the same as
-if it were going to only one other state but make the value a list of all possible recieving states instead, for example: `"open": ["closed", "opening"]`.
+To define a state as going to no other states, omit it from the section. To define a state as going to only one other state, create a key with the value of the state it can go to, for example `"open": "opening"`. To define a state as going to many other states, do the same as if it were going to only one other state but make the value a list of all possible recieving states instead, for example: `"open": ["closed", "opening"]`.
 
-A more full example:
+转换部分定义哪些状态可以转到其他状态。 状态可以进入0,1或许多其他状态。
+若要一个状态不能进入其他状态，请从该部分中省略它。 若要一个状态仅能转到另一个状态，请创建一个具有其可以进入的状态值的键，例如`"open": "opening"`。 要将状态定义为转到许多其他状态，请执行相同的操作，就好像它只转到另一个状态，而是将值作为所有可能的接收状态的列表，例如：`"open": ["closed", "opening"]`。
+
+一个完整的例子:
 
 ```json
 "transitions": {
@@ -294,12 +289,12 @@ A more full example:
 }
 ```
 
-This example means that:
+这个例子是说:
 
-- the open state can go to the closing state
-- the closed state can go to either the dancing or opening state
-- the closing state can go to the closed state
-- the opening state can go to the open state
-- the dancing state can go to the closed state
+- open状态可以进入closing状态
+- closed状态可以进入dancing和opening状态
+- closing状态可以进入closed状态
+- opening状态可以进入open状态
+- dancing状态可以进入closed状态
 
 [implementing]: implementing.md

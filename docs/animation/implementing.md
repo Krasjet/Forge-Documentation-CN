@@ -1,25 +1,19 @@
 使用 API
 ======================
 
-Depending on what you want to animate with the API, code-side implementation is a bit different.
-Documentation on the ASM API itself (for controlling the animation) is found on the [ASM][asm] page because it is independent of what
-you are animating.
+根据您希望使用API制作动画不同，代码端实现有点不同。
+有关ASM API本身（用于控制动画）的文档可在[ASM][asm]页面上找到，因为它与您动画的内容无关。
 
-Blocks
+方块
 --------
 
-Animations for blocks are done with the `AnimationTESR`, which is a `FastTESR`. Because of this, having a `TileEntity` for your block
-is necessary. Your `TileEntity` must provide the `ANIMATION_CAPABILITY`, which is received by calling its `.cast` method with your
-ASM. Your block must also render in the `ENTITYBLOCK_ANIMATED` render layer if you do not provide a `StaticProperty` in the block's blockstate.
+方块的动画是用`AnimationTESR`完成的，它是一个`FastTESR`。 因此，必须为您的块设置`TileEntity`。 你的`TileEntity`必须提供`ANIMATION_CAPABILITY`，它通过你的ASM调用它的`.cast`方法来接收。 如果你没有在方块的块状态中提供`StaticProperty`，那么你的方块也必须在`ENTITYBLOCK_ANIMATED`渲染层中渲染。
 
-The `StaticProperty` is a property you can add to your block's blockstate by adding `Properties.StaticProperty` to the list of your block's properties inside
-of `createBlockState()`. When rendering the block, the `AnimationTESR` checks if the property's value is true; if so, block rendering continues as normal. Otherwise
-the `AnimationTESR` animates the block model assigned to the `static=false` variant in the blockstate json. All parts of the model that can be static should probably
-be rendered in the static state, as that is its purpose.
+`StaticProperty`是一个属性，你可以通过在`createBlockState()`里面的方块的属性列表中添加`Properties.StaticProperty`来添加到方块的块状态。 渲染方块时，`AnimationTESR`检查属性的值是否为真; 如果为真，则块渲染继续正常进行。 否则，`AnimationTESR`动画分配给方块状态json中的`static=false`变体的方块模型。 模型所有的静态部分应该静态渲染的，因为这是它的目的。
 
-The `handleEvents()` callback is located _in_ the `AnimationTESR`, so you have to either subclass or overload it inline when you register the tileentity.
+`handleEvents()`回调位于`AnimationTESR` 中，因此在注册`TileEntity`时必须重载。
 
-Here's an example of registering the TESR:
+这是一个注册TESR的示例:
 
 ```java
 ClientRegistry.bindTileEntitySpecialRenderer(Chest.class, new AnimationTESR<Chest>()
@@ -32,15 +26,13 @@ ClientRegistry.bindTileEntitySpecialRenderer(Chest.class, new AnimationTESR<Ches
 }); 
 ```
 
-In this example, we've overridden the `handleEvents()` callback when we registered the TESR because the implementation is simple, but you could easily subclass
-AnimationTESR to achieve the same effect. The `handleEvents()` callback for blocks takes two arguments: the tile entity being rendered, and an iterable of the events.
-The call to `chest.handleEvents()` calls a method located in the fictional `Chest` TileEntity, as the ASM is not accessible inside of the `handleEvents()` method.
+在这个例子中，我们在注册TESR时重写了`handleEvents()`回调，因为实现很简单，但你可以轻松地继承`AnimationTESR`以实现相同的效果。 方块的`handleEvents()`回调有两个参数：正在渲染的tile实体和一个可迭代的事件。
+对`chest.handleEvents()`的调用调用位于虚构的`Chest`TileEntity中的方法，因为在`handleEvents()`方法中无法访问ASM。
 
-Items
+物品
 -------
 
-Animations for items are done entirely using the capability system. Your item must provide the `ANIMATION_CAPABILITY` through an `ICapabilityProvider`. You can create
-an instance of this capability using its `.cast` method with your ASM, which is usually stored on the `ICapabilityProvider` object itself. An example of this is below:
+物品的动画完全使用功能系统完成。 您的物品必须通过`ICapabilityProvider`提供`ANIMATION_CAPABILITY`。 你可以创建这个功能的一个实例，它使用你的ASM的`.cast`方法，它通常存储在`ICapabilityProvider`对象本身。 下面是一个例子：
 
 ```java
 private static class ItemAnimationHolder implements ICapabilityProvider
@@ -70,20 +62,18 @@ private static class ItemAnimationHolder implements ICapabilityProvider
 }
 ```
 
-There is no way to receive events on an item in the current implementation.
+无法在当前实现中的物品上接收事件。
 
-Entities
+实体
 ----------
 
-In order to animate an entity with the animation API, your entity's renderer must take an `AnimationModelBase` as its model. This model's constructor
-takes two parameters, the location of the actual model to animate (as in the path to the JSON or B3D file, not a blockstate reference) and a `VertexLighter`.
-The `VertexLighter` object can be created with `new VertexLighterSmoothAo(Minecraft.getMinecraft().getBlockColors())`.
-The entity must also provide the `ANIMATION_CAPABILITY`, which can be created with its `.cast` method by passing the ASM.
+为了使用动画API为实体设置动画，实体的渲染器必须将`AnimationModelBase`作为其模型。 该模型的构造函数采用两个参数，即实际模型的位置（如JSON或B3D文件的路径，而不是方块状态引用）和`VertexLighter`。
+可以使用`new VertexLighterSmoothAo(Minecraft.getMinecraft().getBlockColors())`创建`VertexLighter`对象。
+实体还必须提供`ANIMATION_CAPABILITY`，它可以通过传递ASM以`.cast`方法创建。
 
-The `handleEvents()` callback is located inside the `AnimationModelBase` class, if you want to use the events you must subclass `AnimationModelBase`. The callback
-takes three parameters: the entity being rendered, the current time in partial ticks, and an iterable of the events that have occurred. 
+`handleEvents()`回调位于`AnimationModelBase`类中，如果你想使用该事件，你必须继承`AnimationModelBase`类。 回调有三个参数：正在渲染的实体，当前时间(tick)，以及已发生事件的可迭代对象。
 
-An example of creating the renderer is shown below:
+创建渲染器的示例如下所示:
 
 ```java
 ResourceLocation location = new ModelResourceLocation(new ResourceLocation(MODID, blockName), "entity");
