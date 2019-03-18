@@ -36,6 +36,7 @@ nav:
     - 主页: 'networking/index.md'
     - 概述: 'networking/overview.md'
     - SimpleImpl: 'networking/simpleimpl.md'
+    - 实体: 'networking/entities.md'
   - 数据储存:
     - 能力系统: 'datastorage/capabilities.md'
     - World Saved Data: 'datastorage/worldsaveddata.md'
