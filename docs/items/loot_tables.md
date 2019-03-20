@@ -10,7 +10,7 @@
 
 如果想要让Minecraft加载你的战利品表，可以调用 `LootTableList.register(new ResourceLocation("modid", "loot_table_name"))`，这将会解析并加载 `/assets/modid/loot_tables/loot_table_name.json`。你可以在preInit、init和postInit三个阶段中任意一个阶段调用这个方法。你也可以将战利品表整理到多个文件夹内。
 
-!!! note
+!!! note "提示"
 
 	战利品表中的战利品随机池(Loot Pool)必须要附加一个 `name` 标签从而能够在表中唯一识别出这个随机池。通常情况下是使用这个随机池包含的物品种类来命名的。  
 	如果你对多个条目(Entry)使用了同一个 `name` 标签（比如同一个物品但施加不同的函数(Function)，那么你必须要给每一个条目一个 `entryName` 标签，以唯一识别出随机池中的条目。对于那些没有冲突的 `name` 标签，`entryName` 将会自动设置为 `name` 的值。  
@@ -66,7 +66,7 @@
 
 你不仅可以添加你自己的战利品表、条件、函数和实体属性，你也可以在加载的时候修改这些项目。
 
-!!! note
+!!! note "提示"
 
 	原版允许用户在世界的存档目录中添加自己的战利品表来覆盖游戏（以及Mod）自己的表。这些都被视为是配置(Config)文件，并且**设计上**不能够被以下的方法所修改。
 
@@ -78,7 +78,7 @@
 
 和随机池一样，条目也需要有唯一的名字供获取和移除使用。Forge通过增加一个隐藏的 `entryName` 字段到所有的战利品条目中来解决这个问题。如果条目的 `name` 字段在随机池中是唯一的，那么 `entryName` 将会自动设置为 `name`。如果不是的话，则需要手动在Mod的战利品表条目中添加一个，原版的条目则会自动生成。对于每一次的重复，数字会递增。比如说，如果原版中有三个条目，每个都是 `name: "minecraft:stick"`，那么生成的三个 `entryName` 标签则会是 `minecraft:stick`，`minecraft:stick#0` 和 `minecraft:stick#1`。同样，删除一个条目并不会将名字移到别的条目中。
 
-!!! note
+!!! note "提示"
 
 	你必须要在战利品表的 `LootTableLoadEvent` 中完成所有对该战利品表所需的改动，之后的任何改动将会被安全检查禁止，如果安全检查被跳过的话则会造成未定义的行为。
 
@@ -123,7 +123,7 @@ public void lootLoad(LootTableLoadEvent evt) {
 }
 ```
 
-!!! note
+!!! note "提示"
 
 	你仍然需要通过 `LootTableList.register()` 来注册这个表。
 
@@ -180,7 +180,7 @@ List<ItemStack> stacks = table.generateLootForPools(world.rand, ctx);
 table.fillInventory(iinventory, world.rand, ctx);
 ```
 
-!!! note
+!!! note "提示"
 
 	目前只能使用 `IInventory`
 

@@ -3,11 +3,11 @@
 
 Forge加载mod主要分为三个阶段：预初始化(Pre-Initialization)、初始化(Initialization)、后初始化(Post-Initialization)。通常简写为preInit，init，postInit。根据你mod功能的不同，其他的一些事件可能也很重要。由于这三个阶段在不同时间点发生，在每个阶段内能做的事情都是不同的。
 
-!!! note
+!!! note "提示"
 
 	加载阶段的事件只能在你的 `@Mod` 类中使用，并且对应的方法上要加上 `@EventHandler` 注解(Annotation)。
 
-!!! important
+!!! important "重要"
 
 	之前在加载阶段事件处理器中注册的很多对象（方块、物品、合成表等）现在都应该使用[RegistryEvent](../concepts/registries.md#_2)来注册。  
 	这就能让我们在运行时动态重载Mod，而使用加载阶段则无法达到这一目的（因为它们只在程序启动时被调用一次）。  

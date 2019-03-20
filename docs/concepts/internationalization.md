@@ -25,13 +25,13 @@ commands.examplemod.examplecommand.usage=/example <value>
 
 若文件中任何地方包含`#PARSE_ESCAPES`注释，会启用更复杂的Java配置文件格式。这种格式支持多行字符串。
 
-!!! note
+!!! note "提示"
     启用`＃PARSE_ESCAPES`文件很多地方将会不同。 最重要的是，`:`字符将被视为键值分隔符。 键值对中要使用它必须用`\:`进行转义。
 
 Blocks 和 Items 的用法
 ---------------------------
 
-!!! note
+!!! note "提示"
     2018年7月14日之后，“unlocalized name”一词已被MCP中的“翻译密钥(translation key)”取代。
 
 Block, Item 和一些 Minecraft 的其它类已经内置的显示其名字的翻译密钥。翻译密钥可以通过调用`setTranslationKey(String)`来指定或者重写 `getTranslationKey()`方法。 Item也可以重写`getTranslationKey(ItemStack)`方法来实现不同的 damage 和 NBT有不同的翻译密钥。
@@ -44,7 +44,7 @@ item.examplemod.example_item.name=Example Item Name
 
 不像注册表名,翻译密钥没有命名空间。因此，为了避免冲突，强烈建议在翻译密钥前加上modid。 (例如 `examplemod.example_item`) 。 否则，一旦冲突，一个对象的本地化名会覆盖另一个。
 
-!!! note
+!!! note "提示"
     翻译密钥的唯一目的是国际化。 不要将它们用于逻辑。 若要用于逻辑，请改用注册表名称。
 
     常见的方法是用 `getUnlocalizedName().substring(5)`来分配注册表名. 这并不好,它很脆弱. 请先考虑设置注册表名称，然后使用 `MODID + "." + getRegistryName().getResourcePath()` 来设置翻译密钥.
@@ -52,7 +52,7 @@ item.examplemod.example_item.name=Example Item Name
 本地化方法
 --------------------
 
-!!! warning
+!!! warning "警告"
     一个常见问题是让服务器本地化为客户端。 服务器只能在其自己的区域设置中进行本地化，该区域设置不一定与已连接客户端的区域设置相匹配。  
 
     要考虑客户端的语言设置，服务器应该让客户端使用`TextComponentTranslation`或其他保留语言中翻译密钥的方法在自己的语言环境中本地化文本。

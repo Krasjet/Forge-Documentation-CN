@@ -35,7 +35,7 @@ public void registerBlocks(RegistryEvent.Register<Block> event) {
 
 Forge可以直接将注册表中的值注入(Inject)到类的 `public static final` 字段中。这可以通过使用 `@ObjectHolder` 注解类或字段来实现。如果一个类有这个注解，那么它其中所有的 `public static final` 字段都将被作为对象的容器(Object Holder)，并且注解的值为容器的域（即每一个字段都将其作为注入对象注册表名的默认域）。如果一个字段有这个注解，并且值没有域，那么域将会从封装其的类中的 `@ObjectHolder` 注解中获取。如果类也没有包含域，那么这个字段将会被忽略，并会有警告。如果它包含有域的话，那么注入到这个字段的对象就是对应于那个名字的对象。如果类有注解，但其中一个 `public static final` 字段没有的话，对象名字的资源路径将会作为字段的名字。注册表的类型将会为字段的类型。
 
-!!! note
+!!! note "提示"
 
 	如果无法找到一个对象，可能是由于对象本身没有被注册，也可能是由于注册表不存在，在此情况下会留下一个调试信息，字段将不会有变动。
 

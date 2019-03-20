@@ -62,7 +62,7 @@ SoundEvent event = new SoundEvent(location);
 
 原版有很多用来播放音效方法，然而我们通常会不清楚到底该用哪个。
 
-!!! note
+!!! note "提示"
 
 	下面的信息是通过研究并归类这几个不同方法得来的。它们在Forge 1907都是最新的，如果这些东西过时了请告诉我。
 

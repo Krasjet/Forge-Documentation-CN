@@ -32,7 +32,7 @@ Minecraft中的Side
 
 我们该怎么解决这个问题呢？幸运的是，FML提供了 `@SidedProxy` 这个注解(Annotation)，我们只需要给它两个类的名字（一个在 `serverSide`，另一个在 `clientSide`），并且用这个注解修饰一个字段。当mod启动时，FML将根据**物理**端实例化其中一个类。
 
-!!! note
+!!! note "提示"
 
 	非常重要的是，你需要理解FML实例化挑选的Proxy是基于**物理端**的。一个单人游戏世界（逻辑服务端 + 逻辑客户端在同一个物理客户端中），Proxy将仍然会使用 `clientSide` 中的类型。
 

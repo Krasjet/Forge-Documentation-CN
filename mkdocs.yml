@@ -1,4 +1,4 @@
-pages:
+nav:
   - 主页: 'index.md'
   - 样式指南: 'styleguide.md'
   - 入门:
@@ -15,22 +15,28 @@ pages:
     - 国际化和本地化: 'concepts/internationalization.md'
   - 方块:
     - 概述: 'blocks/blocks.md'
+    - 介绍方块状态: 'blocks/states.md'
     - 方块互动: 'blocks/interaction.md'
-  - 方块状态:
-    - 方块状态介绍: 'blockstates/states.md'
-    - 方块状态JSON介绍: 'blockstates/introduction.md'
-    - Forge方块状态JSON: 'blockstates/forgeBlockstates.md'
+  - 动画 API:
+    - 概述: 'animation/intro.md'
+    - 骨骼: 'animation/armature.md'
+    - 动画状态机: 'animation/asm.md'
+    - 使用API: 'animation/implementing.md'
   - TileEntity:
+    - 概述: 'tileentities/tileentity.md'
     - 特殊渲染器: 'tileentities/tesr.md'
   - 物品:
     - 主页: 'items/items.md'
     - 战利品表: 'items/loot_tables.md'
+  - 渲染:
+    - TileEntityItemStackRenderer: 'rendering/teisr.md'
   - 事件:
     - 基本用法: 'events/intro.md'
   - 网络:
     - 主页: 'networking/index.md'
     - 概述: 'networking/overview.md'
     - SimpleImpl: 'networking/simpleimpl.md'
+    - 实体: 'networking/entities.md'
   - 数据储存:
     - 能力系统: 'datastorage/capabilities.md'
     - World Saved Data: 'datastorage/worldsaveddata.md'
@@ -65,4 +71,4 @@ theme:
   custom_dir: forge_theme
 # Technically deprecated, but RTD overrides theme.custom_dir with their default style
 # They still seem to respect the old option, though
-theme_dir: forge_theme
+# theme_dir: forge_theme

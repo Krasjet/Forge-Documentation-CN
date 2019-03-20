@@ -29,46 +29,11 @@
 
 方块必须要[注册]至函数中。
 
-!!! important
+!!! important "重要"
 
 	世界中的方块和物品栏中的“方块”截然不同。世界中的方块由 `IBlockState` 来表示，它的行为由 `Block` 的实例来定义。而物品栏中的物品是一个 `ItemStack`，由 `Item` 来控制。作为 `Block` 与 `Item` 之间的桥梁，`ItemStack` 类诞生了。`ItemStack` 是 `Item` 的一个子类，但它封装了其对应 `Block` 的引用。`ItemBlock` 定义了一个“方块”作为物品的行为，比如说右键如何能放置这个方块。一个 `Block` 没有 `ItemBlock` 也是可以的。（比如说 `minecraft:water` 存在有这个方块，但没有这个物品。所以不能将它放在物品栏中。）
-
+	
 	当你注册一个方块的时候，你**仅**注册了这个方块。这个方块不会自动有一个 `ItemBlock`。为了给你的方块添加一个最基础的 `ItemBlock`，你应该使用 `new ItemBlock(block).setRegistryName(block.getRegistryName())`。它的非本地化名称和方块的是一样的。你也可以使用自定义的 `ItemBlock` 子类。 当 `ItemBlock` 注册到一个方块上之后，可以使用 `Item.getItemFromBlock` 来获取它。如果这个 `Block` 没有 `ItemBlock`，`Item.getItemFromBlock` 将会返回 `null`，所以如果你不确定你要使用的方块是否有 `ItemBlock`，先检查 `null` 值。
-
-对方块着色
----------
-
-方块的纹理是可以在程序中着色的。很多原版的方块都用到了这一功能。比如说：草丛、藤蔓、睡莲等都会根据所处生态群系(Biome)改变它们的颜色。
-
-### 方块颜色处理器
-
-方块颜色处理器是对一个方块着色所必须的东西，它是`IBlockColor`的一个实例，它添加了以下方法：
-
-```java
-int colorMultiplier(
-  IBlockState state, 
-  @Nullable IBlockAccess worldIn, 
-  @Nullable BlockPos pos, 
-  int tintIndex)
-```
-
-#### 返回值
-
-这个方法返回一个十六进制值(Hex)，用整数表示一个颜色。
-
-#### 参数
-
-传入方法的`IBlockState`、`IBlockAccess`和`BlockPos`，让你能够动态改变颜色乘数。注意`IBlockAccess`和`BlockPos`通常是可空的(Nullable)。
-
-### 注册方块颜色处理器
-
-方块颜色处理器必须要通过调用`BlockColors#registerBlockColorHandler(IBlockColor, Block...)`函数来注册。对于多个方块也是可以的。`BlockColors`的实例可以通过调用`Minecraft#getBlockColors()`来获取。
-
-这必须要在初始化阶段中，仅在客户端调用。
-
-### 为`ItemBlock`注册处理器
-
-`ItemBlock`的实例是物品，所以它们必须要像物品一样[注册和着色](../items/items.md#_6)。
 
 拓展阅读
 -------
@@ -76,5 +41,5 @@ int colorMultiplier(
 对于更多方块属性的信息，比如说原版的木头类型、栅栏、墙等，请阅读[方块状态]小节。
 
 [音效]: ../effects/sounds.md
-[注册]: ../concepts/registries.md#_2
-[方块状态]: ../blockstates/states.md
+[注册]: ../concepts/registries.md#registering-things
+[方块状态]: states.md

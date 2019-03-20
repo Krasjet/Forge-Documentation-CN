@@ -129,7 +129,7 @@ private static class Factory implements Callable<IExampleCapability> {
 
 最后我们需要一个默认实现，以能在Factory中实例化。这个类的设计完全取决于你，但它至少应该能提供一个简单的骨架让别人测试这个能力（如果它本身不是完全可用的话）。
 
-!!! warning
+!!! warning "警告"
 
 	和其它拥有能力的对象不同，区块只会在该区块被标记(Mark Dirty)的时候才会写入磁盘。`Chunk`的能力实现必须要保证在改变状态时，对区块进行标记。
 
