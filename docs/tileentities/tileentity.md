@@ -40,7 +40,7 @@ Block#createTileEntity(World world, IBlockState state)
 使用这些参数，您可以选择块是否应该具有`TileEntity`。
 通常，您将在第一个方法中返回`true`，在第二个方法中返回`TileEntity`的新实例。
 
-## 用`TileEntity`储存数据
+## <a id="store">用`TileEntity`储存数据</a>
 
 可以重写这两个方法来储存数据：
 ```JAVA
@@ -158,5 +158,5 @@ SimpleNetworkWrapper#sendToAllTracking(IMessage, NetworkRegistry.TargetPoint)
 
 [networking]: ../networking/index.md
 [simple_impl]: ../networking/simpleimpl.md
-[Storing]: 	#tileentity_2
+[Storing]: 	#store
 

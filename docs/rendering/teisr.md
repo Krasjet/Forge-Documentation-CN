@@ -1,6 +1,6 @@
 TileEntityItemStackRenderer
 =======================
-!!! note
+!!! note "提示"
     该功能仅存在于forge版本>= 14.23.2.2638.
 
 TileEntityItemStackRenderer是一个用OpenGL渲染物品的方法. 该系统比原本的TESRItemStack系统要简单, 它需要一个 TileEntity, 并且不需要获得ItemStack.

@@ -1,4 +1,4 @@
-nav:
+pages:
   - 主页: 'index.md'
   - 样式指南: 'styleguide.md'
   - 入门:
@@ -28,6 +28,24 @@ nav:
   - 物品:
     - 主页: 'items/items.md'
     - 战利品表: 'items/loot_tables.md'
+  - Models(未翻译):
+    - Intro to Models: 'models/introduction.md'
+    - Model Files: 'models/files.md'
+    - Blockstates:
+      - Intro to Blockstate JSONs: 'models/blockstates/introduction.md'
+      - Forge Blockstate JSON: 'models/blockstates/forgeBlockstates.md'
+    - Connecting Blocks and Items to Models: 'models/using.md'
+    - Coloring Textures: 'models/color.md'
+    - Item Property Overrides: 'models/overrides.md'
+    - Advanced Models:
+      - Intro to Advanced Models: 'models/advanced/introduction.md'
+      - IModel: 'models/advanced/imodel.md'
+      - IModelState and IModelPart: 'models/advanced/imodelstate+part.md'
+      - IBakedModel: 'models/advanced/ibakedmodel.md'
+      - Extended Blockstates: 'models/advanced/extended-blockstates.md'
+      - Perspective: 'models/advanced/perspective.md'
+      - ItemOverrideList: 'models/advanced/itemoverridelist.md'
+      - ICustomModelLoader: 'models/advanced/icustommodelloader.md'
   - 渲染:
     - TileEntityItemStackRenderer: 'rendering/teisr.md'
   - 事件:
@@ -41,8 +59,11 @@ nav:
     - 能力系统: 'datastorage/capabilities.md'
     - World Saved Data: 'datastorage/worldsaveddata.md'
     - 拓展实体属性: 'datastorage/extendedentityproperties.md'
+    - Config注解: 'config/annotations.md'
   - 工具:
+    - Recipes(未翻译): 'utilities/recipes.md'
     - 矿物词典: 'utilities/oredictionary.md'
+    - PermissionAPI(未翻译): 'utilities/permissionapi.md'
   - 效果:
     - 音效: 'effects/sounds.md'
   - 惯例:
