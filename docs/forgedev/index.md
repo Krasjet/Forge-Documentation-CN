@@ -75,10 +75,10 @@ JetBrains的旗舰级IDE对[Gradle](https://www.gradle.org)，Forge所用的构�
 6. 点击“Okay”，并运行刚创建的运行配置。这可能会需要运行一段时间。
 7. 在配置任务完成之后，再次打开Gradle的侧边栏，点击顶部的“Attach Gradle project”按钮（那个加号图标）
 8. 切换至Clone的目录，打开`projects`目录，双击里面的`build.gradle`文件。在之后的对话框中选择“Use gradle wrapper task configuration”，并确认
-9. 导入IDEA所有建议的模组
+9. 导入IDEA所有建议的Mod
 10. 要想使用工程的运行配置，在文件浏览器中打开`projects`目录，进入`.idea`目录（根据系统不同，这个目录可能是隐藏的）。复制`runConfigurations`目录到Clone根目录的`.idea`目录中
 11. 当IDEA识别到添加的配置后，对每个配置都执行以下的步骤
-	- 将配置的模组改为`<Config>_main`，其中`<Config>`就是配置名称的第一部分
+	- 将配置的Mod改为`<Config>_main`，其中`<Config>`就是配置名称的第一部分
 	- 将运行目录改为`<clone>/projects/run`
 
 这就是在IntelliJ IDEA中创建Forge开发环境的全部步骤了。然而，你现在还不能直接运行测试和Forge自带的调试Mod。这还需要一些附加的配置。
@@ -89,9 +89,9 @@ JetBrains的旗舰级IDE对[Gradle](https://www.gradle.org)，Forge所用的构�
 
 1. 在工程视图中选择`src/main/test`目录，并从菜单中运行`Build -> Build module 'Forge_test'`
 2. 打开`File -> Project Structure`内的“Project Structure”窗口
-3. 前往“Modules”选项，展开`Forge`模组
-4. 选择`Forge_test`子模组，前往“Paths”面板
-5. 记住"Test output path"标签内的路径，从树中选择`Forge_main`子模组
+3. 前往“Modules”选项，展开`Forge`Mod
+4. 选择`Forge_test`子Mod，前往“Paths”面板
+5. 记住"Test output path"标签内的路径，从树中选择`Forge_main`子Mod
 6. 打开“Dependencies”面板，点击右侧的绿色加号按钮，并选择“JARs or directories”
 7. 选择之前显示在`Forge_test`输出路径中的路径，点击确认
 8. 将新添加依赖项的“Scope”设置为“Runtime”（当前为“Compile”），因为主代码编译并不依赖于测试代码
@@ -106,14 +106,14 @@ JetBrains的旗舰级IDE对[Gradle](https://www.gradle.org)，Forge所用的构�
 2. 前往“Modules”部分，按下树视图上方的绿色加号图标
 3. 选择“Import Module”，选择你的工程的`build.gradle`文件，并确认选择以及导入设置
 4. 关闭“Project Structure”窗口，点击“OK”按钮
-5. 在IDEA导入完成之后，重新打开窗口，并从树中选择你工程的`_main`模组
+5. 在IDEA导入完成之后，重新打开窗口，并从树中选择你工程的`_main`Mod
 6. 打开“Dependencies”面板，点击右侧的绿色加号按钮，并选择“Module dependency”
-7. 在刚打开的窗口中，选择`Forge_main`模组
-8. 在这之后，重复测试Mod部分中的步骤，只是记得将`Forge_test`替换为你的工程的`_main`模组
+7. 在刚打开的窗口中，选择`Forge_main`Mod
+8. 在这之后，重复测试Mod部分中的步骤，只是记得将`Forge_test`替换为你的工程的`_main`Mod
 
 !!! note "提示"
 
-	你可能会想要移除正常开发环境中的已有的依赖项（主要是指的`forgeSrc`这个Jar），或者将Forge模组移动到依赖项列表的上方。
+	你可能会想要移除正常开发环境中的已有的依赖项（主要是指的`forgeSrc`这个Jar），或者将Forge Mod移动到依赖项列表的上方。
 
 你现在应该就能够使用对Forge和原版代码的改动，对你的Mod进行测试了。
 
