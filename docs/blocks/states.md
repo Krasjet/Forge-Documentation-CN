@@ -54,7 +54,7 @@ In addition, note that you can share the same `IProperty` object between differe
 !!! Note "提示"
     如果你的mod有一个API或者想要与其他mod进行交互，那么建议你在你的API中放置你的`IProperty`（和任何用作值的类）。 这样，其他人可以使用属性和值来设置世界中的块，而不必像以前那样使用任意数字。
 
-在创建了`IProperty<>`对象之后，在Block类中重写`createBlockState`方法。 在该方法中，只需写`return new BlockState（）`。 首先将`BlockState`用构造函数传递给你的Block，`this`，然后在它下面写你要声明的`IProperty`。 请注意，在1.9及更高版本中，`BlockState`类已重命名为`BlockStateContainer`，更符合此类实际执行的操作。
+在创建了`IProperty<>`对象之后，在Block类中重写`createBlockState`方法。 在该方法中，只需写`return new BlockState()`。 首先将`BlockState`用构造函数传递给你的Block，`this`，然后在它下面写你要声明的`IProperty`。 请注意，在1.9及更高版本中，`BlockState`类已重命名为`BlockStateContainer`，更符合此类实际执行的操作。
 
 你刚创建的对象是一个非常神奇的对象 - 它管理着上面所有三元组的生成。 也就是说，它为每个属性生成每个值的所有可能组合（对于学过数学的人，它采用每个属性的可能值集合并计算这些集合的笛卡尔积）。 因此，给定任意的属性`IBlockState`它可以生成对应的（块，属性，值）。
 
@@ -70,7 +70,7 @@ In addition, note that you can share the same `IProperty` object between differe
 正如你现在所知，`IBlockState`是一个强大的对象。 你可以通过调用，`getValue(<PROPERTY>)`传递你要测试的`IProperty<>`来获取属性的值。
 如果你想获得一个具有不同值的IBlockState，只需调用上面提到的`withProperty(<PROPERTY>, <NEW_VALUE>)`。 这将使用您请求的值返回另一个预生成的`IBlockState`。
 
-你可以使用`setBlockState（）`和`getBlockState（）`来获取和放置`IBlockState`。
+你可以使用`setBlockState()`和`getBlockState()`来获取和放置`IBlockState`。
 
 
 幻想杀手
