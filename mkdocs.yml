@@ -63,7 +63,7 @@ pages:
   - 工具:
     - 合成: 'utilities/recipes.md'
     - 矿物词典: 'utilities/oredictionary.md'
-    - PermissionAPI(未翻译): 'utilities/permissionapi.md'
+    - 权限API: 'utilities/permissionapi.md'
   - 效果:
     - 音效: 'effects/sounds.md'
   - 惯例:
