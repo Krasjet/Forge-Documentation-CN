@@ -1,55 +1,52 @@
-PermissionAPI
+权限API
 =============
 
-The PermissionAPI is a very basic implementation of a permission system.
-Its default implementation doesn't add an advanced permission handling (like we know it for example from PEX), 
-but instead it has 3 permission levels, (ALL = all players, OP = operators, NONE = neither normal players nor operators).
-This behaviour can be changed by mods which implement their own PermissionHandler.
+权限API是权限系统的一个基础的实现。
 
-How to use the PermissionAPI
+它默认的实现不是增加一个先进的权限管理(例如我们知道的PEX)，但它有3个权限级别,(ALL = 所有玩家, OP = 操作者, NONE = 未知是普通玩家还是操作者)。
+
+这些行为可以由mod实现自己的`PermissionHandler`改变
+
+如何使用权限API
 -----------------------------
 
-For basic support you just need to call `PermissionAPI.hasPermission(EntityPlayer player, String  node)`,
-though by default this is going to return always false, as the default implementation uses the permission level `NONE`
-So if we want that all players, or just OP's to be able to use this  we also need to register our permission node.
-Achieving this is as simple as checking for permissions: `PermissionAPI.registerNode(String node, DefaultPermissionLevel level, String description)`, 
-though this has to be done in Init or Later.
+要基础的支持只需要调用 `PermissionAPI.hasPermission(EntityPlayer player, String  node)`，但这默认总是返回false，因为默认的实现使用权限级别`NONE`。所以我们要想要全部玩家，或只有OP才能使用，要注册自己的权限节点。这和检查权限一样简单`PermissionAPI.registerNode(String node, DefaultPermissionLevel level, String description)`，尽管它会在之后完成。
 
 !!! note "提示"
-    The PermissionAPI isn't restricted to be used for commands, you could also use it for other things, like restricting access to a GUI.
-   Also, you need to check if your `ICommandSender` is a player if you use it in combination with commands!
+
+    权限API不限于用于命令，你可以用它干其它事情，如限制对GUI的访问。
+    另外，你将它与命令结合，你需要检查`ICommandSender`是否为玩家！
 
 `DefaultPermissionLevel`
 --------------
 
-The `DefaultPermissionLevel` has 3 Values:
-* ALL =all players got this permission
-* OP = only operators got this permission
-* NONE = neither normal players nor operators got this permission
+`DefaultPermissionLevel` 有3个值:
 
-Permission node
+* ALL =所有玩家都有此权限
+* OP = 只有操作者有此权限
+* NONE = 不管是普通玩家还是操作者都有此权限
+
+权限节点
 ---------------------------------------
 
-While there are technically no rules for the permission nodes, the best practice is to be of the form `modid.subgroup.permission_id`
-It is recommended to use this naming scheme as other implementations may have stricter rules.
+虽然技术上没有权限节点的规则，但最佳做法是用`modid.subgroup.permission_id`形式。
+建议使用此命名方案，因为其他实现可能具有更严格的规则。
 
-Making your own implementation of the `PermissionHandler`
+自己实现 `PermissionHandler`
 --------------------------------------
 
-By default the PermissionHandler is very basic, which is usually enough for most users, 
-but you might want more control over the permissions for things like a big server.
-This can be achieved  by creating a custom `PermissionHandler`.
+默认`PermissionHandler `是非常基础的，但对绝大多数用户已经足够了。但你想在一个大型服务器里控制更多权限。可以通过自定义`PermissionHandler`来实现。
 
-How it works and what is capable of, is totally up to you, for example you could make a simple implementation just saving a file per player.
-Or you could make it as advanced as PEX, having database support and many other functions.
+它如何工作以及它的功能完全有你决定，例如你可以做一个简单的实现，只需为每个玩家保存一个文件。
+或者你可以使它像PEX一样先进，有数据库支持和许多其他功能。
 
 !!! note "提示"
-    Not every mod that wants to use the PermissionAPI should change the PermissionHandler as there can be only 1 at the same time!
 
-First off, how you implement your own PermissionHandler is completely up to you, you can use files, a database or whatever you want.
-All you need to do is create your own implementation of the interface `IPermissionHandler`.
-After that is done, you also need to register it using:  `PermissionAPI.setPermissionHandler(IPermissionHandler handler)`
+    并非每个想要使用PermissionAPI的mod都应该更改PermissionHandler，因为同时只能有1个！
+
+首先，您如何实现自己的PermissionHandler完全取决于你，你可以使用文件，数据库或其它任何方式。你所要做的只是实现接口`IPermissionHandler`。在这之后，你需要这样注册它:`PermissionAPI.setPermissionHandler(IPermissionHandler handler)`
 
 !!! note "提示"
-    You've got to set the Handler during PreInit!
-    It is also recommended to check if it wasn't already replaced by another mod.
+
+    你必须在PreInit阶段设置Handle!
+    建议你检查它是否已被其他mod替换。
