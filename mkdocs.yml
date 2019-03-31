@@ -61,7 +61,7 @@ pages:
     - 拓展实体属性: 'datastorage/extendedentityproperties.md'
     - Config注解: 'config/annotations.md'
   - 工具:
-    - Recipes(未翻译): 'utilities/recipes.md'
+    - 合成: 'utilities/recipes.md'
     - 矿物词典: 'utilities/oredictionary.md'
     - PermissionAPI(未翻译): 'utilities/permissionapi.md'
   - 效果:

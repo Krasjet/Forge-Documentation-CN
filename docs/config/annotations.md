@@ -45,7 +45,7 @@
 
 !!! important "重要"
 
-    如果你禁用根类型，你要创建[子类别[subcategories]，否则会报错。
+    如果你禁用根类型，你要创建[子类别][subcategories]，否则会报错。
 
 <a id="comment-use">@Comment 用法</a>
 ------------

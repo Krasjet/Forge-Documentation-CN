@@ -1,20 +1,20 @@
-Recipes
+合成
 =======
 
-With the update to Minecraft 1.12, Mojang introduced a new data-driven recipe system based on JSON files. Since then it has been adopted by Forge as well and will be expanded in Minecraft 1.13 into datapacks.
+随着Minecraft 1.12的更新,Mojang引入了一种基于JSON文件的新型数据驱动的合成系统。在那之后Forge也改成了这个，Minecraft 1.13中拓展成了数据包。
 
-Loading Recipes
+加载配方
 ---------------
-Forge will load all recipes which can be found within the `./assets/<modid>/recipes/` folder. You can call these files whatever you want, thought the vanilla convention is to name them after the output item. This name is also used as the registration key, but does not affect the operation of the recipe.
+Forge会加载在`./assets/<modid>/recipes/`目录下的所有配方。你可以随意调用这些文件，考虑到原版约定是在输出物品之后命名它们。 此名称也用作注册密钥，但不影响配方的操作。
 
 !!! note "提示"
 
-    Recipe files cannot begin with an underscore as this is reserved for constants files. The JSON file extension is required.
+    配方文件不能以下划线开头，因为这是为静态文件保留的。 JSON文件扩展名是必需的。
 
-The Recipe file
+配方文件
 ---------------
 
-A basic recipe file might look like the following example:
+一个基本的配方文件应该如下:
 
 ```json
 {
@@ -49,46 +49,44 @@ A basic recipe file might look like the following example:
 
 !!! note "提示"
 
-    When you first obtain an ingredient to a vanilla recipe it will automatically unlock the recipe in the recipe book. To achieve the same effect, you have to use the [`Advancement`][Advancements] system and create a new `Advancement` for each of your ingredients.
+    当您首次获得原版合成的配方时，它将自动解锁合成书中的配方。 要达到同样的效果，您必须使用[成就(未完成)][Advancements]系统并为每种合成创建新的成就。
+    
+    如果一个成就存在，并不意味着它可在成就树中被看见。
 
-    The advancement has to exist. This doesn't mean it has to be visible in the advancement tree.
+### 类型 (Type)
 
-### Type
+合成的类型。你可以把它当作定义用哪一种合成布局，例如 `minecraft:crafting_shaped` (有序合成)或 `minecraft:crafting_shapeless`(无序合成).
 
-The type of a recipe with the type field. You can think of this as the definition of which crafting layout is to be used, for example `minecraft:crafting_shaped` or `minecraft:crafting_shapeless`.
+你也可以定义你自己的合成类型，只需要使用[`_factories.json`][Factories]文件。
 
-If you want, you can define your own types as well which requires the use of a [`_factories.json`][Factories] file.
+### 组 (Groups)
 
-### Groups
+你还可以把你的配方增加到一个组里，这样可以在合成帮助接口里一起显示。group字符串相同的配方会放在同一个组里。例如，这可以用于所有的门的合成配方，这样即使有很多种不同的门，在合成帮助里只会有一个条目。
 
-Optionally you can add a group to your recipes to be displayed within the recipe helper interface. All recipes with the same group String will be shown in the same group. For example, this can be used to have all door recipes shown in the recipe helper interface as a single entry, even though there are different types of doors.
-
-Types of crafting recipes
+配方的类型
 -----------------------------
-Within this section we will take a closer look on the differences between defining a shaped and a shapeless crafting recipe.
+这样的话，我们可以仔细看一下有序合成和无序合成定义上的区别。
 
-### Shaped crafting
+### 有序合成
 
-Shaped recipes require the `pattern` and `key` keywords. A pattern defines the slot an item must appear in using placeholder characters. You can choose whatever character you want to be a placeholder for an item. Keys on the other hand define what items are to be used instead of the placeholders. A key is defined by a placeholder character and the item.
-Additional the type `forge:ore_dict` may be added. This defines the item beeing part of the [`OreDictionary`][OreDictionary] and can for example be used when it doesn't matter which copper ore is used to produce a copper ingot. In this case the `ore` tag has to be used instead of the `item` tag to define the item. There are [many more][Wiki] of these types which can be used here and you can even register your own.
-The `data` tag is a optional and used to define the metadata of a block or item.
+有序合成需要`pattern`和`key`两个关键字。pattern定义物品的排序，它必须以占位符的形式。每一个物品你都可以选择任意的一个字符作为占位符。而key定义了占位符对应的物品。可以添加附加属性`forge:ore_dict` ，它可以定义物品是[矿物词典][OreDictionary]的一部分。例如，无论什么铜矿都可以生成铜锭。要这样的效果的话，要用`org`标签定义物品，而不是用`item`定义那个物品。默认有[很多][Wiki]这样的类型，你也可以自己定义。`data`是一个可选标签，用于定义方块或物品的metadata。
 
-!!! important  
+!!! important  "重要"
 
-    Any item which uses `setHasSubtypes(true)` requires the use of the `data` field. When it is not used within the ingredients or keys, it will mean any metadata of this item will be accepted, for example: Not defining the data of a sword means even a half broken sword will be accepted for the crafting recipe!
+    用了`setHasSubtypes(true)`的物品必须要`data`字段。如果不用，那么意味着有着任何metadata的该物品都可以用于合成。例如，不定义剑的数据意味着用了一半的剑也可以用于合成!
 
 
-### Shapeless crafting
+### 无序合成
 
-A shapeless recipe doesn't make use of the `pattern` and `key` keywords.
+无序合成不需要`pattern`和`key`关键字。
 
-To define a shapeless recipe, you have to use the `ingredients` list. It defines which items have to be used for the crafting process and can also make use of the additional type `forge:ore_dict` and it's functionality as described above. There are [many more][Wiki] of these types which can be used here and you can even register your own. It is even possible to define multiple instances of the same item which means multiple of these items have to be in place for the crafting recipe to take place.
+要定义一个无序合成，你要使用`ingredients`列表。它定义了合成中要用的物品，也可以用`forge:ore_dict`它函数式的声明在上方。默认有[很多][Wiki]这样的类型，你也可以自己定义。它甚至可以一个对象定义多个实例，意味着合成时必须要在合成台里放多个这样的物品。
 
 !!! note "提示"
 
-    While there is no limit on how many ingredients your recipe requires the vanilla crafting table does only allow 9 items to be placed for each crafting recipe.
+    你的配方里有多少ingredients没有限制，原版合成台没有只允许一个合成里放9个物品。
 
-The following example shows how an ingredient list looks like within JSON.
+下面这个例子展示了ingredients在JSON里是什么样的:
 
 ```json
     "ingredients": [
@@ -102,19 +100,19 @@ The following example shows how an ingredient list looks like within JSON.
     ],
 ```
 
-### Smelting
-To define a recipe for the furnace, you have to use `GameRegistry.addSmelting(input, output, exp);` as the smelting recipes are currently not JSON based.
+### 烧炼
+要定义一个熔炉的烧炼，你要用 `GameRegistry.addSmelting(input, output, exp);`，因为烧炼现在不是基于JSON的。
 
-Recipe Elements
+合成元素
 ---------------
 
 ### Patterns
 
-A pattern will be defined with the `pattern` list. Each string represents one row in the crafting grid and each placeholder character within the String represents a column. As seen in the example above a space means that no item needs to be inserted at that position.
+pattern用`pattern`列表定义。每一个字符串代表合成网格中的一行，每个占位符代表一列。在上面的例子中可以看到空格表示那个位置不需要物品。
 
 ### Keys
 
-A key set is used in combination with patterns and contains keys whose name is the same as the placeholder character in the pattern list which it represents. One key may be defined to represent multiply items as it is the case for the wooden button. This means that the player can use one of the defined items for the crafting recipe, for example different types of wood.
+Key集合用于绑定pattern，其键为列表里的占位符。一个key可以定义多个物品，例如木制按钮。这意味着玩家可以列表中的任意一个合成，例如不同种的木头。
 
 ```json
   "key": {
@@ -133,18 +131,19 @@ A key set is used in combination with patterns and contains keys whose name is t
 
 ### Results
 
-Every `recipe` has to have a result tag to define the output item.
+每个合成必须有result标签用于定义输出。
 
-When crafting something, you can get out more than one item. This is achieved by defining the `count` number. If this is left out, meaning it doesn't exist within the result block, it defaults to 1. Negative values are not allowed here as an Itemstack cannot be smaller than 0. There is no option to use the `count` number anywhere else than for the result.
-The `data` field is a optional and used to define the metadata of a block or item. It defaults to 0 when it doesn't exist.
+有时当合成东西时，你可以得到不止1个物品。这是由定义`count`数值实现的。如果忽略了它，意味着它没有输出方块，它默认为1.不能是负数因为Itemstack不能小于0.除result外，其它地方不能使用`count`。
+
+`data`字段是可选的，用于定义方块或物品的metadata。不存在是默认为0.
 
 !!! note "提示"
 
-    Any item which uses `setHasSubtypes(true)` requires the data field. In this case, it is not optional!
+    使用`setHasSubtypes(true)`的物品必须要data字段，这种情况下它不是可选的。
 
-Factories
+<a id="factories">工厂</a>
 ---------
-Factories can be used to allow defining recipes and ingredients of a custom type (class). To create your own factory, create a `_factories.json`. Within this file a type has to be defined, for example: `recipes`,  `ingredients` or `conditions`. These types represent `IRecipeFactory `, `IIngredientFactory`, and `IConditionFactory`, respectively. The entry "key" must be a `name` which can be later used in your recipes, and the "value" is the fully qualified class name is a class you have to create which implements one of the above recipes. The class must have an empty constructor. For example:
+工厂可以定义配方和自定义类型的原料。要创建一个工厂，先创建一个`_factories.json`，在这个文件中定义合成的类型，例如 `recipes`,  `ingredients` 和 `conditions`这些类型各自代表了`IRecipeFactory `, `IIngredientFactory`, 和`IConditionFactory`，主键是可以之后用于配方的`name，`值是全类名，这个类必须实现上面的一个接口。该类必须有空的构造方法。例如:
 
 ```json
 {
@@ -156,11 +155,11 @@ Factories can be used to allow defining recipes and ingredients of a custom type
 
 !!! note "提示"
 
-    There is no need to create a new `_factories.json` for each type you want to specify, they can all be defined in a single file.
+    没必要每种类型都创建一个新的`_factories.json`，它们可以定义在一个文件中。
 
-### Conditional Recipes
+### 条件配方
 
-Conditional recipes can be created by making use of the factory system described above. For this you use the `conditions` type with the `IConditionFactory` from above and can later add the `conditions` type to your recipes:
+条件配方可以通过上述工厂系统创建，为此你可以用`conditions`类型和 上面的`IConditionFactory` 一起用，然后你可以把`conditions`添加到你的配方中:
 
 ```json
 {
@@ -171,14 +170,15 @@ Conditional recipes can be created by making use of the factory system described
     ]
 }
 ```
-These conditions only apply to the recipe as a whole and not to ingredients. As an example, you might want to check if a mod is loaded using the already existing condition `forge:mod_loaded`, and `"modid": "<mod to check>"`.
+这些条件仅适用于整个配方，而不是一种原料。例如，你想用已有的条件`forge:mod_loaded`, 和`"modid": "<mod to check>"`检查一个mod是否加载。
+
 !!! note "提示"
 
-    Conditions will only be checked once at startup!
+    条件只会在启动时检查。
 
-Constants
+常量
 ---------
-It is possible to define constant values for your recipes. These values have to be defined within a `_constants.json` and can be used within any recipe of your mod by just writing `#<name>`. For filled buckets, you should use `fluid` instead of `data`. For example, this constant defines `#SADDLE` which represents the vanilla saddle item.
+它可以为你的配方定义常量。这些值定义在`_constants.json`中，只需要在你mod的配方里写`#<name>`。对装满的桶，你应该使用 `fluid`而不是`data`。例如，这个常量定义了`#SADDLE为原版的马鞍。
 
 ```json
 [
