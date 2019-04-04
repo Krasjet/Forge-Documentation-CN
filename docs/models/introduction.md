@@ -1,10 +1,10 @@
-Intro to Models
+模型概述
 ===============
 
-The model system is Minecraft's way of giving blocks and items their shapes. Through the model system, blocks and items are mapped to their models, which define how they look. One of the main goals of the model system is to allow not only textures but the entire shape of a block/item to be changed by resource packs. Indeed, any mod that adds items or blocks also contains a mini-resource pack for their blocks and items.
+模型系统是Minecraft给方块和物品设置形状的方式。通过模型系统，方块和物品可以对应到它们的模型。模型系统的主要目的之一是为了资源包可以不仅仅换材质，还可以换方块/物品的整个模型。事实上，每个mod添加的物品和方块都有一个小型的材质包。
 
-In order to link code to models and textures on disk, there exists the class `ResourceLocation`. One may recognize them from the registry system; however, their original purpose was to identify files on disk; they just happened to be useful as unique identifiers as well. A `ResourceLocation` is a simple object composed of 2 `String`s: a namespace and a path. When a `ResourceLocation` is represented as a plain string, it looks like `namespace:path`. When a `ResourceLocation` is created and a namespace isn't explicitly given, the namespace defaults to `minecraft`. However, it is good practice to include the namespace anyway.
+`ResourceLocation`类可以把代码连接到文件中的模型和材质。这个类可以从注册系统中识别出模型和材质，但它们的初衷是为了识别文件，它们还可以作为唯一标识符使用。`ResourceLocation`是一个由两个`String`组成的一个简单对象——命名空间和路径。`ResourceLocation`可以表示为`namespace:path`。若创建`ResourceLocation`没有给出明确的命名空间，命名空间默认是`minecraft`。尽管这样，最好还是包含命名空间。
 
-The namespace of a `ResourceLocation` in the model system represents a directory directly underneath `assets/`. Usually, the namespace is the same as the modid (e.g. in vanilla Minecraft the namespace is always `minecraft`). The path portion of a `ResourceLocation` represents a context-sensitive path to file underneath the namespace. What the path means and where exactly it points depends on what's using it. For example, when refering to a model, the path is normally resolved under `models`, but when refering to a texture it's under `textures`. Therefore, `mod:file` means `assets/mod/models/file` in one context but `assets/mod/textures/file` in another. When something is described as requiring a `ResourceLocation`, it will be defined what exactly the path means.
+模型系统中，`ResourceLocation`的命名空间直接代表了 `assets/`下的一个文件夹。通常，命名空间和modid一致(例如，原版Minecraft的命名空间是`minecraft`)。`ResourceLocation`的路径部分代表了命名空间下上下文敏感的文件路径。路径意味着什么，确切的路径在哪，要看在哪使用它。例如，如果要一个模型，路径会理解为在`model`下的路径，但如果要一个材质，路径会理解为在`textures`下的路径。因此，`mod:file`前者的语境下是`assets/mod/models/file`，而后者是`assets/mod/textures/file`。如果有东西需要用`ResourceLocation`描述时，它会确切的定义位置在哪。
 
-All strings related to the model system (especially `ResourceLocation`s) should be in snake case (meaning_all_lowercase_and_underscore_separated_words_like_this). This is enforced since Minecraft 1.11.
+与模型系统相关的字符串都应用蛇形命名法(尤其是 `ResourceLocation`)  (如: meaning_all_lowercase_and_underscore_separated_words_like_this). Minecraft 1.11之后强制这样使用。
