@@ -32,8 +32,8 @@ pages:
     - 模型概述: 'models/introduction.md'
     - 模型文件: 'models/files.md'
     - 方块状态:
-      - Intro to Blockstate JSONs: 'models/blockstates/introduction.md'
-      - Forge Blockstate JSON: 'models/blockstates/forgeBlockstates.md'
+      - 方块状态JSON概述: 'models/blockstates/introduction.md'
+      - Forge方块状态JSON: 'models/blockstates/forgeBlockstates.md'
     - Connecting Blocks and Items to Models: 'models/using.md'
     - Coloring Textures: 'models/color.md'
     - Item Property Overrides: 'models/overrides.md'

@@ -1,11 +1,11 @@
-Introduction to Blockstate JSONs
+方块状态JSON概述
 ================================
 
-Blockstate JSONs are Minecraft's way to map "variant strings" to models. A variant string can be absolutely anything, from "inventory" to "power=5" to "I am your father." They represent an actual model, where the blockstate is just a container for them. In code, a variant string within a blockstate JSON is represented by a `ModelResourceLocation`.
+方块状态JSON是Minecraft将“变体字符串”映射到模型的方式。 变体字符串可以是任何东西，如“inventory”,“power= 5”或“I am your father”。 它们代表一个实际模型，其中方块状态只是它们的容器。 在代码中，方块状态JSON中的变体字符串由`ModelResourceLocation`表示。
 
-When the game searches for a model corresponding to a block in the world, it takes the [blockstate][] for that position, and then it uses an `IStateMapper` to find the corresponding `ModelResourceLocation` for it, which then refers to the actual model. The default `IStateMapper` uses the block's registry name as the location of the blockstate JSON. (E.g. block `examplemod:testblock` goes to the `ResourceLocation` `examplemod:testblock`.) The variant string is pieced together from the blockstate's properties. More information can be found [here][statemapper].
+当游戏搜索对应于世界中某个方块的模型时，它会对该位置采取[方块状态][blockstate]，然后使用`IStateMapper`为它找到相应的`ModelResourceLocation`，然后引用它 实际模型。 默认的`IStateMapper`使用方块的注册表名称作为方块状态JSON的位置。 （例如，方块`examplemod:testblock`对应的`ResourceLocation`是`examplemod:testblock`）变体字符串把方块状态的属性拼凑在一起。 更多信息可以在[这里][statemapper]找到。
 
-As an example, let's take a look at the vanilla `oak_log.json`:
+举个例子,我们来看看原版的`oak_log.json`:
 
 ```json
 {
@@ -18,24 +18,25 @@ As an example, let's take a look at the vanilla `oak_log.json`:
 }
 ```
 
-Here we define 4 variant strings, and for each we use a certain model, either the upright log, the sideways log (rotated or not), and the all bark model (this model is not seen normally in vanilla; you have to use `/setblock` to create it). Since logs use the default `IStateMapper`, these variants will define the look of a log depending on the property `axis`.
+在这里我们定义了4个变体字符串，每个我们使用一个特定的模型，直立原木，侧立原木（旋转或不旋转）和全树皮模型（这种模型通常不会在原版中看到;你必须使用` /setblock`来创建它）。由于原木使用默认的`IStateMapper`，因此这些变体将根据属性`axis`定义原木的外观。
 
-A blockstate always has to be defined for all possible variant strings. When you have many properties, this results in lots of possible variants, as every combination of properties must be defined. In Minecraft 1.8's blockstate format, you have to define every string explicitly, which leads to long, complicated files. It also doesn't support the concept of submodels, or multiple models in the same blockstate. In order to allievate this, Forge introduced its [own blockstate format][Forge blockstate], which is available in Minecraft 1.8 and up.
+必须始终为所有可能的变体字符串定义块状态。 如果有许多属性，则会产生许多可能的变体，因为必须定义每个属性组合。 在Minecraft 1.8的方块状态格式中，您必须明确定义每个字符串，这会导致长而复杂的文件。 它也不支持子模型的概念，也不支持同一个方块状态中的多个模型。 为了实现这一目标，Forge推出了[自己的blockstate格式][Forge blockstate]，可以在Minecraft 1.8及更高版本中使用。
 
-Starting from Minecraft 1.9, Mojang also introduced the "multipart" format. You can find a definition of its format on the [wiki][]. Forge's format and the multipart format are not better than each other; they each cover different use cases and it is your choice which one you want to use.
+从Minecraft 1.9开始，Mojang还推出了“multipart”格式。 您可以在[wiki][]上找到其格式的定义。 Forge的格式和multipart格式并没有谁比谁更好; 它们各自涵盖不同的用例，您可以选择使用哪种用例。
 
 !!! note "提示"
-    The Forge format is really more like syntactic sugar for automatically calculating the set of all possible variants for you behind the scenes. This allows you to use the resulting `ModelResourceLocation`s for things other than blocks. ([Such as items][item blockstates]. This is also true of the 1.8 format, but there is almost no reason to use that format.) The 1.9 format is a more complicated system that depends on having an `IBlockState` to pick the model. It will not directly work in other contexts without some code around it.
 
-For reference, here's an excerpt from the 1.8 blockstate for fences, `fence.json`:
+    Forge格式更像是语法糖，用于在后台自动计算所有可能变体的集合。 这允许您使用生成的`ModelResourceLocation`来处理方块之外的其他内容。（例如[item][item blockstates]。1.8格式也是如此，但几乎没有理由使用那种格式。）1.9格式是一个更复杂的系统，依赖于`IBlockState` 选择模型。 如果没有代码，它将不会直接在其他环境中工作。
+
+作为参考，这里是1.8栅栏的方块状态`fence.json`的摘录：
 
 ```json
 "east=true,north=false,south=false,west=false": { "model": "oak_fence_n", "y": 90, "uvlock": true }
 ```
 
-This is just one variant out of 16. Even worse, there are 6 models for fences, one each for no connections, one connection, two connections in a straight line, two perpendicular connections, three connections, and one for all four connections.
+这只是16个中的一个变体。更糟糕的是，有6个围栏模型，一个用于无连接，一个连接，两个直线连接，两个垂直连接，三个连接，以及一个用于所有四个连接。
 
-Here's an excerpt from the same file in 1.9, which uses the multipart format:
+这是1.9中同样的例子,但用的是multipart格式:
 
 ```json
 { "when": { "east": "true" },
@@ -43,7 +44,8 @@ Here's an excerpt from the same file in 1.9, which uses the multipart format:
 }
 ```
 
-This is one case of 5. You can read this as "when east=true, use the model oak_fence_side rotated 90 degrees". This allows the final model to be built up from 5 smaller parts, 4 of which (the connections) are conditional and the 5th being the unconditional central post. This uses only two models, one for the post, and one for the side connection.
+
+这是一个5的情况。您可以将其读作“当east = true时，使用模型oak_fence_side旋转90度”。 这允许最终模型由5个较小的部分构成，其中4个（连接）是有条件的，第5个是无条件的中心柱。 这仅使用两个模型，一个用于中心柱，一个用于侧面连接。
 
 [blockstate]: ../../blocks/states.md
 [statemapper]: ../using.md#block-models
