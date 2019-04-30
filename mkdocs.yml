@@ -28,16 +28,16 @@ pages:
   - 物品:
     - 主页: 'items/items.md'
     - 战利品表: 'items/loot_tables.md'
-  - 模型(未翻译):
+  - 模型:
     - 模型概述: 'models/introduction.md'
     - 模型文件: 'models/files.md'
     - 方块状态:
       - 方块状态JSON概述: 'models/blockstates/introduction.md'
       - Forge方块状态JSON: 'models/blockstates/forgeBlockstates.md'
-    - Connecting Blocks and Items to Models: 'models/using.md'
-    - Coloring Textures: 'models/color.md'
-    - Item Property Overrides: 'models/overrides.md'
-    - Advanced Models:
+    - 绑定模型到方块和物品: 'models/using.md'
+    - Coloring Textures(未翻译): 'models/color.md'
+    - Item Property Overrides(未翻译): 'models/overrides.md'
+    - Advanced Models(未翻译):
       - Intro to Advanced Models: 'models/advanced/introduction.md'
       - IModel: 'models/advanced/imodel.md'
       - IModelState and IModelPart: 'models/advanced/imodelstate+part.md'
