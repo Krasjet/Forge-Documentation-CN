@@ -35,7 +35,7 @@ pages:
       - 方块状态JSON概述: 'models/blockstates/introduction.md'
       - Forge方块状态JSON: 'models/blockstates/forgeBlockstates.md'
     - 绑定模型到方块和物品: 'models/using.md'
-    - Coloring Textures(未翻译): 'models/color.md'
+    - 彩色纹理: 'models/color.md'
     - Item Property Overrides(未翻译): 'models/overrides.md'
     - Advanced Models(未翻译):
       - Intro to Advanced Models: 'models/advanced/introduction.md'
