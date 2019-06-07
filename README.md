@@ -1,7 +1,7 @@
 Forge文档
 =========
 
-这里是使用[Read the docs](https://readthedocs.org/)构建的MinecraftForge文档的中文翻译。网址为: [http://mcforge-cn.rtfd.io/](http://mcforge-cn.rtfd.io/)
+这里是使用[Read the docs](https://readthedocs.org/)构建的MinecraftForge文档的中文翻译。网址为: [https://mcforge-cn.rtfd.io/](https://mcforge-cn.rtfd.io/)
 
 - 原版的文档可以在这里找到: [http://mcforge.readthedocs.io/](http://mcforge.readthedocs.io/)
 - 原版的Github工程: [https://github.com/MinecraftForge/Documentation](https://github.com/MinecraftForge/Documentation)

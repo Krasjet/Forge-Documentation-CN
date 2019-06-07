@@ -16,5 +16,5 @@ MinecraftForge文档
 
 [MinecraftForge]: http://minecraftforge.net
 [GitHub]: https://github.com/MinecraftForge/Documentation
-[readthedocs]: http://mcforge.readthedocs.io/
+[readthedocs]: https://mcforge.readthedocs.io/
 [Mouse0w0/MinecraftDeveloperGuide]: https://github.com/Mouse0w0/MinecraftDeveloperGuide

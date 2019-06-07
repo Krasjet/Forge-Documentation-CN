@@ -17,15 +17,16 @@
     <meta name="msapplication-config" content="{{ base_url }}/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" href="{{ base_url }}/css/styles_light.css?version=1" data-type="themed">
+    <link rel="stylesheet" href="https://use.fontawesome.com/a1f20be65b.css">
+    <link rel="stylesheet" href="{{ base_url }}/css/styles_dark.css?version=2" data-theme="dark">
+    <link rel="stylesheet" href="{{ base_url }}/css/styles_light.css?version=2" data-theme="light">
 
     {% for path in extra_css %}
     <link href="{{ path }}" rel="stylesheet">
     {% endfor %}
+    <script type="text/javascript" src="{{ base_url }}/js/theme-switch.js"></script>
 
     <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-    <link href="https://cdn.bootcss.com/font-awesome/5.7.2/css/regular.css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/font-awesome/5.7.2/css/fontawesome.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/highlight.js/9.15.6/highlight.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
     <script src="https://cdn.bootcss.com/jScrollPane/2.2.1-rc.2/script/jquery.jscrollpane.min.js"></script>
@@ -70,7 +71,17 @@
     <div class="sidebar-left sidebar-sticky">
         <aside>
             <section class="sidebar-nav">
-                <h2><a href="#" class="close-sidebar"><i class="fa fa-bars"></i></a> 导航</h2>
+                <h2 class="sidebar-heading">
+                    <a href="#" class="close-sidebar"><i class="fa fa-bars"></i></a> 导航
+                    <form class="version-selection">
+                        <label for="version-selection-dropdown">Version:</label>
+                        <select id="version-selection-dropdown" class="version-selection-dropdown" onchange="location = this.value;">
+                            {% for name, url in config.extra.versions.items() %}
+                            <option value="https://mcforge-cn.readthedocs.io/zh/{{ url }}" {% if name == config.extra.current_version %}selected{% endif %}>{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </h2>
                 <ul class="section-content scroll-pane">
                     {% for nav_item in nav %}
                     {% include "nav.html" %}
@@ -102,7 +113,7 @@
 </main>
 <div class="wrapper">
     <footer>
-        基于 <a href="http://www.mkdocs.org">MkDocs</a> 使用自定义主题构建. 托管于 <a href="https://readthedocs.org">Read the Docs</a>.
+        基于 <a href="https://www.mkdocs.org">MkDocs</a> 使用自定义主题构建. 托管于 <a href="https://readthedocs.org">Read the Docs</a>.
         <div class="theme-switch-wrapper">
             启用夜间模式
             <label class="theme-switch">
