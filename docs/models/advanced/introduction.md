@@ -1,47 +1,48 @@
-Intro to Advanced Models
+高级模型介绍
 ========================
 
-While simple models and blockstates are all well and good, they aren't dynamic. For example, Forge's Universal Bucket can hold all kinds of fluid, which may be mod added. It has to dynamically piece the model together from the base bucket model and the liquid. How is that done? Enter `IModel`.
+尽管简单的模型和方块状态很好，但他们不是动态的。例如，Forge的通用桶可以装各种mod添加的液体。它有动态的模型，基于基础桶模型和液体。它是怎么做的呢？让我们进入`IModel`。
 
-In order to understand how this works, let's go through the internals of the model system. Throughout this section, you will probably have to refer to this to grasp a clear understanding of what is happening. This is true in reverse as well. You will likely not understand everything happening here, but as you move through this section you should be able to grasp more and more of it until everything is clear.
+为了理解这是如何工作的，让我们看看内部的模型系统。在本节中，您可能需要参考此内容来清楚地了解正在发生的事情。反过来也是如此。 你可能不会理解这里发生的一切，但是当你浏览这一部分时，你应该能够掌握越来越多的内容，直到一切都清楚。
 
 !!! important "重要"
-    If this is your first time reading through do not skip _anything_! It is _imperative_ that you read everything **in order** so as to build a comprehensive understanding! In the same vein, if this is your first time reading, do not follow links if they lead to pages further ahead in the section.
 
-1. A set of `ModelResourceLocation`s are marked as models to be loaded through `ModelLoader`.
+    如果你是第一次通读，请不要跳过_任何东西_！**为了**有全面的理解，你_必须_读所有的东西！同样，如果这是您第一次阅读，请不用在意页面上的链接，因为那是更深层次的东西。
 
-    * For items, their models must be manually marked for loading with `ModelLoader.registerItemVariants`. (`ModelLoader.setCustomModelResourceLocation` does this.)
+1. 通过`ModelLoader`加载用`ModelResourceLocation`标记的模型集合
 
-    * For blocks, their statemappers produce a `Map<IBlockState, ModelResourceLocation>`. All blocks are iterated, and then the values of this map are marked to be loaded.
+    * 对于物品，他们的模型必须手动标记由`ModelLoader.registerItemVariants`加载(用`ModelLoader.setCustomModelResourceLocation`)完成。
 
-2. [`IModel`][IModel]s are loaded from each `ModelResourceLocation` and cached in a `Map<ModelResourceLocation, IModel>`.
+    * 对于方块，它由状态映射得到一个`Map<IBlockState, ModelResourceLocation>`。迭代所有的方块，然后映射中的所有值会被加载。
 
-    * An `IModel` is loaded from the only [`ICustomModelLoader`][ICustomModelLoader] that accepts it. (Multiple loaders attempting to load a model will cause a `LoaderException`.) If none is found and the `ResourceLocation` is actually a `ModelResourceLocation` (that is, this is not a normal model; it's actually a blockstate variant), it goes to the blockstate loader (`VariantLoader`). Otherwise the model is a normal vanilla JSON model and is loaded the vanilla way (`VanillaLoader`).
+2. [`IModel`][IModel]由每个`ModelResourceLocation`加载，并缓存至一个`Map<ModelResourceLocation, IModel>`。
 
-    * A vanilla JSON model (`models/item/*.json` or `models/block/*.json`), when loaded, is a `ModelBlock` (yes, even for items). This is a vanilla class that is not related to `IModel` in any way. To rectify this, it gets wrapped into a `VanillaModelWrapper`, which *does* implement `IModel`.
+    * `IModel`仅由[`ICustomModelLoader`][ICustomModelLoader]加载得到。(多个加载器尝试加载一个模型会报`LoaderException`)。如果没有找到模型，并且`ResourceLocation`实际上是一个`ModelResourceLocation`(也就是，它不是一个普通的模型，而是一个方块状态的变体)，那么他会调用方块状态加载器(`VariantLoader`)。否则的话，该模型是一个正常的原版JSON模型，它会用原版的方式加载(`VanillaLoader`)。
 
-    * A vanilla/Forge blockstate variant, when loaded, first loads the entire blockstate JSON it comes from. The JSON is deserialized into a `ModelBlockDefinition` that is then cached to the path of the JSON. A list of variant definitions is then extracted from the `ModelBlockDefinition` and placed into a `WeightedRandomModel`.
+    * 一个原版JSON模型(`models/item/*.json` 或 `models/block/*.json`)加载后，它是一个`ModelBlock`(即使它是物品)。这是一个原版的类，与`IModel`无关。为了纠正它，它被包装到一个`VanillaModelWrapper`里，`VanillaModelWrapper`*实现了*`IModel`。
 
-    * When loading a vanilla JSON item model (`models/item/*.json`), the model is requested from a `ModelResourceLocation` with variant `inventory` (e.g. the dirt block item model is `minecraft:dirt#inventory`); thereby causing the model to be loaded by `VariantLoader` (as it is a `ModelResourceLocation`). When `VariantLoader` fails to load the model from the blockstate JSON, it falls back to `VanillaLoader`.
-        * The most important side-effect of this is that if an error occurs in `VariantLoader`, it will try to also load the model via `VanillaLoader`. If this also fails, then the resulting exception produces *two* stacktraces. The first is the `VanillaLoader` stacktrace, and the second is from `VariantLoader`. When debugging model errors, it is important to ensure that the right stacktrace is being analyzed.
+    * 一个原版/Forge的方块变体加载时，先加载它的完整的方块状态JSON。这个JSON解析到一个`ModelBlockDefinition`里，那里面缓存着JSON的路径。然后变体定义的列表由`ModelBlockDefinition`导出到`WeightedRandomModel`。
 
-    * An `IModel` can be loaded from a `ResourceLocation` or retrieved from the cache by invoking `ModelLoaderRegistry.getModel` or one of the exception handling alternatives.
+    * 当加载一个原版JSON物品模型 (`models/item/*.json`)时，模型需要一个带有变体名`inventory`的`ModelResourceLocation`(例如，泥土方块物品的模型是`minecraft:dirt#inventory`)；从而导致模型由`VariantLoader`加载(尽管它是`ModelResourceLocation`)，若`VariantLoader`加载失败了，则再用`VanillaLoader`。
+        * 最重要的副作用是，如果`VariantLoader`加载出错，它会尝试用`VanillaLoader`加载。如果这也出错了，它会导致*两个*stacktrace。第一个是`VanillaLoader`的，第二个是`VariantLoader`的。当调试模型错误时，分析正确的stacktrace很重要。
 
-3. All texture dependencies of the loaded models are loaded and stitched into the atlas. The atlas is a giant texture that contains all the model textures pasted together. When a model refers to a texture, during rendering, an extra UV offset is applied to match the texture's position in the atlas.
+    * 一个`IModel`可由`ResourceLocation`加载或通过调用`ModelLoaderRegistry.getModel`从缓存中检索或做为其中一个异常处理备选方案。
 
-4. Every model is baked by calling `model.bake(model.getDefaultState(), ...)`. The resulting [`IBakedModel`][IBakedModel]s are cached in a `Map<ModelResourceLocation, IBakedModel>`.
+3. 加载的模型的所有材质依赖会被加载，并放入材质集。材质集是一个巨大的材质，它把所有模型材质粘贴在一起。当模型要渲染一个材质时，它会加上额外的UV偏移，来匹配材质集中材质的坐标。
 
-5. This map is then stored in the `ModelManager`. The `ModelManager` for an instance of the game is stored in `Minecraft::modelManager`, which is private with no getter.
+4. 每个模型调用`model.bake(model.getDefaultState(), ...)`来贴图。返回值[`IBakedModel`][IBakedModel]会被缓存进一个`Map<ModelResourceLocation, IBakedModel>`。
 
-    * The `ModelManager` may be acquired, without reflection or access tranformation, through `Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getModelManager()` or `Minecraft.getMinecraft().getBlockRenderDispatcher().getBlockModelShapes().getModelManager()`. Contrary to their names, these are equivalent.
+5. 此映射(map)然后被存入`ModelManager`。`ModelManager`是一个存在`Minecraft::modelManager`里的单例，它是私有的，没有getter。
 
-    * One may request an `IBakedModel` from the cache (without loading and/or baking models, only accessing the existing cache) in a `ModelManager` with `ModelManager::getModel`.
+    * `ModelManager`可以不通过反射或访问转换获得，通过`Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getModelManager()` 或 `Minecraft.getMinecraft().getBlockRenderDispatcher().getBlockModelShapes().getModelManager()`。与它们的名字相反，它们是一样的。
 
-6. Eventually, an `IBakedModel` will be rendered. This is done by calling `IBakedModel::getQuads`. The result is a list of `BakedQuad`s (quadrilaterals: polygons with 4 vertices). These can then be passed to the GPU for rendering. Items and blocks diverge a bit here, but it's relatively simple to follow.
+    * 可以用`ModelManager`的`ModelManager::getModel`从缓存中获取一个`IBakedModel`(没有加载或/贴图的模型，仅获取已有的缓存)
 
-    * Items in vanilla have properties and overrides. To facilitate this, `IBakedModel` defines `getOverrides`, which returns an `ItemOverrideList`. `ItemOverrideList` defines `handleItemState`, which takes the original model, the entity, world, and stack, to find the final model. Overrides are applied before all other operations on the model, including `getQuads`. As `IBlockState` is not applicable to items, `IBakedModel::getQuads` receives `null` as its state parameter when being rendered as an item.
+6. 最后，`IBakedModel`会渲染。这是由`IBakedModel::getQuads`完成的。它的返回值是`BakedQuad`的列表(quadrilaterals: 四边形)。然后它们可以传递给GPU渲染。物品和方块在这里有所不同，但它逻辑相对简单。
 
-    * Blocks have blockstates, and when a block's `IBakedModel` is being rendered, the `IBlockState` is passed directly into the `getQuads` method. In the context of models only, blockstates can have an extra set of properties, known as [unlisted properties][extended states].
+    * 原版物品有属性和重载。为了实现它，`IBakedModel`定义了`getOverrides`，它返回一个`ItemOverrideList`。`ItemOverrideList`定义了`handleItemState`，它里面有原始的模型、实体、世界和栈，来找到最终的模型。重载在模型其它所有操作之前完成，包括`getQuads`。因为`IBlockState`不适用于物品，当渲染物品时，`IBakedModel::getQuads`的state参数接受`null`值。
+
+    * 方块有方块状态，当一个方块的`IBakedModel`被渲染时，`IBlockState`直接传入`getQuads`方法。仅在模型的上下文中，方块状态可以有额外的属性，参考[unlisted properties][extended states]。
 
 [IModel]: imodel.md
 [IBakedModel]: ibakedmodel.md
